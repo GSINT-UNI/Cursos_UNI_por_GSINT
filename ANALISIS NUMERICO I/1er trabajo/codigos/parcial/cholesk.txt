@@ -1,0 +1,39 @@
+import numpy as np
+from math import sqrt
+
+def choleski(a):
+    n = len(a)
+    for k in range(n):
+        try:
+            a[k,k] = sqrt(a[k,k] - a[k,0:k]@a[k,0:k])
+        except ValueError:
+            error.err("No es matriz positiva")
+        for i in range(k+1,n):
+            a[i,k] = (a[i,k] - a[i,0:k]@a[k,0:k])/a[k,k]
+    for k in range(1,n): a[0:k,k] = 0.0
+    return a
+
+def choleskiSol(L,b):
+    n = len(b)
+    # Solution of [L]{y} = {b}
+    for k in range(n):
+        b[k] = (b[k] - L[k,0:k]@b[0:k])/L[k,k]
+    # Solution of [L_transpose]{x} = {y}
+    for k in range(n-1,-1,-1):
+        b[k] = (b[k] - L[k+1:n,k]@b[k+1:n])/L[k,k]
+    return b
+
+A = np.array([[4.,-2.,2.],
+             [-2., 2., -4.],
+             [2., -4., 11.]])
+L = np.array(A.shape)
+B = np.array([6., -10., 27.])
+x = np.array(B.shape)
+
+L = choleski(A)
+print("L\n",L)
+
+print(L@np.transpose(L))
+
+x = choleskiSol(L,B)
+print("x\n",x)

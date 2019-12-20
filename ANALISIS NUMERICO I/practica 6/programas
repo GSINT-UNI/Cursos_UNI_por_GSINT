@@ -1,0 +1,149 @@
+import numpy as np
+
+def metBiseccion(f,a,b,tol=1E-5):
+  maxIter=100;sol=None    
+  fa=f(a);fb=f(b)
+  if fa*fb<0: # solucion en <a,b>
+    for i in range(maxIter):
+      s=0.5*(a+b)
+      error=(b-a)/2**(i+1)
+      fs=f(s)
+      if fs==0 or error<tol:# solucion encontrada
+        sol=s;break
+      else:
+        if fa*fs<0:# solucion en <a,s>
+          b=s;fb=fs;
+        else:
+          a=s;fa=fs;
+    print("Número de iteraciones = {0}".format(i))
+    print("Solucion aprox. = {0:5.3f}".format(sol))
+  else:
+    print("La función no cambia de signo")
+  return(sol)
+
+f_biseccion = lambda x:x**2-5
+a = 2.0; b = 3.0;
+sol = metBiseccion(f_biseccion,a,b)
+
+
+
+def metNewton(f,df,a,tol=1E-5):
+  maxIter=100;sol=None    
+  fa=f(a);dfa=df(a)  
+  for i in range(maxIter):
+    if dfa==0:
+        print("f' es cero en x={0}".format(a))
+        break
+    s = a - fa/dfa
+    error=abs(s-a)
+    fs=f(s)
+    if fs==0 or error<tol:# solucion encontrada
+      sol=s;break
+    else:
+      dfa=df(s);fa=fs;a=s
+
+  print("Número de iteraciones = {0}".format(i))
+  print("Solucion aprox. = {0:5.3f}".format(sol))
+  return(sol)
+
+f_newton = lambda x:x**2-5
+df_newton = lambda x:2*x
+a=2.0;
+sol= metNewton(f_newton,df_newton,a)
+
+
+
+def metSecante(f,a,b,tol=1E-5):
+  maxIter=100;sol=None    
+  fa=f(a);fb=f(b)  
+  for i in range(maxIter):
+    s = b - fb*(b-a)/(fb-fa)
+    error=abs(s-b)
+    fs=f(s)
+    if fs==0 or error<tol:# solucion encontrada
+      sol=s;break
+    else:
+        a=b;fa=fb;#actualizamos los puntos
+        b=s;fb=fs;#para trazar la secante
+
+  print("Número de iteraciones = {0}".format(i))
+  print("Solucion aprox. = {0:5.3f}".format(sol))
+  return(sol)
+
+f_secante = lambda x:x**2-5
+a=2.0;b=3.0;
+sol= metSecante(f_secante,a,b)
+
+
+def metNPuntoFijo(f,a,tol=1E-5):
+  maxIter=100;sol=None    
+  fa=f(a);
+  for i in range(maxIter):
+    s = fa
+    error=np.linalg.norm(s-a)
+    if error<tol:# solucion encontrada
+      sol=s;break
+    else:
+      fa=f(s);a=s
+
+  print("Número de iteraciones = {0}".format(i))
+  return(sol)
+
+def f(X):
+#    Z=np.zeros_like(X);x=X[0];y=X[1];
+#    Z[0]=(8*x-4*x**2+y**2+1)/8
+#    Z[1]=(2*x-x**2+4*y-y**2+3)/4        
+    Z=5/X
+return(Z)
+        
+A=np.array([0.0,0.0])
+sol= metNPuntoFijo(f,A)
+if sol is not None:
+    print(sol)
+else:
+    print("Metodo de punto fijo no converge")
+
+
+Valores propios en Python 3
+from numpy import linalg as LA
+x = np.random.random()
+Q = np.array([[np.cos(x), -np.sin(x)],
+               [np.sin(x), np.cos(x)]])
+print(LA.norm(Q[0, :]))
+print(LA.norm(Q[1, :]))
+print(np.dot(Q[0, :],Q[1, :]))
+
+D = np.diag((-1,1))
+print(LA.eigvals(D))
+A = np.dot(Q, D)
+A = np.dot(A, Q.T)
+print("A=Q*D*Q^T")
+print(A)
+print(LA.eigvals(A))
+
+
+
+Método de la potencia
+A = np.array([1, 2, 1, 0, 1, 2,-1, 3, 2])
+A = A.reshape((3,3))
+v = np.array([1 , 1, 1])
+maxIter=10
+for k in range(maxIter):
+    y=A.dot(v)
+    v=(1/LA.norm(y))*y
+    valprop=v.dot(A.dot(v))
+    print(valprop)    
+print(LA.eigvals(A))
+
+
+
+Método QR
+A = np.array([1, 2, 1, 0, 1, 2,
+              -1, 3, 2])
+A = A.reshape((3,3))
+maxIter=10
+for k in range(maxIter):
+   (Q, R) = LA.qr(A)   
+   A = R.dot(Q)
+print(A)
+print(LA.eigvals(A))

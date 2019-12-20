@@ -1,0 +1,114 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[english,spanish]{babel}
+\usepackage{indentfirst}
+\usepackage{anysize} % Soporte para el comando \marginsize
+%\marginsize{1.5cm}{1.5cm}{0.5cm}{1cm}
+\marginsize{2,5cm}{1,8cm}{4cm}{1,7cm}
+\usepackage[psamsfonts]{amssymb}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{multicol}
+\renewcommand{\thepage}{}
+\columnsep=7mm
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newtheorem{definicion}{Definici\'on}[section]
+\newtheorem{teorema}{Teorema}[section]
+\newtheorem{prueba}{Prueba}[section]
+\newtheorem{prueba*}{Prueba}[section]
+\newtheorem{corolario}{Corolario}[section]
+\newtheorem{observacion}{Observaci\'on}[section]
+\newtheorem{lema}{Lema}[section]
+\newtheorem{ejemplo}{Ejemplo}[section]
+\newtheorem{solucion*}{Soluci\'on}[section]
+\newtheorem{algoritmo}{Algoritmo}[section]
+\newtheorem{proposicion}{Proposici\'on}[section]
+
+\linespread{1.4} \sloppy
+
+\newcommand{\R}{\mathbf{R}}
+\newcommand{\N}{\mathbf{N}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Lr}{\mathcal{L}}
+\newcommand{\fc}{\displaystyle\frac}
+\newcommand{\ds}{\displaystyle}
+
+\DeclareMathOperator{\Dom}{Dom}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\renewcommand{\thefootnote}{\fnsymbol{footnote}}
+
+\begin{document}
+\begin{center}
+ {\Large \textbf{UNA }}
+\end{center}
+\begin{center}
+ Leopoldo Paredes Soria $1$, Pedro Canales Garc\'{\i}a $2$\vskip12pt
+{\it Facultad de Ciencias $1$, Universidad Nacional de Ingenier\'{\i}a $1$, e-mail: \\
+Facultad de Ciencias $2$, Universidad Nacional de Ingenier\'{\i}a $2$, e-mail:  }
+\end{center}
+%\maketitle 
+\begin{quotation}
+{\small
+%\begin{abstract}
+
+%\end{abstract}
+Palabras Claves:  
+}\\
+{\small
+\hspace*{0.5cm} 
+
+Keywords: \\ 
+}
+\end{quotation}
+\begin{multicols}{2}
+\begin{center}
+{\large \bf 1. INTRODUCCI\'ON}
+\end{center}
+
+\begin{center}
+{\large \bf 2. CONCEPTOS PREVIOS}
+\end{center}
+
+\begin{center}
+{\large \bf 3. AN\'ALISIS}
+\end{center}
+
+\begin{center}
+{\large \bf 4. OBSERVACIONES}
+\end{center}
+
+\begin{center}
+{\large \bf 5. CONCLUSIONES}
+\end{center}
+
+%\begin{center}
+%{\large \bf Agradecimientos}
+%\end{center}
+%Los autores agradecen a las autoridades de la Facultad de Ciencias de la Universidad Nacional de 
+%Ingenier\'{\i}a por su apoyo.
+%%\begin{center}
+%%{\large \bf Apendice: }
+%%\end{center}
+
+\end{multicols}
+
+\begin{center}
+ -----------------------------------------------------------------------------
+\end{center}
+\begin{multicols}{2}
+\begin{list}{}{\setlength{\topsep}{0mm}\setlength{\itemsep}{0mm}%
+\setlength{\parsep}{0mm}\setlength{\leftmargin}{4mm}}
+%
+%------------------------------------- References --------------------
+\small
+\item[1.] I.K. Argyros, \textit{Newton-like methods under mild \linebreak differentiability conditions with error analysis,} Bull. \linebreak Austral. Math. Soc. \textbf{37} (1988), 131-147.
+\item[2.] 
+%---------------------------------------------------------------------
+%
+\end{list}
+\end{multicols}
+\end{document}\grid

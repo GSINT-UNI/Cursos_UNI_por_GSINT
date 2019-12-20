@@ -1,0 +1,3 @@
+AAK00553.1.fasta
+ACF75208.1.fasta
+AFQ38169.1.fasta

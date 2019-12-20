@@ -1,0 +1,26 @@
+from Bio import SeqIO
+record = SeqIO.read("NC_000913.gbk", "genbank")
+totalg = 0
+totall = 0
+totalge = 0
+totald = 0
+for feature in record.features:
+    if feature.type == "gene":
+        totalg = totalg + len(feature.qualifiers["gene"])
+        totall = totall + len(feature.qualifiers["locus_tag"])
+	totalge = totalge + len(feature.qualifiers["gene_synonym"])
+        totald = totald + len(feature.qualifiers["db_xref"])
+print("Total length of all genes is " + str(totalg))
+print("Total length of all locus_tag is " + str(totall))
+print("Total length of all gene_synonym is " + str(totalge))
+print("Total length of all db_xref is " + str(totald))
+
+#OrderedDict([('gene', ['thrL']), ('locus_tag', ['b0001']), ('gene_synonym', ['ECK0001; JW4367']), ('db_xref', ['EcoGene:EG11277', 'GeneID:944742'])])
+
+misc_feature
+gene
+CDS
+repeat_region
+tRNA
+STS
+ncRNA

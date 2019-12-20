@@ -1,0 +1,8 @@
+apt-get install python3-pip
+pip3 install biopython
+pip3 install python3-matplot
+apt-get install -y muscle
+
+INICIAR EL PROGRAMA:
+desde PROYECTO BIO_COM:
+python3 GUIv2.py

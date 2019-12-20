@@ -1,0 +1,6 @@
+Record AAM65232.1, length 424, terminan en TFSL
+Record NP_180350.1, length 424, terminan en TFSL
+Record XP_002880966.1, length 406, terminan en TFSL
+Record XP_006295904.1, length 416, terminan en TFSL
+Record XP_010473180.1, length 414, terminan en TFSL
+Record XP_018484463.1, length 424, terminan en TFSL

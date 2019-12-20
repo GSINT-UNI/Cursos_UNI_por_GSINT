@@ -1,0 +1,4 @@
+apt-get install python3-pip
+pip3 install biopython
+pip3 install python3-matplot
+apt-get install -y muscle

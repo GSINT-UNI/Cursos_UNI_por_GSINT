@@ -1,0 +1,4 @@
+java -jar HMMVE_1.2.jar
+
+hmmalign -o alineamiento_tripsinas.sto PF00089.hmm TRIPSINAS.fasta
+

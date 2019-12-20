@@ -1,0 +1,18 @@
+
+parte 1.3 : imprimir solo los mayores a 223 aminoacidos y su total
+Record AAM65232.1, length 424
+Record NP_180350.1, length 424
+Record XP_002880966.1, length 406
+Record XP_006295904.1, length 416
+Record XP_010473180.1, length 414
+Record RQL84124.1, length 426
+Record CDY30526.1, length 418
+Record VDD13599.1, length 426
+Record XP_013630868.1, length 426
+Record XP_013743972.1, length 421
+Record XP_013720550.1, length 426
+Record XP_013720517.1, length 426
+Record XP_013743973.1, length 418
+Record XP_018484463.1, length 424
+Record XP_009140827.1, length 418
+el total es 15

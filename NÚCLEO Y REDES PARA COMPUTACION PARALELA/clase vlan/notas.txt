@@ -1,0 +1,32 @@
+Switch>enable
+Switch#vlan database
+% Warning: It is recommended to configure VLAN from config mode,
+  as VLAN database mode is being deprecated. Please consult user
+  documentation for configuring VTP/VLAN in config mode.
+
+Switch(vlan)#vlan 50 name REDES
+VLAN 50 added:
+    Name: REDES
+Switch(vlan)#vlan 80 name SISTEMAS
+VLAN 80 added:
+    Name: SISTEMAS
+Switch(vlan)#exit
+APPLY completed.
+Exiting....
+Switch#conf ter
+Enter configuration commands, one per line.  End with CNTL/Z.
+Switch(config)#int fa0/1
+Switch(config-if)#sw mode trunk
+
+Switch(config-if)#
+%LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet0/1, changed state to down
+
+%LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet0/1, changed state to up
+
+Switch(config-if)#int fa0/10
+Switch(config-if)#sw mode access
+Switch(config-if)#sw access vlan 50
+Switch(config-if)#int fa0/20
+Switch(config-if)#sw mode access
+Switch(config-if)#sw access vlan 80
+Switch(config-if)#

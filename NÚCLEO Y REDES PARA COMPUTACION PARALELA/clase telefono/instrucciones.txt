@@ -1,0 +1,44 @@
+--EN EL ROUTER--
+
+enable
+conf ter
+int fa0/0
+ip address 192.168.10.1 255.255.255.0
+no shutdown
+exit
+
+ip dhcp pool voice
+network 192.168.10.0 255.255.255.0
+default-router 192.168.10.1
+option 150 ip 192.168.10.1
+exit
+exit
+
+conf ter
+telephony-service
+max-dn 4
+max-ephones 4
+ip source-address 192.168.10.1 port 2000
+auto assign 1 to 4
+end
+
+-esto x4-
+conf ter
+ephone-dn 1
+number 54001
+---------
+
+--EN EL SWITCH--
+
+enable
+conf ter
+int range fa0/1-5
+sw mode access
+sw voice vlan 1
+exi
+
+int fa0/24
+sw mode trunk
+exit
+exit
+exit

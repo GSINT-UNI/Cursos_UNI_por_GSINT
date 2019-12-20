@@ -1,0 +1,8 @@
+Inyector de dependencias
+
+Propuesta:
+El juego se compone de dos tipos de enemigos, enemigos de fuego y enemigos de hielo.
+La nave del jugador tendra dos opciones de disparo, balas de fuego y balas de hielo.
+Estas caracteristicas se definiran a traves de atributos de los objetos balas y enemigos.
+Para evitar que la nave y los enemigos dependan de estos objetos, se usara ña inyección de dependecias.
+Tendremos un provider para los objetos bala y enemigo, luego con container que definira sus variaciones de hielo y fuego.

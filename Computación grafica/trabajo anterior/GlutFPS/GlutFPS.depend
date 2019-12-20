@@ -1,0 +1,23 @@
+# depslib dependency file v1.0
+1346066326 source:/home/nghia/Projects/GlutFPS/Camera.cpp
+	<stdio.h>
+	<math.h>
+	"GL/glut.h"
+	"Camera.h"
+
+1346066177 /home/nghia/Projects/GlutFPS/Camera.h
+
+1346066321 source:/home/nghia/Projects/GlutFPS/main.cpp
+	"GL/glut.h"
+	<iostream>
+	<cmath>
+	"Camera.h"
+
+1505925454 source:c:\users\od_mf\desktop\glutfps\camera.cpp
+	<stdio.h>
+	<math.h>
+	<C:\GLUT\include\GL\glut.h>
+	"Camera.h"
+
+1346066177 c:\users\od_mf\desktop\glutfps\camera.h
+

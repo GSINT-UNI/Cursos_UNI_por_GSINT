@@ -1,0 +1,13 @@
+Instlacion de GLUI
+
+sudo gedit /etc/apt/sources.list
+If universe is not included then modify the file so that it does.
+
+deb http://us.archive.ubuntu.com/ubuntu precise main universe
+After any changes you should run this command to update your system.
+
+sudo apt-get update
+You can now install the package like this.
+
+Install libglui2c2
+sudo apt-get install libglui2c2

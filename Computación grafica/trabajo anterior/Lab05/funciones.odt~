@@ -1,0 +1,117 @@
+1.-
+void glGenTextures( 	GLsizei n, GLuint * textures);
+n
+
+    Specifies the number of texture names to be generated.
+textures
+
+    Specifies an array in which the generated texture names are stored. 
+
+glGenTextures returns n texture names in textures.
+2.-
+void glBindTexture( 	GLenum target,
+  	GLuint texture);
+ target
+
+    Specifies the target to which the texture is bound. 
+ texture
+
+    Specifies the name of a texture.
+
+
+glBindTexture lets you create or use a named texture.
+
+3.-
+void glTexImage2D( 	GLenum target,
+  	GLint level,
+  	GLint internalFormat,
+  	GLsizei width,
+  	GLsizei height,
+  	GLint border,
+  	GLenum format,
+  	GLenum type,
+  	const GLvoid * data);
+  	
+target
+
+    Specifies the target texture.  	
+level
+
+    Specifies the level-of-detail number.    
+internalFormat
+
+    Specifies the number of color components in the texture.    
+width
+
+    Specifies the width of the texture image.    
+height
+
+    Specifies the height of the texture image, or the number of layers in a texture array
+    
+border
+
+    This value must be 0. 
+    
+format
+
+    Specifies the format of the pixel data    
+type
+
+    Specifies the data type of the pixel data.    
+data
+
+    Specifies a pointer to the image data in memory.     
+
+     
+specify a two-dimensional texture image
+
+4.-
+void glTexParameterfv(GLenum target,
+  GLenum pname,
+  const GLfloat * params);
+
+
+target
+    Specifies the target texture of the active texture unit
+
+pname
+    Specifies the symbolic name of a texture parameter.
+
+params
+    Specifies a pointer to an array where the value of pname is stored.
+
+set texture parameters
+
+5.-
+void glTexEnvf(GLenum target,  GLenum pname,  GLfloat param);
+
+target
+    Specifies a texture environment.
+pname
+    Specifies the symbolic name of a single-valued texture environment parameter.
+
+param
+    Specifies a single symbolic constant
+
+set texture environment parameters
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+

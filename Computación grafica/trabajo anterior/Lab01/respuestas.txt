@@ -1,0 +1,123 @@
+#respuestas
+ejemplo 1:
+	las respuestas estan en el archivo ejemplo1.py
+ejemplo 2:
+	las respuestas estan en el archivo ejemplo2.py
+
+ejemplo 3:
+
+#4.12
+color repugnante
+	glClearColor(0.8,0,0.6,1.0)
+color placentero	
+	glClearColor(0,0.5, 0.8, 1.0)
+#4.13
+	glColor3f(1.0, 1.0, 1.0)
+#4.14
+	glPointSize(2.0)
+	#se hace mas grande el punto que dibujamos
+#4.15
+	glVertex2f(0.84, 0.59)
+	glVertex2f(0.3, 0.0)
+	glColor3f(1.0,0.0,0.0)
+	glVertex2f(0.9, -0.4)
+	glVertex2f(-0.7,0.1)
+	glColor3f(1.0, 1.0,0.0)
+	glVertex2f(0.2,-0.7)
+	glVertex2f(-0.9,-0.1)
+	glColor3f(0.0,1.0,0.0)
+	glVertex2f(-0.12,-0.45)
+	glVertex2f(-0.65,0.48)
+	glColor3f(0.0,0.5,1.0)
+	glVertex2f(-0.16,-0.72)
+	glVertex2f(0.32,-0.21)
+	
+#4.16
+	#glPointSize(2.0)
+	#glBegin(GL_POINTS)
+	glBegin(GL_LINES)
+	glVertex2f(0.84, 0.59)
+	glVertex2f(0.3, 0.0)
+	#sucede que se  traza una linea entre esos dos puntos indicados
+	
+#4.17
+	glColor3f(0.0, 1.0, 0.0)
+	glBegin(GL_LINES)
+	glVertex2f(0.0,0.0)
+	glVertex2f(0.8,0.0)
+	glVertex2f(0.8,0.0)
+	glVertex2f(0.4,0.5)
+	glVertex2f(0.4,0.5)
+	glVertex2f(0.0,0.0)
+	glEnd()
+	
+4.18
+
+	glBegin(GL_LINE_STRIP)
+	glVertex2f(0.0, 0.0)
+	glVertex2f(1.0,1.0)
+	glVertex2f(-1.0,0.0)
+	
+	#se dibujan lineas segun todos los puntos indicados
+	
+4.19
+	glBegin(GL_LINE_LOOP)
+	glVertex2f(0.0, 0.0)
+	glVertex2f(1.0,1.0)
+	glVertex2f(-1.0,0.0)
+	
+4.20
+	glPointSize(2.0)
+	glLineWidth(3.0)
+	glBegin(GL_LINE_LOOP)
+	glVertex2f(0.0, 0.0)
+	glVertex2f(1.0,1.0)
+	glVertex2f(-1.0,0.0)
+
+4.21
+	glBegin(GL_LINE_LOOP)
+	glColor3f(0.0, 1.0, 0.0)
+	glVertex2f(-0.5, 0.0)
+	glColor3f(1.0, 0.0, 0.0)
+	glVertex2f(0.5,0.0)
+	glColor3f(0.0, 0.0, 1.0)
+	glVertex2f(0.0,0.866025404)
+	
+4.22
+	glBegin(GL_LINES)
+	glColor3f(0.0, 0.0, 0.0)
+	glVertex2f(-1, 0.0)
+	glVertex2f(1, 0.0)
+	glVertex2f(0.0,-1)
+	glVertex2f(0.0,1)
+
+4.23
+	#puntos simetricos al eje x
+	glBegin(GL_POINTS)
+	glColor3f(1.0, 0.0, 0.0)
+	glVertex2f(-0.45,0.9)
+	glVertex2f(-0.45,-0.9)
+
+4.24
+	#puntos simetricos a la recta x = y
+	glColor3f(.0, 1.0, 1.0)
+	glVertex2f(0.6,0.1)
+	glVertex2f(0.1,0.6)
+	glEnd()
+	
+4.25
+	#trinagulos simetricos al eje y
+	glBegin(GL_LINE_LOOP)
+	glColor3f(0.0, 0.0, 1.0)
+	glVertex2f(-0.8, -0.1)
+	glVertex2f(-0.2, -0.1)
+	glVertex2f(-0.5, -0.6)
+	glEnd()
+	
+	glBegin(GL_LINE_LOOP)
+	glVertex2f(0.8, -0.1)
+	glVertex2f(0.2, -0.1)
+	glVertex2f(0.5, -0.6)
+	
+	
+	

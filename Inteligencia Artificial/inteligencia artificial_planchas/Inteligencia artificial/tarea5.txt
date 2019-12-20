@@ -1,0 +1,23 @@
+probar con nm(numero de neuronas con capas intermedias)
+
+-5
+-10
+-20
+-50
+-100
+
+
+punto arriba significa el mayor en output.
+
+validar
+
+
+Introducir numero de neuronas en capa intermedia : 50
+Introducir ratio de aprendizaje : 0.05 es para "v" y "w"
+Introducir ratio de aprendizaje de exponente a : 0 o 0.01
+Introducir ratio de aprendizaje del centro c : 0 o 0.01
+Introducir el valor maximo del error (%) : 2
+Introducir el maximo numero de etapas de aprendizaje : 1000
+
+
+es con batch

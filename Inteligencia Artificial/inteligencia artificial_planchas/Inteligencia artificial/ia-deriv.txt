@@ -1,0 +1,2 @@
+la derivada simple respecto a una variable se deriva de la manera normal mientras que la
+derivada total deriva todas las variables que dependen de la primera.

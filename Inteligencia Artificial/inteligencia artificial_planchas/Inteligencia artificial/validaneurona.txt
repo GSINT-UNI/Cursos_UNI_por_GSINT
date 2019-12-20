@@ -1,0 +1,50 @@
+con ruidos altos no siempre funciona ValidaECG,
+
+
+ENTRENAMIENTO
+
+- variar nm -> cantidad de neuronas intermedias
+       nm : 4, 10 ,20 , ...., 100
+
+- variar a -> pendiente    na = 0  no varia
+	c -> centro      nc = 0  no varia
+
+
+
+- con bias
+  sin bias
+
+
+con sigmoidea 2.
+
+VALIDAR
+
+
+
+
+Red neuronal dinamica 
+
+Con retroalimentacion
+
+
+La salida va a ser entrada en la etapa siguiente.  
+
+
+
+dynamic back propagation : mas eficiente, porq requiere menos memoria de pc
+
+back propagation through time
+
+
+hasta este tema parcial.
+
+
+
+buscar aplicaciones de las redes neuronales estaticas o dinamicas en el mundo real ( 3 puntos)
+
+explicar entradas, salidas,  
+
+examen es teorico.
+
+LUNES ALAS 8 pm - 9:30 pm 
+

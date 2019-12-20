@@ -1,0 +1,35 @@
+//
+// Do any local configuration here
+//
+
+// Consider adding the 1918 zones here, if they are not used in your
+// organization
+//include "/etc/bind/zones.rfc1918";
+
+zone "red1.tarea" {
+	type master;
+	file "/etc/bind/db.red1.tarea";
+	journal "directa1.jnl";
+	allow-update	{192.168.0.1;};
+};
+
+zone "0.168.192.in-addr.arpa" {
+	type master;
+	file "/etc/bind/db.0.168.192.revzone";
+	journal "inversal1.jnl";
+	allow-update {192.168.0.1;};
+};
+
+zone "red2.tarea" {
+        type master;
+        file "/etc/bind/db.red2.tarea";
+        journal "directa2.jnl";
+        allow-update    {10.0.0.1;};
+};
+
+zone "0.0.10.in-addr.arpa" {
+        type master;
+        file "/etc/bind/db.0.0.10.revzone";
+        journal "inversal2.jnl";
+        allow-update {10.0.0.1;};
+};

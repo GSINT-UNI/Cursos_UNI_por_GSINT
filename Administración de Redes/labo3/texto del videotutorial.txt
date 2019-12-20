@@ -1,0 +1,52 @@
+1.Primero agregamos los discos necesarios
+(en este caso 4):sdb,sdc,sdd,sde
+2.comprobamos que mdadm este instalada
+3.configuramos nuestros 2 RAID 1 md0 y md1
+mdadm --create --verbose /dev/md0 --level=1
+--raid-devices=2 /dev/sdb /dev/sdc
+4.configuramos nuestro RAID 0 md2
+mdadm --create --verbose /dev/md2 --level=0
+--raid-devices=2 /dev/md0 /dev/md1
+5.le damos sistema de archivo ext4 y montamos
+mkfs.ext4 /dev/md5
+mount /dev/md2 /mnt/RAID10/
+6.lo configuramos para que funcione desde
+el arranque poniendolo en etc/fstab
+7.Nuestro RAID10 ya esta listo.
+
+1.Comprobamos que quota este instalado 
+2.Modificamos etc/fstab y agregamos 
+‘usrquota’ y ‘grpquota’ para /dev/md2 
+3.Verificamos si el sistema de 
+cuotas esta activo con 
+‘quotacheck -ugmv /mnt/RAID10’
+4.reiniciamos y vemos si se han creado 
+los 2 archivos en ‘/mnt/RAID10’ 
+4.Activamos el uso de quotas con
+‘quotaon -ugv /mnt/RAID10’ 
+se lo aplicamos a el ‘usuario2’  con 
+‘edquota –u usuario2’:
+100000,140000,600,900
+
+simulación de error
+1.Crearemos un par de archivos txt en nuestro
+RAID
+2.Desde virtualbox borramos uno de los discos
+que conforman el RAID
+3.Comprobamos que los txt que creamos se 
+mantienen
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

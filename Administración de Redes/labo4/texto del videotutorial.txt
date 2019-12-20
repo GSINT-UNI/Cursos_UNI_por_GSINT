@@ -1,0 +1,11 @@
+1. Con el comando crontab -e seteamos lo que se nos pide: 
+      15 minutos después de la medianoche todos los sábados.
+      El primer día de cada mes a las 3:30 AM.
+el formato es de la forma: min hora dia(del mes) mes 
+dia(de semana) usuario archivo
+
+2. de nuevo con crontab -e aplicacimos para 
+(date >> /tmp/salida) cada 5 minutos
+
+3. usamos at para mandar un mensaje 
+echo "buenos dias" > /tmp/ejemplo.txt

@@ -1,0 +1,13 @@
+Pasos para implementar un servidor DDNS para 2 subredes.
+1. instalar isc-dhcp-server y bind9(dns)
+2. configurar el archivo interfaces
+3. configurar el archivo dhcpd.conf
+4. copiar y cambiar de nombre al archivo db.local a db.red1.tarea
+5. copiar y cambiar de nombre al archivo db.local a db.red2.tarea
+6. copiar y cambiar de nombre al archivo db.127 a db.0.168.192.revzone
+7. copiar y cambiar de nombre al archivo db.127 a db.0.0.10.revzone
+8. configurar dichos estos 4 archivos.
+9. configurar named.conf.local
+10. configurar resolv.conf(server y clientes)
+11. reiniciar los servicios isc-dhcp-server y bind9
+12. testear nslookup,dig,ping

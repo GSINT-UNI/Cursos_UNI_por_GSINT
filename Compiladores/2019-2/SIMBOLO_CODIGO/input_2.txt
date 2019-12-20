@@ -1,0 +1,18 @@
+Program Ruby;
+Begin
+x:=0;
+y:=1;
+Desde 1 Hasta 8 hacer{
+
+x:=x+1;
+
+}
+
+Desde 1 Hasta 4 hacer{
+
+y:=y+1;
+
+}
+
+
+End.

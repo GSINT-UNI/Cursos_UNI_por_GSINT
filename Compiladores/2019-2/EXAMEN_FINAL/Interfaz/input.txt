@@ -1,0 +1,17 @@
+Programa:
+Inicio
+    
+    d = 0;
+    x = 3;
+    y = 4;
+    
+    crear distancia () {
+	   d = pot[x,2] + pot[y,2];
+        d = raiz[d];
+    }
+
+
+    
+    Imprimir d;
+
+Fin.

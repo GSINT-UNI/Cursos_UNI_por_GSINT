@@ -1,0 +1,40 @@
+
+oie = 45.56 + raiz(54) - (5+6);
+
+gaaaa = x (real);
+
+para ( x = 0 ; x < 8 ; x=x+15):
+	x = 45 + 16;
+	y = 12 + 13;
+
+end
+
+si (x < 5 yy x >= 9 ):
+	x = 8;
+end
+
+si (x < 5 yy x >= 9 ):
+	x = 8;
+end
+
+si (x < 5 yy x >= 9 ):
+	x = 8;
+sino si (x < 5):
+	agg = 45;
+end
+
+mientras (x<9):
+	gaa = raiz(45) ;
+end	
+
+
+para x desde 5 hasta 12:
+	gaaaaaaa = 4 + 6 ;
+end
+
+
+# este es un comentario$
+
+# 43abc $
+
+

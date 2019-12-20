@@ -1,0 +1,2 @@
+makefile ejecuta solo con bison
+makefileflex ejecuta flex y bison, pero no genera tabla de codigos

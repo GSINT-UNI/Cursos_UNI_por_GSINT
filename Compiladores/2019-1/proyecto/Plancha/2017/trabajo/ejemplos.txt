@@ -1,0 +1,17 @@
+Begin = hola 5; End
+
+Begin = hola (-5); End
+
+Begin = hola + 5 4; End
+
+Begin = hola - (-5) 3; End
+
+Begin = suma2 + 5 (/ 8 (* 2 3)); End
+
+Begin ?(< i 5 & ! 3 x)[= sen + 5 y; = cos + id y;] End
+
+Begin #(< i 1 | ! 2 x)[= sen + 5 y; = cos + id y;] End
+
+Begin %(= i 1;< i 10 ; + x 1)[= sen + 5 y; = cos + id y;] End
+
+Begin ("hola" x y)[?(! i 5)[= sen * x y; = cos + id y;]] End

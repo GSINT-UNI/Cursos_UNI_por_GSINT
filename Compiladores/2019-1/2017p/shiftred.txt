@@ -1,0 +1,22 @@
+programa publico clase persona privado nombre; finclase finprograma
+
+
+
+ESTADO								ENTRADA												  ACCION
+0     INICIO_PROGRAMA PUBLICO INICIO_CLASE ID PRIVADO ID PUNTOYCOMA FIN_CLASE FIN_PROGRAMA   D1
+01                    PUBLICO INICIO_CLASE ID PRIVADO ID PUNTOYCOMA FIN_CLASE FIN_PROGRAMA   D5
+015							  INICIO_CLASE ID PRIVADO ID PUNTOYCOMA FIN_CLASE FIN_PROGRAMA   R66(go 1-> permiso)
+017							  INICIO_CLASE ID PRIVADO ID PUNTOYCOMA FIN_CLASE FIN_PROGRAMA   D(12)
+017(12)									   ID PRIVADO ID PUNTOYCOMA FIN_CLASE FIN_PROGRAMA   D(16)
+017(12)(16)									  PRIVADO ID PUNTOYCOMA FIN_CLASE FIN_PROGRAMA   D4
+017(12)(16)4										  ID PUNTOYCOMA FIN_CLASE FIN_PROGRAMA   R65(go 16-> permiso)
+017(12)(16)(27)										     PUNTOYCOMA FIN_CLASE FIN_PROGRAMA   D(38)
+017(12)(16)(27)(38)										 PUNTOYCOMA FIN_CLASE FIN_PROGRAMA	 D(47)
+017(12)(16)(27)(38)(47)										     	FIN_CLASE FIN_PROGRAMA   R9(go 16-> atributo)
+017(12)(16)(25)														FIN_CLASE FIN_PROGRAMA	 R7(go 16->resto_clase)
+017(12)(16)(24)														FIN_CLASE FIN_PROGRAMA	 D(35)
+017(12)(16)(24)(35)															  FIN_PROGRAMA   R4(go 1->primera_linea_clase)
+016																			FIN_PROGRAMA     R16(go 0 -> main)
+02																			FIN_PROGRAMA     D8
+028																					$		 aceptar
+		

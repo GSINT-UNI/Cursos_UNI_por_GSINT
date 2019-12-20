@@ -1,0 +1,6 @@
+x=3;
+If(x<2) {x--;}
+Else { x++;}
+
+If(x==4) {y=2; x=x+y;}
+Else {z=9; x = x + z;}

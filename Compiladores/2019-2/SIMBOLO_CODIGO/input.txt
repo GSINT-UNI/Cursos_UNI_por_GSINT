@@ -1,0 +1,26 @@
+Program Ruby;
+Begin
+
+x:=1;
+y:=0;
+z:=1;
+
+mientras (x<4) hacer { 
+
+x:=x+1; 
+y:=y+1;
+
+}
+
+mientras (z<=4) hacer { 
+
+z:=z+1;
+x:=x+1; 
+y:=y+1;
+
+}
+
+
+End.
+
+

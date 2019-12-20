@@ -1,0 +1,6 @@
+Program Ruby;
+Begin
+uno := 1;
+dos:=1 + raiz(5);
+tres:= uno * dos;
+End.

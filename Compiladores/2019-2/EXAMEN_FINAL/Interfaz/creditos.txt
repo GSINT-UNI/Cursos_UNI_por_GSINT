@@ -1,0 +1,19 @@
+
+Creditos
+-------------------------------------
+
+El compilador fue desarrollado en la:
+    
+    Universidad Nacional de Ingenieria.
+    Facultad de Ciencias
+    Especialidad Ciencias de la Computacion
+
+Curso: 
+    Compiladores
+
+Autores:
+
+    - Victor Ponce Pinedo        victor.ponce.p@uni.pe
+    - Josias Ruegg Yupa          jrueggy@uni.pe
+    - Edson Lazaro Camasca       elazaroc@uni.pe
+

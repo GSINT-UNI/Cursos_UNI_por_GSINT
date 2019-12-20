@@ -1,0 +1,6 @@
+Algoritmo Ruby
+inicioAlgoritmo
+uno = 1,
+dos=1 + raiz(5),
+tres= uno * dos,
+finAlgoritmo.

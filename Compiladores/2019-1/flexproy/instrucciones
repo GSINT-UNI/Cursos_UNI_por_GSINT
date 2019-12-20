@@ -1,0 +1,3 @@
+bison -d bisonmon.y
+flex lexmon.l
+cc lex.yy.c  bisonmon.tab.c -o proylex -lfl -lm

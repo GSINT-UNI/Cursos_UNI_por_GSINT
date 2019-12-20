@@ -1,0 +1,49 @@
+Indicaciones para correr el programa:
+instalar pyqt:
+	sudo apt install python3-pyqt4
+desde la carpeta proyecto final correr el archivo Gui.py:
+	python3 Gui.py
+en la interfaz poner en la parte blanca el codigo a compilar, abajo algunos ejemplos de que poner:
+Luego,Seleccionar al lado derecho el compilador haciendo un click, luego darle a play y mostrara el resultado del codigo y la tablas respectivas.
+
+=x 1; =y 3; = w 5;
+si (< x 3 ) {
+= y +w *4 raiz(9); 
+} sino{
+=x 0; =y 0; = w 0;
+}
+
+
+=n 10; =total 1;
+sImprimir("los resultados son:");
+para (=i 1;< i n;= i + i 1) {
+= total *total i;
+nImprimir(total);
+}
+
+
+=x 0; =n 6;
+si (< n 5) { 
+= x 1; 
+} sino {
+ = x 0; 
+}
+
+
+#escribir comentarios$
+
+
+=n 0; =t 10;
+para(= i 1; < i t ; =i + i 1) {
+=n +n i;
+} 
+sImprimir("la suma del 1 al 10 es:");
+nImprimir(n);
+
+=n 0; =t 10;
+para(= i 1; < i t ; =i + i 1) {
+=n +n i;
+} 
+nImprimir(n);
+
+

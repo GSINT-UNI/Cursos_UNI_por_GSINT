@@ -1,0 +1,1248 @@
+Terminales no usados en la gramática
+
+    ASCII
+
+
+Gramática
+
+    0 $accept: programa $end
+
+    1 programa: estructura
+
+    2 estructura: estructura comentario
+    3           | estructura ifelse
+    4           | estructura while
+    5           | estructura for
+    6           | estructura asignacion
+    7           | %empty
+
+    8 asignacion: ID '=' expresion
+    9           | ID '=' expresion ',' asignacion
+
+   10 expresion: expresion '+' producto
+   11          | expresion '-' producto
+   12          | producto
+
+   13 producto: producto '*' agrupacion
+   14         | producto '/' agrupacion
+   15         | agrupacion
+
+   16 agrupacion: RAIZ '(' expresion ')'
+   17           | POT '(' expresion ',' expresion ')'
+   18           | valor
+
+   19 valor: NUM
+   20      | ID
+   21      | '(' '-' NUM ')'
+
+   22 ifelse: SI '(' list_cond ')' ':' estructura END SINO ':' estructura END
+   23       | SI '(' list_cond ')' ':' estructura END
+
+   24 list_cond: condicion list_cond
+   25          | condicion UNION list_cond
+   26          | condicion INTERSECCION list_cond
+   27          | 'n' condicion
+   28          | %empty
+
+   29 condicion: expresion orden expresion
+
+   30 orden: '>'
+   31      | '>' '='
+   32      | '<'
+   33      | '<' '='
+   34      | '=' '='
+   35      | '!' '='
+
+   36 for: PARA '(' asignacion condicion ';' contador ')' ':' estructura END
+
+   37 contador: ID '=' expresion
+
+   38 while: MIENTRAS '(' list_cond ')' ':' estructura END
+
+   39 comentario: '#' comen '$'
+
+   40 comen: comen ID
+   41      | comen SI
+   42      | comen ','
+   43      | comen SINO
+   44      | comen PARA
+   45      | comen MIENTRAS
+   46      | comen ':'
+   47      | comen RAIZ
+   48      | comen POT
+   49      | %empty
+
+
+Terminales con las reglas donde aparecen
+
+    $end (0) 0
+    '!' (33) 35
+    '#' (35) 39
+    '$' (36) 39
+    '(' (40) 16 17 21 22 23 36 38
+    ')' (41) 16 17 21 22 23 36 38
+    '*' (42) 13
+    '+' (43) 10
+    ',' (44) 9 17 42
+    '-' (45) 11 21
+    '/' (47) 14
+    ':' (58) 22 23 36 38 46
+    ';' (59) 36
+    '<' (60) 32 33
+    '=' (61) 8 9 31 33 34 35 37
+    '>' (62) 30 31
+    'n' (110) 27
+    error (256)
+    ID (258) 8 9 20 37 40
+    NUM (259) 19 21
+    POT (260) 17 48
+    RAIZ (261) 16 47
+    SI (262) 22 23 41
+    SINO (263) 22 43
+    PARA (264) 36 44
+    MIENTRAS (265) 38 45
+    END (266) 22 23 36 38
+    ASCII (267)
+    UNION (268) 25
+    INTERSECCION (269) 26
+
+
+No terminales con las reglas donde aparecen
+
+    $accept (31)
+        on left: 0
+    programa (32)
+        on left: 1
+        on right: 0
+    estructura (33)
+        on left: 2 3 4 5 6 7
+        on right: 1 2 3 4 5 6 22 23 36 38
+    asignacion (34)
+        on left: 8 9
+        on right: 6 9 36
+    expresion (35)
+        on left: 10 11 12
+        on right: 8 9 10 11 16 17 29 37
+    producto (36)
+        on left: 13 14 15
+        on right: 10 11 12 13 14
+    agrupacion (37)
+        on left: 16 17 18
+        on right: 13 14 15
+    valor (38)
+        on left: 19 20 21
+        on right: 18
+    ifelse (39)
+        on left: 22 23
+        on right: 3
+    list_cond (40)
+        on left: 24 25 26 27 28
+        on right: 22 23 24 25 26 38
+    condicion (41)
+        on left: 29
+        on right: 24 25 26 27 36
+    orden (42)
+        on left: 30 31 32 33 34 35
+        on right: 29
+    for (43)
+        on left: 36
+        on right: 5
+    contador (44)
+        on left: 37
+        on right: 36
+    while (45)
+        on left: 38
+        on right: 4
+    comentario (46)
+        on left: 39
+        on right: 2
+    comen (47)
+        on left: 40 41 42 43 44 45 46 47 48 49
+        on right: 39 40 41 42 43 44 45 46 47 48
+
+
+Estado 0
+
+    0 $accept: . programa $end
+
+    $default  reduce usando la regla 7 (estructura)
+
+    programa    ir al estado 1
+    estructura  ir al estado 2
+
+
+Estado 1
+
+    0 $accept: programa . $end
+
+    $end  desplazar e ir al estado 3
+
+
+Estado 2
+
+    1 programa: estructura .
+    2 estructura: estructura . comentario
+    3           | estructura . ifelse
+    4           | estructura . while
+    5           | estructura . for
+    6           | estructura . asignacion
+
+    ID        desplazar e ir al estado 4
+    SI        desplazar e ir al estado 5
+    PARA      desplazar e ir al estado 6
+    MIENTRAS  desplazar e ir al estado 7
+    '#'       desplazar e ir al estado 8
+
+    $default  reduce usando la regla 1 (programa)
+
+    asignacion  ir al estado 9
+    ifelse      ir al estado 10
+    for         ir al estado 11
+    while       ir al estado 12
+    comentario  ir al estado 13
+
+
+Estado 3
+
+    0 $accept: programa $end .
+
+    $default  aceptar
+
+
+Estado 4
+
+    8 asignacion: ID . '=' expresion
+    9           | ID . '=' expresion ',' asignacion
+
+    '='  desplazar e ir al estado 14
+
+
+Estado 5
+
+   22 ifelse: SI . '(' list_cond ')' ':' estructura END SINO ':' estructura END
+   23       | SI . '(' list_cond ')' ':' estructura END
+
+    '('  desplazar e ir al estado 15
+
+
+Estado 6
+
+   36 for: PARA . '(' asignacion condicion ';' contador ')' ':' estructura END
+
+    '('  desplazar e ir al estado 16
+
+
+Estado 7
+
+   38 while: MIENTRAS . '(' list_cond ')' ':' estructura END
+
+    '('  desplazar e ir al estado 17
+
+
+Estado 8
+
+   39 comentario: '#' . comen '$'
+
+    $default  reduce usando la regla 49 (comen)
+
+    comen  ir al estado 18
+
+
+Estado 9
+
+    6 estructura: estructura asignacion .
+
+    $default  reduce usando la regla 6 (estructura)
+
+
+Estado 10
+
+    3 estructura: estructura ifelse .
+
+    $default  reduce usando la regla 3 (estructura)
+
+
+Estado 11
+
+    5 estructura: estructura for .
+
+    $default  reduce usando la regla 5 (estructura)
+
+
+Estado 12
+
+    4 estructura: estructura while .
+
+    $default  reduce usando la regla 4 (estructura)
+
+
+Estado 13
+
+    2 estructura: estructura comentario .
+
+    $default  reduce usando la regla 2 (estructura)
+
+
+Estado 14
+
+    8 asignacion: ID '=' . expresion
+    9           | ID '=' . expresion ',' asignacion
+
+    ID    desplazar e ir al estado 19
+    NUM   desplazar e ir al estado 20
+    POT   desplazar e ir al estado 21
+    RAIZ  desplazar e ir al estado 22
+    '('   desplazar e ir al estado 23
+
+    expresion   ir al estado 24
+    producto    ir al estado 25
+    agrupacion  ir al estado 26
+    valor       ir al estado 27
+
+
+Estado 15
+
+   22 ifelse: SI '(' . list_cond ')' ':' estructura END SINO ':' estructura END
+   23       | SI '(' . list_cond ')' ':' estructura END
+
+    ID    desplazar e ir al estado 19
+    NUM   desplazar e ir al estado 20
+    POT   desplazar e ir al estado 21
+    RAIZ  desplazar e ir al estado 22
+    '('   desplazar e ir al estado 23
+    'n'   desplazar e ir al estado 28
+
+    $default  reduce usando la regla 28 (list_cond)
+
+    expresion   ir al estado 29
+    producto    ir al estado 25
+    agrupacion  ir al estado 26
+    valor       ir al estado 27
+    list_cond   ir al estado 30
+    condicion   ir al estado 31
+
+
+Estado 16
+
+   36 for: PARA '(' . asignacion condicion ';' contador ')' ':' estructura END
+
+    ID  desplazar e ir al estado 4
+
+    asignacion  ir al estado 32
+
+
+Estado 17
+
+   38 while: MIENTRAS '(' . list_cond ')' ':' estructura END
+
+    ID    desplazar e ir al estado 19
+    NUM   desplazar e ir al estado 20
+    POT   desplazar e ir al estado 21
+    RAIZ  desplazar e ir al estado 22
+    '('   desplazar e ir al estado 23
+    'n'   desplazar e ir al estado 28
+
+    $default  reduce usando la regla 28 (list_cond)
+
+    expresion   ir al estado 29
+    producto    ir al estado 25
+    agrupacion  ir al estado 26
+    valor       ir al estado 27
+    list_cond   ir al estado 33
+    condicion   ir al estado 31
+
+
+Estado 18
+
+   39 comentario: '#' comen . '$'
+   40 comen: comen . ID
+   41      | comen . SI
+   42      | comen . ','
+   43      | comen . SINO
+   44      | comen . PARA
+   45      | comen . MIENTRAS
+   46      | comen . ':'
+   47      | comen . RAIZ
+   48      | comen . POT
+
+    ID        desplazar e ir al estado 34
+    POT       desplazar e ir al estado 35
+    RAIZ      desplazar e ir al estado 36
+    SI        desplazar e ir al estado 37
+    SINO      desplazar e ir al estado 38
+    PARA      desplazar e ir al estado 39
+    MIENTRAS  desplazar e ir al estado 40
+    ','       desplazar e ir al estado 41
+    ':'       desplazar e ir al estado 42
+    '$'       desplazar e ir al estado 43
+
+
+Estado 19
+
+   20 valor: ID .
+
+    $default  reduce usando la regla 20 (valor)
+
+
+Estado 20
+
+   19 valor: NUM .
+
+    $default  reduce usando la regla 19 (valor)
+
+
+Estado 21
+
+   17 agrupacion: POT . '(' expresion ',' expresion ')'
+
+    '('  desplazar e ir al estado 44
+
+
+Estado 22
+
+   16 agrupacion: RAIZ . '(' expresion ')'
+
+    '('  desplazar e ir al estado 45
+
+
+Estado 23
+
+   21 valor: '(' . '-' NUM ')'
+
+    '-'  desplazar e ir al estado 46
+
+
+Estado 24
+
+    8 asignacion: ID '=' expresion .
+    9           | ID '=' expresion . ',' asignacion
+   10 expresion: expresion . '+' producto
+   11          | expresion . '-' producto
+
+    ','  desplazar e ir al estado 47
+    '+'  desplazar e ir al estado 48
+    '-'  desplazar e ir al estado 49
+
+    $default  reduce usando la regla 8 (asignacion)
+
+
+Estado 25
+
+   12 expresion: producto .
+   13 producto: producto . '*' agrupacion
+   14         | producto . '/' agrupacion
+
+    '*'  desplazar e ir al estado 50
+    '/'  desplazar e ir al estado 51
+
+    $default  reduce usando la regla 12 (expresion)
+
+
+Estado 26
+
+   15 producto: agrupacion .
+
+    $default  reduce usando la regla 15 (producto)
+
+
+Estado 27
+
+   18 agrupacion: valor .
+
+    $default  reduce usando la regla 18 (agrupacion)
+
+
+Estado 28
+
+   27 list_cond: 'n' . condicion
+
+    ID    desplazar e ir al estado 19
+    NUM   desplazar e ir al estado 20
+    POT   desplazar e ir al estado 21
+    RAIZ  desplazar e ir al estado 22
+    '('   desplazar e ir al estado 23
+
+    expresion   ir al estado 29
+    producto    ir al estado 25
+    agrupacion  ir al estado 26
+    valor       ir al estado 27
+    condicion   ir al estado 52
+
+
+Estado 29
+
+   10 expresion: expresion . '+' producto
+   11          | expresion . '-' producto
+   29 condicion: expresion . orden expresion
+
+    '='  desplazar e ir al estado 53
+    '+'  desplazar e ir al estado 48
+    '-'  desplazar e ir al estado 49
+    '>'  desplazar e ir al estado 54
+    '<'  desplazar e ir al estado 55
+    '!'  desplazar e ir al estado 56
+
+    orden  ir al estado 57
+
+
+Estado 30
+
+   22 ifelse: SI '(' list_cond . ')' ':' estructura END SINO ':' estructura END
+   23       | SI '(' list_cond . ')' ':' estructura END
+
+    ')'  desplazar e ir al estado 58
+
+
+Estado 31
+
+   24 list_cond: condicion . list_cond
+   25          | condicion . UNION list_cond
+   26          | condicion . INTERSECCION list_cond
+
+    ID            desplazar e ir al estado 19
+    NUM           desplazar e ir al estado 20
+    POT           desplazar e ir al estado 21
+    RAIZ          desplazar e ir al estado 22
+    UNION         desplazar e ir al estado 59
+    INTERSECCION  desplazar e ir al estado 60
+    '('           desplazar e ir al estado 23
+    'n'           desplazar e ir al estado 28
+
+    $default  reduce usando la regla 28 (list_cond)
+
+    expresion   ir al estado 29
+    producto    ir al estado 25
+    agrupacion  ir al estado 26
+    valor       ir al estado 27
+    list_cond   ir al estado 61
+    condicion   ir al estado 31
+
+
+Estado 32
+
+   36 for: PARA '(' asignacion . condicion ';' contador ')' ':' estructura END
+
+    ID    desplazar e ir al estado 19
+    NUM   desplazar e ir al estado 20
+    POT   desplazar e ir al estado 21
+    RAIZ  desplazar e ir al estado 22
+    '('   desplazar e ir al estado 23
+
+    expresion   ir al estado 29
+    producto    ir al estado 25
+    agrupacion  ir al estado 26
+    valor       ir al estado 27
+    condicion   ir al estado 62
+
+
+Estado 33
+
+   38 while: MIENTRAS '(' list_cond . ')' ':' estructura END
+
+    ')'  desplazar e ir al estado 63
+
+
+Estado 34
+
+   40 comen: comen ID .
+
+    $default  reduce usando la regla 40 (comen)
+
+
+Estado 35
+
+   48 comen: comen POT .
+
+    $default  reduce usando la regla 48 (comen)
+
+
+Estado 36
+
+   47 comen: comen RAIZ .
+
+    $default  reduce usando la regla 47 (comen)
+
+
+Estado 37
+
+   41 comen: comen SI .
+
+    $default  reduce usando la regla 41 (comen)
+
+
+Estado 38
+
+   43 comen: comen SINO .
+
+    $default  reduce usando la regla 43 (comen)
+
+
+Estado 39
+
+   44 comen: comen PARA .
+
+    $default  reduce usando la regla 44 (comen)
+
+
+Estado 40
+
+   45 comen: comen MIENTRAS .
+
+    $default  reduce usando la regla 45 (comen)
+
+
+Estado 41
+
+   42 comen: comen ',' .
+
+    $default  reduce usando la regla 42 (comen)
+
+
+Estado 42
+
+   46 comen: comen ':' .
+
+    $default  reduce usando la regla 46 (comen)
+
+
+Estado 43
+
+   39 comentario: '#' comen '$' .
+
+    $default  reduce usando la regla 39 (comentario)
+
+
+Estado 44
+
+   17 agrupacion: POT '(' . expresion ',' expresion ')'
+
+    ID    desplazar e ir al estado 19
+    NUM   desplazar e ir al estado 20
+    POT   desplazar e ir al estado 21
+    RAIZ  desplazar e ir al estado 22
+    '('   desplazar e ir al estado 23
+
+    expresion   ir al estado 64
+    producto    ir al estado 25
+    agrupacion  ir al estado 26
+    valor       ir al estado 27
+
+
+Estado 45
+
+   16 agrupacion: RAIZ '(' . expresion ')'
+
+    ID    desplazar e ir al estado 19
+    NUM   desplazar e ir al estado 20
+    POT   desplazar e ir al estado 21
+    RAIZ  desplazar e ir al estado 22
+    '('   desplazar e ir al estado 23
+
+    expresion   ir al estado 65
+    producto    ir al estado 25
+    agrupacion  ir al estado 26
+    valor       ir al estado 27
+
+
+Estado 46
+
+   21 valor: '(' '-' . NUM ')'
+
+    NUM  desplazar e ir al estado 66
+
+
+Estado 47
+
+    9 asignacion: ID '=' expresion ',' . asignacion
+
+    ID  desplazar e ir al estado 4
+
+    asignacion  ir al estado 67
+
+
+Estado 48
+
+   10 expresion: expresion '+' . producto
+
+    ID    desplazar e ir al estado 19
+    NUM   desplazar e ir al estado 20
+    POT   desplazar e ir al estado 21
+    RAIZ  desplazar e ir al estado 22
+    '('   desplazar e ir al estado 23
+
+    producto    ir al estado 68
+    agrupacion  ir al estado 26
+    valor       ir al estado 27
+
+
+Estado 49
+
+   11 expresion: expresion '-' . producto
+
+    ID    desplazar e ir al estado 19
+    NUM   desplazar e ir al estado 20
+    POT   desplazar e ir al estado 21
+    RAIZ  desplazar e ir al estado 22
+    '('   desplazar e ir al estado 23
+
+    producto    ir al estado 69
+    agrupacion  ir al estado 26
+    valor       ir al estado 27
+
+
+Estado 50
+
+   13 producto: producto '*' . agrupacion
+
+    ID    desplazar e ir al estado 19
+    NUM   desplazar e ir al estado 20
+    POT   desplazar e ir al estado 21
+    RAIZ  desplazar e ir al estado 22
+    '('   desplazar e ir al estado 23
+
+    agrupacion  ir al estado 70
+    valor       ir al estado 27
+
+
+Estado 51
+
+   14 producto: producto '/' . agrupacion
+
+    ID    desplazar e ir al estado 19
+    NUM   desplazar e ir al estado 20
+    POT   desplazar e ir al estado 21
+    RAIZ  desplazar e ir al estado 22
+    '('   desplazar e ir al estado 23
+
+    agrupacion  ir al estado 71
+    valor       ir al estado 27
+
+
+Estado 52
+
+   27 list_cond: 'n' condicion .
+
+    $default  reduce usando la regla 27 (list_cond)
+
+
+Estado 53
+
+   34 orden: '=' . '='
+
+    '='  desplazar e ir al estado 72
+
+
+Estado 54
+
+   30 orden: '>' .
+   31      | '>' . '='
+
+    '='  desplazar e ir al estado 73
+
+    $default  reduce usando la regla 30 (orden)
+
+
+Estado 55
+
+   32 orden: '<' .
+   33      | '<' . '='
+
+    '='  desplazar e ir al estado 74
+
+    $default  reduce usando la regla 32 (orden)
+
+
+Estado 56
+
+   35 orden: '!' . '='
+
+    '='  desplazar e ir al estado 75
+
+
+Estado 57
+
+   29 condicion: expresion orden . expresion
+
+    ID    desplazar e ir al estado 19
+    NUM   desplazar e ir al estado 20
+    POT   desplazar e ir al estado 21
+    RAIZ  desplazar e ir al estado 22
+    '('   desplazar e ir al estado 23
+
+    expresion   ir al estado 76
+    producto    ir al estado 25
+    agrupacion  ir al estado 26
+    valor       ir al estado 27
+
+
+Estado 58
+
+   22 ifelse: SI '(' list_cond ')' . ':' estructura END SINO ':' estructura END
+   23       | SI '(' list_cond ')' . ':' estructura END
+
+    ':'  desplazar e ir al estado 77
+
+
+Estado 59
+
+   25 list_cond: condicion UNION . list_cond
+
+    ID    desplazar e ir al estado 19
+    NUM   desplazar e ir al estado 20
+    POT   desplazar e ir al estado 21
+    RAIZ  desplazar e ir al estado 22
+    '('   desplazar e ir al estado 23
+    'n'   desplazar e ir al estado 28
+
+    $default  reduce usando la regla 28 (list_cond)
+
+    expresion   ir al estado 29
+    producto    ir al estado 25
+    agrupacion  ir al estado 26
+    valor       ir al estado 27
+    list_cond   ir al estado 78
+    condicion   ir al estado 31
+
+
+Estado 60
+
+   26 list_cond: condicion INTERSECCION . list_cond
+
+    ID    desplazar e ir al estado 19
+    NUM   desplazar e ir al estado 20
+    POT   desplazar e ir al estado 21
+    RAIZ  desplazar e ir al estado 22
+    '('   desplazar e ir al estado 23
+    'n'   desplazar e ir al estado 28
+
+    $default  reduce usando la regla 28 (list_cond)
+
+    expresion   ir al estado 29
+    producto    ir al estado 25
+    agrupacion  ir al estado 26
+    valor       ir al estado 27
+    list_cond   ir al estado 79
+    condicion   ir al estado 31
+
+
+Estado 61
+
+   24 list_cond: condicion list_cond .
+
+    $default  reduce usando la regla 24 (list_cond)
+
+
+Estado 62
+
+   36 for: PARA '(' asignacion condicion . ';' contador ')' ':' estructura END
+
+    ';'  desplazar e ir al estado 80
+
+
+Estado 63
+
+   38 while: MIENTRAS '(' list_cond ')' . ':' estructura END
+
+    ':'  desplazar e ir al estado 81
+
+
+Estado 64
+
+   10 expresion: expresion . '+' producto
+   11          | expresion . '-' producto
+   17 agrupacion: POT '(' expresion . ',' expresion ')'
+
+    ','  desplazar e ir al estado 82
+    '+'  desplazar e ir al estado 48
+    '-'  desplazar e ir al estado 49
+
+
+Estado 65
+
+   10 expresion: expresion . '+' producto
+   11          | expresion . '-' producto
+   16 agrupacion: RAIZ '(' expresion . ')'
+
+    '+'  desplazar e ir al estado 48
+    '-'  desplazar e ir al estado 49
+    ')'  desplazar e ir al estado 83
+
+
+Estado 66
+
+   21 valor: '(' '-' NUM . ')'
+
+    ')'  desplazar e ir al estado 84
+
+
+Estado 67
+
+    9 asignacion: ID '=' expresion ',' asignacion .
+
+    $default  reduce usando la regla 9 (asignacion)
+
+
+Estado 68
+
+   10 expresion: expresion '+' producto .
+   13 producto: producto . '*' agrupacion
+   14         | producto . '/' agrupacion
+
+    '*'  desplazar e ir al estado 50
+    '/'  desplazar e ir al estado 51
+
+    $default  reduce usando la regla 10 (expresion)
+
+
+Estado 69
+
+   11 expresion: expresion '-' producto .
+   13 producto: producto . '*' agrupacion
+   14         | producto . '/' agrupacion
+
+    '*'  desplazar e ir al estado 50
+    '/'  desplazar e ir al estado 51
+
+    $default  reduce usando la regla 11 (expresion)
+
+
+Estado 70
+
+   13 producto: producto '*' agrupacion .
+
+    $default  reduce usando la regla 13 (producto)
+
+
+Estado 71
+
+   14 producto: producto '/' agrupacion .
+
+    $default  reduce usando la regla 14 (producto)
+
+
+Estado 72
+
+   34 orden: '=' '=' .
+
+    $default  reduce usando la regla 34 (orden)
+
+
+Estado 73
+
+   31 orden: '>' '=' .
+
+    $default  reduce usando la regla 31 (orden)
+
+
+Estado 74
+
+   33 orden: '<' '=' .
+
+    $default  reduce usando la regla 33 (orden)
+
+
+Estado 75
+
+   35 orden: '!' '=' .
+
+    $default  reduce usando la regla 35 (orden)
+
+
+Estado 76
+
+   10 expresion: expresion . '+' producto
+   11          | expresion . '-' producto
+   29 condicion: expresion orden expresion .
+
+    '+'  desplazar e ir al estado 48
+    '-'  desplazar e ir al estado 49
+
+    $default  reduce usando la regla 29 (condicion)
+
+
+Estado 77
+
+   22 ifelse: SI '(' list_cond ')' ':' . estructura END SINO ':' estructura END
+   23       | SI '(' list_cond ')' ':' . estructura END
+
+    $default  reduce usando la regla 7 (estructura)
+
+    estructura  ir al estado 85
+
+
+Estado 78
+
+   25 list_cond: condicion UNION list_cond .
+
+    $default  reduce usando la regla 25 (list_cond)
+
+
+Estado 79
+
+   26 list_cond: condicion INTERSECCION list_cond .
+
+    $default  reduce usando la regla 26 (list_cond)
+
+
+Estado 80
+
+   36 for: PARA '(' asignacion condicion ';' . contador ')' ':' estructura END
+
+    ID  desplazar e ir al estado 86
+
+    contador  ir al estado 87
+
+
+Estado 81
+
+   38 while: MIENTRAS '(' list_cond ')' ':' . estructura END
+
+    $default  reduce usando la regla 7 (estructura)
+
+    estructura  ir al estado 88
+
+
+Estado 82
+
+   17 agrupacion: POT '(' expresion ',' . expresion ')'
+
+    ID    desplazar e ir al estado 19
+    NUM   desplazar e ir al estado 20
+    POT   desplazar e ir al estado 21
+    RAIZ  desplazar e ir al estado 22
+    '('   desplazar e ir al estado 23
+
+    expresion   ir al estado 89
+    producto    ir al estado 25
+    agrupacion  ir al estado 26
+    valor       ir al estado 27
+
+
+Estado 83
+
+   16 agrupacion: RAIZ '(' expresion ')' .
+
+    $default  reduce usando la regla 16 (agrupacion)
+
+
+Estado 84
+
+   21 valor: '(' '-' NUM ')' .
+
+    $default  reduce usando la regla 21 (valor)
+
+
+Estado 85
+
+    2 estructura: estructura . comentario
+    3           | estructura . ifelse
+    4           | estructura . while
+    5           | estructura . for
+    6           | estructura . asignacion
+   22 ifelse: SI '(' list_cond ')' ':' estructura . END SINO ':' estructura END
+   23       | SI '(' list_cond ')' ':' estructura . END
+
+    ID        desplazar e ir al estado 4
+    SI        desplazar e ir al estado 5
+    PARA      desplazar e ir al estado 6
+    MIENTRAS  desplazar e ir al estado 7
+    END       desplazar e ir al estado 90
+    '#'       desplazar e ir al estado 8
+
+    asignacion  ir al estado 9
+    ifelse      ir al estado 10
+    for         ir al estado 11
+    while       ir al estado 12
+    comentario  ir al estado 13
+
+
+Estado 86
+
+   37 contador: ID . '=' expresion
+
+    '='  desplazar e ir al estado 91
+
+
+Estado 87
+
+   36 for: PARA '(' asignacion condicion ';' contador . ')' ':' estructura END
+
+    ')'  desplazar e ir al estado 92
+
+
+Estado 88
+
+    2 estructura: estructura . comentario
+    3           | estructura . ifelse
+    4           | estructura . while
+    5           | estructura . for
+    6           | estructura . asignacion
+   38 while: MIENTRAS '(' list_cond ')' ':' estructura . END
+
+    ID        desplazar e ir al estado 4
+    SI        desplazar e ir al estado 5
+    PARA      desplazar e ir al estado 6
+    MIENTRAS  desplazar e ir al estado 7
+    END       desplazar e ir al estado 93
+    '#'       desplazar e ir al estado 8
+
+    asignacion  ir al estado 9
+    ifelse      ir al estado 10
+    for         ir al estado 11
+    while       ir al estado 12
+    comentario  ir al estado 13
+
+
+Estado 89
+
+   10 expresion: expresion . '+' producto
+   11          | expresion . '-' producto
+   17 agrupacion: POT '(' expresion ',' expresion . ')'
+
+    '+'  desplazar e ir al estado 48
+    '-'  desplazar e ir al estado 49
+    ')'  desplazar e ir al estado 94
+
+
+Estado 90
+
+   22 ifelse: SI '(' list_cond ')' ':' estructura END . SINO ':' estructura END
+   23       | SI '(' list_cond ')' ':' estructura END .
+
+    SINO  desplazar e ir al estado 95
+
+    $default  reduce usando la regla 23 (ifelse)
+
+
+Estado 91
+
+   37 contador: ID '=' . expresion
+
+    ID    desplazar e ir al estado 19
+    NUM   desplazar e ir al estado 20
+    POT   desplazar e ir al estado 21
+    RAIZ  desplazar e ir al estado 22
+    '('   desplazar e ir al estado 23
+
+    expresion   ir al estado 96
+    producto    ir al estado 25
+    agrupacion  ir al estado 26
+    valor       ir al estado 27
+
+
+Estado 92
+
+   36 for: PARA '(' asignacion condicion ';' contador ')' . ':' estructura END
+
+    ':'  desplazar e ir al estado 97
+
+
+Estado 93
+
+   38 while: MIENTRAS '(' list_cond ')' ':' estructura END .
+
+    $default  reduce usando la regla 38 (while)
+
+
+Estado 94
+
+   17 agrupacion: POT '(' expresion ',' expresion ')' .
+
+    $default  reduce usando la regla 17 (agrupacion)
+
+
+Estado 95
+
+   22 ifelse: SI '(' list_cond ')' ':' estructura END SINO . ':' estructura END
+
+    ':'  desplazar e ir al estado 98
+
+
+Estado 96
+
+   10 expresion: expresion . '+' producto
+   11          | expresion . '-' producto
+   37 contador: ID '=' expresion .
+
+    '+'  desplazar e ir al estado 48
+    '-'  desplazar e ir al estado 49
+
+    $default  reduce usando la regla 37 (contador)
+
+
+Estado 97
+
+   36 for: PARA '(' asignacion condicion ';' contador ')' ':' . estructura END
+
+    $default  reduce usando la regla 7 (estructura)
+
+    estructura  ir al estado 99
+
+
+Estado 98
+
+   22 ifelse: SI '(' list_cond ')' ':' estructura END SINO ':' . estructura END
+
+    $default  reduce usando la regla 7 (estructura)
+
+    estructura  ir al estado 100
+
+
+Estado 99
+
+    2 estructura: estructura . comentario
+    3           | estructura . ifelse
+    4           | estructura . while
+    5           | estructura . for
+    6           | estructura . asignacion
+   36 for: PARA '(' asignacion condicion ';' contador ')' ':' estructura . END
+
+    ID        desplazar e ir al estado 4
+    SI        desplazar e ir al estado 5
+    PARA      desplazar e ir al estado 6
+    MIENTRAS  desplazar e ir al estado 7
+    END       desplazar e ir al estado 101
+    '#'       desplazar e ir al estado 8
+
+    asignacion  ir al estado 9
+    ifelse      ir al estado 10
+    for         ir al estado 11
+    while       ir al estado 12
+    comentario  ir al estado 13
+
+
+Estado 100
+
+    2 estructura: estructura . comentario
+    3           | estructura . ifelse
+    4           | estructura . while
+    5           | estructura . for
+    6           | estructura . asignacion
+   22 ifelse: SI '(' list_cond ')' ':' estructura END SINO ':' estructura . END
+
+    ID        desplazar e ir al estado 4
+    SI        desplazar e ir al estado 5
+    PARA      desplazar e ir al estado 6
+    MIENTRAS  desplazar e ir al estado 7
+    END       desplazar e ir al estado 102
+    '#'       desplazar e ir al estado 8
+
+    asignacion  ir al estado 9
+    ifelse      ir al estado 10
+    for         ir al estado 11
+    while       ir al estado 12
+    comentario  ir al estado 13
+
+
+Estado 101
+
+   36 for: PARA '(' asignacion condicion ';' contador ')' ':' estructura END .
+
+    $default  reduce usando la regla 36 (for)
+
+
+Estado 102
+
+   22 ifelse: SI '(' list_cond ')' ':' estructura END SINO ':' estructura END .
+
+    $default  reduce usando la regla 22 (ifelse)

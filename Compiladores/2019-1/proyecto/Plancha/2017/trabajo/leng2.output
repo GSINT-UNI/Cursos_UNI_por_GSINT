@@ -1,0 +1,1716 @@
+Gramática
+
+    0 $accept: cuerpo $end
+
+    1 cuerpo: BEGIN fuente END
+
+    2 fuente: sentencia_if fuente
+    3       | sentencia_while fuente
+    4       | sentencia_for fuente
+    5       | funcion fuente
+    6       | asignacion fuente
+    7       | %empty
+
+    8 funcion: '(' '"' ID '"' lista_ID ')' '[' funcion_cuerpo ']'
+
+    9 funcion_cuerpo: lista_expr
+
+   10 lista_expr: asignacion lista_expr
+   11           | sentencia_if lista_expr
+   12           | sentencia_while lista_expr
+   13           | sentencia_for lista_expr
+   14           | %empty
+
+   15 sentencia_if: '?' '(' lista_cond ')' '[' lista_expr ']'
+
+   16 sentencia_while: '#' '(' lista_cond ')' '[' lista_expr ']'
+
+   17 sentencia_for: '%' '(' asignacion condicion2 PUNTCOM cont ')' '[' lista_expr ']'
+
+   18 lista_cond: condicion lista_cond
+   19           | condicion '&' lista_cond
+   20           | condicion '|' lista_cond
+   21           | %empty
+
+   22 condicion: MENOR expr expr
+   23          | MAYOR expr expr
+   24          | IGIG expr expr
+   25          | DIF expr expr
+
+   26 condicion2: MENOR expr expr
+   27           | MAYOR expr expr
+   28           | MAYOR IGIG expr expr
+   29           | MENOR IGIG expr expr
+
+   30 cont: MAS expr expr
+   31     | MENOS expr expr
+
+   32 lista_ID: %empty
+   33         | ID lista_ID
+
+   34 asignacion: IGUAL ID instruccion
+
+   35 instruccion: expr PUNTCOM
+
+   36 expr: MAS expr term
+   37     | term
+   38     | MENOS expr term
+
+   39 term: form
+   40     | MULT term form
+   41     | DIV term form
+
+   42 form: form2
+   43     | RAIZ '(' form3 ')'
+   44     | POW form form2
+
+   45 form2: '(' expr ')'
+   46      | NUM
+   47      | '(' MENOS NUM ')'
+   48      | ID
+
+   49 form3: NUM
+   50      | ID
+
+
+Terminales con las reglas donde aparecen
+
+$end (0) 0
+'"' (34) 8
+'#' (35) 16
+'%' (37) 17
+'&' (38) 19
+'(' (40) 8 15 16 17 43 45 47
+')' (41) 8 15 16 17 43 45 47
+'?' (63) 15
+'[' (91) 8 15 16 17
+']' (93) 8 15 16 17
+'|' (124) 20
+error (256)
+ID (258) 8 33 34 48 50
+IGUAL (259) 34
+NUM (260) 46 47 49
+PUNTCOM (261) 17 35
+MAS (262) 30 36
+MENOS (263) 31 38 47
+MULT (264) 40
+DIV (265) 41
+POW (266) 44
+RAIZ (267) 43
+MENOR (268) 22 26 29
+MAYOR (269) 23 27 28
+IGIG (270) 24 28 29
+DIF (271) 25
+BEGIN (272) 1
+END (273) 1
+
+
+No terminales con las reglas donde aparecen
+
+$accept (29)
+    en la izquierda: 0
+cuerpo (30)
+    en la izquierda: 1, en la derecha: 0
+fuente (31)
+    en la izquierda: 2 3 4 5 6 7, en la derecha: 1 2 3 4 5 6
+funcion (32)
+    en la izquierda: 8, en la derecha: 5
+funcion_cuerpo (33)
+    en la izquierda: 9, en la derecha: 8
+lista_expr (34)
+    en la izquierda: 10 11 12 13 14, en la derecha: 9 10 11 12 13 15
+    16 17
+sentencia_if (35)
+    en la izquierda: 15, en la derecha: 2 11
+sentencia_while (36)
+    en la izquierda: 16, en la derecha: 3 12
+sentencia_for (37)
+    en la izquierda: 17, en la derecha: 4 13
+lista_cond (38)
+    en la izquierda: 18 19 20 21, en la derecha: 15 16 18 19 20
+condicion (39)
+    en la izquierda: 22 23 24 25, en la derecha: 18 19 20
+condicion2 (40)
+    en la izquierda: 26 27 28 29, en la derecha: 17
+cont (41)
+    en la izquierda: 30 31, en la derecha: 17
+lista_ID (42)
+    en la izquierda: 32 33, en la derecha: 8 33
+asignacion (43)
+    en la izquierda: 34, en la derecha: 6 10 17
+instruccion (44)
+    en la izquierda: 35, en la derecha: 34
+expr (45)
+    en la izquierda: 36 37 38, en la derecha: 22 23 24 25 26 27 28
+    29 30 31 35 36 38 45
+term (46)
+    en la izquierda: 39 40 41, en la derecha: 36 37 38 40 41
+form (47)
+    en la izquierda: 42 43 44, en la derecha: 39 40 41 44
+form2 (48)
+    en la izquierda: 45 46 47 48, en la derecha: 42 44
+form3 (49)
+    en la izquierda: 49 50, en la derecha: 43
+
+
+Estado 0
+
+    0 $accept: . cuerpo $end
+
+    BEGIN  desplazar e ir al estado 1
+
+    cuerpo  ir al estado 2
+
+
+Estado 1
+
+    1 cuerpo: BEGIN . fuente END
+
+    IGUAL  desplazar e ir al estado 3
+    '('    desplazar e ir al estado 4
+    '?'    desplazar e ir al estado 5
+    '#'    desplazar e ir al estado 6
+    '%'    desplazar e ir al estado 7
+
+    $default  reduce usando la regla 7 (fuente)
+
+    fuente           ir al estado 8
+    funcion          ir al estado 9
+    sentencia_if     ir al estado 10
+    sentencia_while  ir al estado 11
+    sentencia_for    ir al estado 12
+    asignacion       ir al estado 13
+
+
+Estado 2
+
+    0 $accept: cuerpo . $end
+
+    $end  desplazar e ir al estado 14
+
+
+Estado 3
+
+   34 asignacion: IGUAL . ID instruccion
+
+    ID  desplazar e ir al estado 15
+
+
+Estado 4
+
+    8 funcion: '(' . '"' ID '"' lista_ID ')' '[' funcion_cuerpo ']'
+
+    '"'  desplazar e ir al estado 16
+
+
+Estado 5
+
+   15 sentencia_if: '?' . '(' lista_cond ')' '[' lista_expr ']'
+
+    '('  desplazar e ir al estado 17
+
+
+Estado 6
+
+   16 sentencia_while: '#' . '(' lista_cond ')' '[' lista_expr ']'
+
+    '('  desplazar e ir al estado 18
+
+
+Estado 7
+
+   17 sentencia_for: '%' . '(' asignacion condicion2 PUNTCOM cont ')' '[' lista_expr ']'
+
+    '('  desplazar e ir al estado 19
+
+
+Estado 8
+
+    1 cuerpo: BEGIN fuente . END
+
+    END  desplazar e ir al estado 20
+
+
+Estado 9
+
+    5 fuente: funcion . fuente
+
+    IGUAL  desplazar e ir al estado 3
+    '('    desplazar e ir al estado 4
+    '?'    desplazar e ir al estado 5
+    '#'    desplazar e ir al estado 6
+    '%'    desplazar e ir al estado 7
+
+    $default  reduce usando la regla 7 (fuente)
+
+    fuente           ir al estado 21
+    funcion          ir al estado 9
+    sentencia_if     ir al estado 10
+    sentencia_while  ir al estado 11
+    sentencia_for    ir al estado 12
+    asignacion       ir al estado 13
+
+
+Estado 10
+
+    2 fuente: sentencia_if . fuente
+
+    IGUAL  desplazar e ir al estado 3
+    '('    desplazar e ir al estado 4
+    '?'    desplazar e ir al estado 5
+    '#'    desplazar e ir al estado 6
+    '%'    desplazar e ir al estado 7
+
+    $default  reduce usando la regla 7 (fuente)
+
+    fuente           ir al estado 22
+    funcion          ir al estado 9
+    sentencia_if     ir al estado 10
+    sentencia_while  ir al estado 11
+    sentencia_for    ir al estado 12
+    asignacion       ir al estado 13
+
+
+Estado 11
+
+    3 fuente: sentencia_while . fuente
+
+    IGUAL  desplazar e ir al estado 3
+    '('    desplazar e ir al estado 4
+    '?'    desplazar e ir al estado 5
+    '#'    desplazar e ir al estado 6
+    '%'    desplazar e ir al estado 7
+
+    $default  reduce usando la regla 7 (fuente)
+
+    fuente           ir al estado 23
+    funcion          ir al estado 9
+    sentencia_if     ir al estado 10
+    sentencia_while  ir al estado 11
+    sentencia_for    ir al estado 12
+    asignacion       ir al estado 13
+
+
+Estado 12
+
+    4 fuente: sentencia_for . fuente
+
+    IGUAL  desplazar e ir al estado 3
+    '('    desplazar e ir al estado 4
+    '?'    desplazar e ir al estado 5
+    '#'    desplazar e ir al estado 6
+    '%'    desplazar e ir al estado 7
+
+    $default  reduce usando la regla 7 (fuente)
+
+    fuente           ir al estado 24
+    funcion          ir al estado 9
+    sentencia_if     ir al estado 10
+    sentencia_while  ir al estado 11
+    sentencia_for    ir al estado 12
+    asignacion       ir al estado 13
+
+
+Estado 13
+
+    6 fuente: asignacion . fuente
+
+    IGUAL  desplazar e ir al estado 3
+    '('    desplazar e ir al estado 4
+    '?'    desplazar e ir al estado 5
+    '#'    desplazar e ir al estado 6
+    '%'    desplazar e ir al estado 7
+
+    $default  reduce usando la regla 7 (fuente)
+
+    fuente           ir al estado 25
+    funcion          ir al estado 9
+    sentencia_if     ir al estado 10
+    sentencia_while  ir al estado 11
+    sentencia_for    ir al estado 12
+    asignacion       ir al estado 13
+
+
+Estado 14
+
+    0 $accept: cuerpo $end .
+
+    $default  aceptar
+
+
+Estado 15
+
+   34 asignacion: IGUAL ID . instruccion
+
+    ID     desplazar e ir al estado 26
+    NUM    desplazar e ir al estado 27
+    MAS    desplazar e ir al estado 28
+    MENOS  desplazar e ir al estado 29
+    MULT   desplazar e ir al estado 30
+    DIV    desplazar e ir al estado 31
+    POW    desplazar e ir al estado 32
+    RAIZ   desplazar e ir al estado 33
+    '('    desplazar e ir al estado 34
+
+    instruccion  ir al estado 35
+    expr         ir al estado 36
+    term         ir al estado 37
+    form         ir al estado 38
+    form2        ir al estado 39
+
+
+Estado 16
+
+    8 funcion: '(' '"' . ID '"' lista_ID ')' '[' funcion_cuerpo ']'
+
+    ID  desplazar e ir al estado 40
+
+
+Estado 17
+
+   15 sentencia_if: '?' '(' . lista_cond ')' '[' lista_expr ']'
+
+    MENOR  desplazar e ir al estado 41
+    MAYOR  desplazar e ir al estado 42
+    IGIG   desplazar e ir al estado 43
+    DIF    desplazar e ir al estado 44
+
+    $default  reduce usando la regla 21 (lista_cond)
+
+    lista_cond  ir al estado 45
+    condicion   ir al estado 46
+
+
+Estado 18
+
+   16 sentencia_while: '#' '(' . lista_cond ')' '[' lista_expr ']'
+
+    MENOR  desplazar e ir al estado 41
+    MAYOR  desplazar e ir al estado 42
+    IGIG   desplazar e ir al estado 43
+    DIF    desplazar e ir al estado 44
+
+    $default  reduce usando la regla 21 (lista_cond)
+
+    lista_cond  ir al estado 47
+    condicion   ir al estado 46
+
+
+Estado 19
+
+   17 sentencia_for: '%' '(' . asignacion condicion2 PUNTCOM cont ')' '[' lista_expr ']'
+
+    IGUAL  desplazar e ir al estado 3
+
+    asignacion  ir al estado 48
+
+
+Estado 20
+
+    1 cuerpo: BEGIN fuente END .
+
+    $default  reduce usando la regla 1 (cuerpo)
+
+
+Estado 21
+
+    5 fuente: funcion fuente .
+
+    $default  reduce usando la regla 5 (fuente)
+
+
+Estado 22
+
+    2 fuente: sentencia_if fuente .
+
+    $default  reduce usando la regla 2 (fuente)
+
+
+Estado 23
+
+    3 fuente: sentencia_while fuente .
+
+    $default  reduce usando la regla 3 (fuente)
+
+
+Estado 24
+
+    4 fuente: sentencia_for fuente .
+
+    $default  reduce usando la regla 4 (fuente)
+
+
+Estado 25
+
+    6 fuente: asignacion fuente .
+
+    $default  reduce usando la regla 6 (fuente)
+
+
+Estado 26
+
+   48 form2: ID .
+
+    $default  reduce usando la regla 48 (form2)
+
+
+Estado 27
+
+   46 form2: NUM .
+
+    $default  reduce usando la regla 46 (form2)
+
+
+Estado 28
+
+   36 expr: MAS . expr term
+
+    ID     desplazar e ir al estado 26
+    NUM    desplazar e ir al estado 27
+    MAS    desplazar e ir al estado 28
+    MENOS  desplazar e ir al estado 29
+    MULT   desplazar e ir al estado 30
+    DIV    desplazar e ir al estado 31
+    POW    desplazar e ir al estado 32
+    RAIZ   desplazar e ir al estado 33
+    '('    desplazar e ir al estado 34
+
+    expr   ir al estado 49
+    term   ir al estado 37
+    form   ir al estado 38
+    form2  ir al estado 39
+
+
+Estado 29
+
+   38 expr: MENOS . expr term
+
+    ID     desplazar e ir al estado 26
+    NUM    desplazar e ir al estado 27
+    MAS    desplazar e ir al estado 28
+    MENOS  desplazar e ir al estado 29
+    MULT   desplazar e ir al estado 30
+    DIV    desplazar e ir al estado 31
+    POW    desplazar e ir al estado 32
+    RAIZ   desplazar e ir al estado 33
+    '('    desplazar e ir al estado 34
+
+    expr   ir al estado 50
+    term   ir al estado 37
+    form   ir al estado 38
+    form2  ir al estado 39
+
+
+Estado 30
+
+   40 term: MULT . term form
+
+    ID    desplazar e ir al estado 26
+    NUM   desplazar e ir al estado 27
+    MULT  desplazar e ir al estado 30
+    DIV   desplazar e ir al estado 31
+    POW   desplazar e ir al estado 32
+    RAIZ  desplazar e ir al estado 33
+    '('   desplazar e ir al estado 34
+
+    term   ir al estado 51
+    form   ir al estado 38
+    form2  ir al estado 39
+
+
+Estado 31
+
+   41 term: DIV . term form
+
+    ID    desplazar e ir al estado 26
+    NUM   desplazar e ir al estado 27
+    MULT  desplazar e ir al estado 30
+    DIV   desplazar e ir al estado 31
+    POW   desplazar e ir al estado 32
+    RAIZ  desplazar e ir al estado 33
+    '('   desplazar e ir al estado 34
+
+    term   ir al estado 52
+    form   ir al estado 38
+    form2  ir al estado 39
+
+
+Estado 32
+
+   44 form: POW . form form2
+
+    ID    desplazar e ir al estado 26
+    NUM   desplazar e ir al estado 27
+    POW   desplazar e ir al estado 32
+    RAIZ  desplazar e ir al estado 33
+    '('   desplazar e ir al estado 34
+
+    form   ir al estado 53
+    form2  ir al estado 39
+
+
+Estado 33
+
+   43 form: RAIZ . '(' form3 ')'
+
+    '('  desplazar e ir al estado 54
+
+
+Estado 34
+
+   45 form2: '(' . expr ')'
+   47      | '(' . MENOS NUM ')'
+
+    ID     desplazar e ir al estado 26
+    NUM    desplazar e ir al estado 27
+    MAS    desplazar e ir al estado 28
+    MENOS  desplazar e ir al estado 55
+    MULT   desplazar e ir al estado 30
+    DIV    desplazar e ir al estado 31
+    POW    desplazar e ir al estado 32
+    RAIZ   desplazar e ir al estado 33
+    '('    desplazar e ir al estado 34
+
+    expr   ir al estado 56
+    term   ir al estado 37
+    form   ir al estado 38
+    form2  ir al estado 39
+
+
+Estado 35
+
+   34 asignacion: IGUAL ID instruccion .
+
+    $default  reduce usando la regla 34 (asignacion)
+
+
+Estado 36
+
+   35 instruccion: expr . PUNTCOM
+
+    PUNTCOM  desplazar e ir al estado 57
+
+
+Estado 37
+
+   37 expr: term .
+
+    $default  reduce usando la regla 37 (expr)
+
+
+Estado 38
+
+   39 term: form .
+
+    $default  reduce usando la regla 39 (term)
+
+
+Estado 39
+
+   42 form: form2 .
+
+    $default  reduce usando la regla 42 (form)
+
+
+Estado 40
+
+    8 funcion: '(' '"' ID . '"' lista_ID ')' '[' funcion_cuerpo ']'
+
+    '"'  desplazar e ir al estado 58
+
+
+Estado 41
+
+   22 condicion: MENOR . expr expr
+
+    ID     desplazar e ir al estado 26
+    NUM    desplazar e ir al estado 27
+    MAS    desplazar e ir al estado 28
+    MENOS  desplazar e ir al estado 29
+    MULT   desplazar e ir al estado 30
+    DIV    desplazar e ir al estado 31
+    POW    desplazar e ir al estado 32
+    RAIZ   desplazar e ir al estado 33
+    '('    desplazar e ir al estado 34
+
+    expr   ir al estado 59
+    term   ir al estado 37
+    form   ir al estado 38
+    form2  ir al estado 39
+
+
+Estado 42
+
+   23 condicion: MAYOR . expr expr
+
+    ID     desplazar e ir al estado 26
+    NUM    desplazar e ir al estado 27
+    MAS    desplazar e ir al estado 28
+    MENOS  desplazar e ir al estado 29
+    MULT   desplazar e ir al estado 30
+    DIV    desplazar e ir al estado 31
+    POW    desplazar e ir al estado 32
+    RAIZ   desplazar e ir al estado 33
+    '('    desplazar e ir al estado 34
+
+    expr   ir al estado 60
+    term   ir al estado 37
+    form   ir al estado 38
+    form2  ir al estado 39
+
+
+Estado 43
+
+   24 condicion: IGIG . expr expr
+
+    ID     desplazar e ir al estado 26
+    NUM    desplazar e ir al estado 27
+    MAS    desplazar e ir al estado 28
+    MENOS  desplazar e ir al estado 29
+    MULT   desplazar e ir al estado 30
+    DIV    desplazar e ir al estado 31
+    POW    desplazar e ir al estado 32
+    RAIZ   desplazar e ir al estado 33
+    '('    desplazar e ir al estado 34
+
+    expr   ir al estado 61
+    term   ir al estado 37
+    form   ir al estado 38
+    form2  ir al estado 39
+
+
+Estado 44
+
+   25 condicion: DIF . expr expr
+
+    ID     desplazar e ir al estado 26
+    NUM    desplazar e ir al estado 27
+    MAS    desplazar e ir al estado 28
+    MENOS  desplazar e ir al estado 29
+    MULT   desplazar e ir al estado 30
+    DIV    desplazar e ir al estado 31
+    POW    desplazar e ir al estado 32
+    RAIZ   desplazar e ir al estado 33
+    '('    desplazar e ir al estado 34
+
+    expr   ir al estado 62
+    term   ir al estado 37
+    form   ir al estado 38
+    form2  ir al estado 39
+
+
+Estado 45
+
+   15 sentencia_if: '?' '(' lista_cond . ')' '[' lista_expr ']'
+
+    ')'  desplazar e ir al estado 63
+
+
+Estado 46
+
+   18 lista_cond: condicion . lista_cond
+   19           | condicion . '&' lista_cond
+   20           | condicion . '|' lista_cond
+
+    MENOR  desplazar e ir al estado 41
+    MAYOR  desplazar e ir al estado 42
+    IGIG   desplazar e ir al estado 43
+    DIF    desplazar e ir al estado 44
+    '&'    desplazar e ir al estado 64
+    '|'    desplazar e ir al estado 65
+
+    $default  reduce usando la regla 21 (lista_cond)
+
+    lista_cond  ir al estado 66
+    condicion   ir al estado 46
+
+
+Estado 47
+
+   16 sentencia_while: '#' '(' lista_cond . ')' '[' lista_expr ']'
+
+    ')'  desplazar e ir al estado 67
+
+
+Estado 48
+
+   17 sentencia_for: '%' '(' asignacion . condicion2 PUNTCOM cont ')' '[' lista_expr ']'
+
+    MENOR  desplazar e ir al estado 68
+    MAYOR  desplazar e ir al estado 69
+
+    condicion2  ir al estado 70
+
+
+Estado 49
+
+   36 expr: MAS expr . term
+
+    ID    desplazar e ir al estado 26
+    NUM   desplazar e ir al estado 27
+    MULT  desplazar e ir al estado 30
+    DIV   desplazar e ir al estado 31
+    POW   desplazar e ir al estado 32
+    RAIZ  desplazar e ir al estado 33
+    '('   desplazar e ir al estado 34
+
+    term   ir al estado 71
+    form   ir al estado 38
+    form2  ir al estado 39
+
+
+Estado 50
+
+   38 expr: MENOS expr . term
+
+    ID    desplazar e ir al estado 26
+    NUM   desplazar e ir al estado 27
+    MULT  desplazar e ir al estado 30
+    DIV   desplazar e ir al estado 31
+    POW   desplazar e ir al estado 32
+    RAIZ  desplazar e ir al estado 33
+    '('   desplazar e ir al estado 34
+
+    term   ir al estado 72
+    form   ir al estado 38
+    form2  ir al estado 39
+
+
+Estado 51
+
+   40 term: MULT term . form
+
+    ID    desplazar e ir al estado 26
+    NUM   desplazar e ir al estado 27
+    POW   desplazar e ir al estado 32
+    RAIZ  desplazar e ir al estado 33
+    '('   desplazar e ir al estado 34
+
+    form   ir al estado 73
+    form2  ir al estado 39
+
+
+Estado 52
+
+   41 term: DIV term . form
+
+    ID    desplazar e ir al estado 26
+    NUM   desplazar e ir al estado 27
+    POW   desplazar e ir al estado 32
+    RAIZ  desplazar e ir al estado 33
+    '('   desplazar e ir al estado 34
+
+    form   ir al estado 74
+    form2  ir al estado 39
+
+
+Estado 53
+
+   44 form: POW form . form2
+
+    ID   desplazar e ir al estado 26
+    NUM  desplazar e ir al estado 27
+    '('  desplazar e ir al estado 34
+
+    form2  ir al estado 75
+
+
+Estado 54
+
+   43 form: RAIZ '(' . form3 ')'
+
+    ID   desplazar e ir al estado 76
+    NUM  desplazar e ir al estado 77
+
+    form3  ir al estado 78
+
+
+Estado 55
+
+   38 expr: MENOS . expr term
+   47 form2: '(' MENOS . NUM ')'
+
+    ID     desplazar e ir al estado 26
+    NUM    desplazar e ir al estado 79
+    MAS    desplazar e ir al estado 28
+    MENOS  desplazar e ir al estado 29
+    MULT   desplazar e ir al estado 30
+    DIV    desplazar e ir al estado 31
+    POW    desplazar e ir al estado 32
+    RAIZ   desplazar e ir al estado 33
+    '('    desplazar e ir al estado 34
+
+    expr   ir al estado 50
+    term   ir al estado 37
+    form   ir al estado 38
+    form2  ir al estado 39
+
+
+Estado 56
+
+   45 form2: '(' expr . ')'
+
+    ')'  desplazar e ir al estado 80
+
+
+Estado 57
+
+   35 instruccion: expr PUNTCOM .
+
+    $default  reduce usando la regla 35 (instruccion)
+
+
+Estado 58
+
+    8 funcion: '(' '"' ID '"' . lista_ID ')' '[' funcion_cuerpo ']'
+
+    ID  desplazar e ir al estado 81
+
+    $default  reduce usando la regla 32 (lista_ID)
+
+    lista_ID  ir al estado 82
+
+
+Estado 59
+
+   22 condicion: MENOR expr . expr
+
+    ID     desplazar e ir al estado 26
+    NUM    desplazar e ir al estado 27
+    MAS    desplazar e ir al estado 28
+    MENOS  desplazar e ir al estado 29
+    MULT   desplazar e ir al estado 30
+    DIV    desplazar e ir al estado 31
+    POW    desplazar e ir al estado 32
+    RAIZ   desplazar e ir al estado 33
+    '('    desplazar e ir al estado 34
+
+    expr   ir al estado 83
+    term   ir al estado 37
+    form   ir al estado 38
+    form2  ir al estado 39
+
+
+Estado 60
+
+   23 condicion: MAYOR expr . expr
+
+    ID     desplazar e ir al estado 26
+    NUM    desplazar e ir al estado 27
+    MAS    desplazar e ir al estado 28
+    MENOS  desplazar e ir al estado 29
+    MULT   desplazar e ir al estado 30
+    DIV    desplazar e ir al estado 31
+    POW    desplazar e ir al estado 32
+    RAIZ   desplazar e ir al estado 33
+    '('    desplazar e ir al estado 34
+
+    expr   ir al estado 84
+    term   ir al estado 37
+    form   ir al estado 38
+    form2  ir al estado 39
+
+
+Estado 61
+
+   24 condicion: IGIG expr . expr
+
+    ID     desplazar e ir al estado 26
+    NUM    desplazar e ir al estado 27
+    MAS    desplazar e ir al estado 28
+    MENOS  desplazar e ir al estado 29
+    MULT   desplazar e ir al estado 30
+    DIV    desplazar e ir al estado 31
+    POW    desplazar e ir al estado 32
+    RAIZ   desplazar e ir al estado 33
+    '('    desplazar e ir al estado 34
+
+    expr   ir al estado 85
+    term   ir al estado 37
+    form   ir al estado 38
+    form2  ir al estado 39
+
+
+Estado 62
+
+   25 condicion: DIF expr . expr
+
+    ID     desplazar e ir al estado 26
+    NUM    desplazar e ir al estado 27
+    MAS    desplazar e ir al estado 28
+    MENOS  desplazar e ir al estado 29
+    MULT   desplazar e ir al estado 30
+    DIV    desplazar e ir al estado 31
+    POW    desplazar e ir al estado 32
+    RAIZ   desplazar e ir al estado 33
+    '('    desplazar e ir al estado 34
+
+    expr   ir al estado 86
+    term   ir al estado 37
+    form   ir al estado 38
+    form2  ir al estado 39
+
+
+Estado 63
+
+   15 sentencia_if: '?' '(' lista_cond ')' . '[' lista_expr ']'
+
+    '['  desplazar e ir al estado 87
+
+
+Estado 64
+
+   19 lista_cond: condicion '&' . lista_cond
+
+    MENOR  desplazar e ir al estado 41
+    MAYOR  desplazar e ir al estado 42
+    IGIG   desplazar e ir al estado 43
+    DIF    desplazar e ir al estado 44
+
+    $default  reduce usando la regla 21 (lista_cond)
+
+    lista_cond  ir al estado 88
+    condicion   ir al estado 46
+
+
+Estado 65
+
+   20 lista_cond: condicion '|' . lista_cond
+
+    MENOR  desplazar e ir al estado 41
+    MAYOR  desplazar e ir al estado 42
+    IGIG   desplazar e ir al estado 43
+    DIF    desplazar e ir al estado 44
+
+    $default  reduce usando la regla 21 (lista_cond)
+
+    lista_cond  ir al estado 89
+    condicion   ir al estado 46
+
+
+Estado 66
+
+   18 lista_cond: condicion lista_cond .
+
+    $default  reduce usando la regla 18 (lista_cond)
+
+
+Estado 67
+
+   16 sentencia_while: '#' '(' lista_cond ')' . '[' lista_expr ']'
+
+    '['  desplazar e ir al estado 90
+
+
+Estado 68
+
+   26 condicion2: MENOR . expr expr
+   29           | MENOR . IGIG expr expr
+
+    ID     desplazar e ir al estado 26
+    NUM    desplazar e ir al estado 27
+    MAS    desplazar e ir al estado 28
+    MENOS  desplazar e ir al estado 29
+    MULT   desplazar e ir al estado 30
+    DIV    desplazar e ir al estado 31
+    POW    desplazar e ir al estado 32
+    RAIZ   desplazar e ir al estado 33
+    IGIG   desplazar e ir al estado 91
+    '('    desplazar e ir al estado 34
+
+    expr   ir al estado 92
+    term   ir al estado 37
+    form   ir al estado 38
+    form2  ir al estado 39
+
+
+Estado 69
+
+   27 condicion2: MAYOR . expr expr
+   28           | MAYOR . IGIG expr expr
+
+    ID     desplazar e ir al estado 26
+    NUM    desplazar e ir al estado 27
+    MAS    desplazar e ir al estado 28
+    MENOS  desplazar e ir al estado 29
+    MULT   desplazar e ir al estado 30
+    DIV    desplazar e ir al estado 31
+    POW    desplazar e ir al estado 32
+    RAIZ   desplazar e ir al estado 33
+    IGIG   desplazar e ir al estado 93
+    '('    desplazar e ir al estado 34
+
+    expr   ir al estado 94
+    term   ir al estado 37
+    form   ir al estado 38
+    form2  ir al estado 39
+
+
+Estado 70
+
+   17 sentencia_for: '%' '(' asignacion condicion2 . PUNTCOM cont ')' '[' lista_expr ']'
+
+    PUNTCOM  desplazar e ir al estado 95
+
+
+Estado 71
+
+   36 expr: MAS expr term .
+
+    $default  reduce usando la regla 36 (expr)
+
+
+Estado 72
+
+   38 expr: MENOS expr term .
+
+    $default  reduce usando la regla 38 (expr)
+
+
+Estado 73
+
+   40 term: MULT term form .
+
+    $default  reduce usando la regla 40 (term)
+
+
+Estado 74
+
+   41 term: DIV term form .
+
+    $default  reduce usando la regla 41 (term)
+
+
+Estado 75
+
+   44 form: POW form form2 .
+
+    $default  reduce usando la regla 44 (form)
+
+
+Estado 76
+
+   50 form3: ID .
+
+    $default  reduce usando la regla 50 (form3)
+
+
+Estado 77
+
+   49 form3: NUM .
+
+    $default  reduce usando la regla 49 (form3)
+
+
+Estado 78
+
+   43 form: RAIZ '(' form3 . ')'
+
+    ')'  desplazar e ir al estado 96
+
+
+Estado 79
+
+   46 form2: NUM .
+   47      | '(' MENOS NUM . ')'
+
+    ')'  desplazar e ir al estado 97
+
+    $default  reduce usando la regla 46 (form2)
+
+
+Estado 80
+
+   45 form2: '(' expr ')' .
+
+    $default  reduce usando la regla 45 (form2)
+
+
+Estado 81
+
+   33 lista_ID: ID . lista_ID
+
+    ID  desplazar e ir al estado 81
+
+    $default  reduce usando la regla 32 (lista_ID)
+
+    lista_ID  ir al estado 98
+
+
+Estado 82
+
+    8 funcion: '(' '"' ID '"' lista_ID . ')' '[' funcion_cuerpo ']'
+
+    ')'  desplazar e ir al estado 99
+
+
+Estado 83
+
+   22 condicion: MENOR expr expr .
+
+    $default  reduce usando la regla 22 (condicion)
+
+
+Estado 84
+
+   23 condicion: MAYOR expr expr .
+
+    $default  reduce usando la regla 23 (condicion)
+
+
+Estado 85
+
+   24 condicion: IGIG expr expr .
+
+    $default  reduce usando la regla 24 (condicion)
+
+
+Estado 86
+
+   25 condicion: DIF expr expr .
+
+    $default  reduce usando la regla 25 (condicion)
+
+
+Estado 87
+
+   15 sentencia_if: '?' '(' lista_cond ')' '[' . lista_expr ']'
+
+    IGUAL  desplazar e ir al estado 3
+    '?'    desplazar e ir al estado 5
+    '#'    desplazar e ir al estado 6
+    '%'    desplazar e ir al estado 7
+
+    $default  reduce usando la regla 14 (lista_expr)
+
+    lista_expr       ir al estado 100
+    sentencia_if     ir al estado 101
+    sentencia_while  ir al estado 102
+    sentencia_for    ir al estado 103
+    asignacion       ir al estado 104
+
+
+Estado 88
+
+   19 lista_cond: condicion '&' lista_cond .
+
+    $default  reduce usando la regla 19 (lista_cond)
+
+
+Estado 89
+
+   20 lista_cond: condicion '|' lista_cond .
+
+    $default  reduce usando la regla 20 (lista_cond)
+
+
+Estado 90
+
+   16 sentencia_while: '#' '(' lista_cond ')' '[' . lista_expr ']'
+
+    IGUAL  desplazar e ir al estado 3
+    '?'    desplazar e ir al estado 5
+    '#'    desplazar e ir al estado 6
+    '%'    desplazar e ir al estado 7
+
+    $default  reduce usando la regla 14 (lista_expr)
+
+    lista_expr       ir al estado 105
+    sentencia_if     ir al estado 101
+    sentencia_while  ir al estado 102
+    sentencia_for    ir al estado 103
+    asignacion       ir al estado 104
+
+
+Estado 91
+
+   29 condicion2: MENOR IGIG . expr expr
+
+    ID     desplazar e ir al estado 26
+    NUM    desplazar e ir al estado 27
+    MAS    desplazar e ir al estado 28
+    MENOS  desplazar e ir al estado 29
+    MULT   desplazar e ir al estado 30
+    DIV    desplazar e ir al estado 31
+    POW    desplazar e ir al estado 32
+    RAIZ   desplazar e ir al estado 33
+    '('    desplazar e ir al estado 34
+
+    expr   ir al estado 106
+    term   ir al estado 37
+    form   ir al estado 38
+    form2  ir al estado 39
+
+
+Estado 92
+
+   26 condicion2: MENOR expr . expr
+
+    ID     desplazar e ir al estado 26
+    NUM    desplazar e ir al estado 27
+    MAS    desplazar e ir al estado 28
+    MENOS  desplazar e ir al estado 29
+    MULT   desplazar e ir al estado 30
+    DIV    desplazar e ir al estado 31
+    POW    desplazar e ir al estado 32
+    RAIZ   desplazar e ir al estado 33
+    '('    desplazar e ir al estado 34
+
+    expr   ir al estado 107
+    term   ir al estado 37
+    form   ir al estado 38
+    form2  ir al estado 39
+
+
+Estado 93
+
+   28 condicion2: MAYOR IGIG . expr expr
+
+    ID     desplazar e ir al estado 26
+    NUM    desplazar e ir al estado 27
+    MAS    desplazar e ir al estado 28
+    MENOS  desplazar e ir al estado 29
+    MULT   desplazar e ir al estado 30
+    DIV    desplazar e ir al estado 31
+    POW    desplazar e ir al estado 32
+    RAIZ   desplazar e ir al estado 33
+    '('    desplazar e ir al estado 34
+
+    expr   ir al estado 108
+    term   ir al estado 37
+    form   ir al estado 38
+    form2  ir al estado 39
+
+
+Estado 94
+
+   27 condicion2: MAYOR expr . expr
+
+    ID     desplazar e ir al estado 26
+    NUM    desplazar e ir al estado 27
+    MAS    desplazar e ir al estado 28
+    MENOS  desplazar e ir al estado 29
+    MULT   desplazar e ir al estado 30
+    DIV    desplazar e ir al estado 31
+    POW    desplazar e ir al estado 32
+    RAIZ   desplazar e ir al estado 33
+    '('    desplazar e ir al estado 34
+
+    expr   ir al estado 109
+    term   ir al estado 37
+    form   ir al estado 38
+    form2  ir al estado 39
+
+
+Estado 95
+
+   17 sentencia_for: '%' '(' asignacion condicion2 PUNTCOM . cont ')' '[' lista_expr ']'
+
+    MAS    desplazar e ir al estado 110
+    MENOS  desplazar e ir al estado 111
+
+    cont  ir al estado 112
+
+
+Estado 96
+
+   43 form: RAIZ '(' form3 ')' .
+
+    $default  reduce usando la regla 43 (form)
+
+
+Estado 97
+
+   47 form2: '(' MENOS NUM ')' .
+
+    $default  reduce usando la regla 47 (form2)
+
+
+Estado 98
+
+   33 lista_ID: ID lista_ID .
+
+    $default  reduce usando la regla 33 (lista_ID)
+
+
+Estado 99
+
+    8 funcion: '(' '"' ID '"' lista_ID ')' . '[' funcion_cuerpo ']'
+
+    '['  desplazar e ir al estado 113
+
+
+Estado 100
+
+   15 sentencia_if: '?' '(' lista_cond ')' '[' lista_expr . ']'
+
+    ']'  desplazar e ir al estado 114
+
+
+Estado 101
+
+   11 lista_expr: sentencia_if . lista_expr
+
+    IGUAL  desplazar e ir al estado 3
+    '?'    desplazar e ir al estado 5
+    '#'    desplazar e ir al estado 6
+    '%'    desplazar e ir al estado 7
+
+    $default  reduce usando la regla 14 (lista_expr)
+
+    lista_expr       ir al estado 115
+    sentencia_if     ir al estado 101
+    sentencia_while  ir al estado 102
+    sentencia_for    ir al estado 103
+    asignacion       ir al estado 104
+
+
+Estado 102
+
+   12 lista_expr: sentencia_while . lista_expr
+
+    IGUAL  desplazar e ir al estado 3
+    '?'    desplazar e ir al estado 5
+    '#'    desplazar e ir al estado 6
+    '%'    desplazar e ir al estado 7
+
+    $default  reduce usando la regla 14 (lista_expr)
+
+    lista_expr       ir al estado 116
+    sentencia_if     ir al estado 101
+    sentencia_while  ir al estado 102
+    sentencia_for    ir al estado 103
+    asignacion       ir al estado 104
+
+
+Estado 103
+
+   13 lista_expr: sentencia_for . lista_expr
+
+    IGUAL  desplazar e ir al estado 3
+    '?'    desplazar e ir al estado 5
+    '#'    desplazar e ir al estado 6
+    '%'    desplazar e ir al estado 7
+
+    $default  reduce usando la regla 14 (lista_expr)
+
+    lista_expr       ir al estado 117
+    sentencia_if     ir al estado 101
+    sentencia_while  ir al estado 102
+    sentencia_for    ir al estado 103
+    asignacion       ir al estado 104
+
+
+Estado 104
+
+   10 lista_expr: asignacion . lista_expr
+
+    IGUAL  desplazar e ir al estado 3
+    '?'    desplazar e ir al estado 5
+    '#'    desplazar e ir al estado 6
+    '%'    desplazar e ir al estado 7
+
+    $default  reduce usando la regla 14 (lista_expr)
+
+    lista_expr       ir al estado 118
+    sentencia_if     ir al estado 101
+    sentencia_while  ir al estado 102
+    sentencia_for    ir al estado 103
+    asignacion       ir al estado 104
+
+
+Estado 105
+
+   16 sentencia_while: '#' '(' lista_cond ')' '[' lista_expr . ']'
+
+    ']'  desplazar e ir al estado 119
+
+
+Estado 106
+
+   29 condicion2: MENOR IGIG expr . expr
+
+    ID     desplazar e ir al estado 26
+    NUM    desplazar e ir al estado 27
+    MAS    desplazar e ir al estado 28
+    MENOS  desplazar e ir al estado 29
+    MULT   desplazar e ir al estado 30
+    DIV    desplazar e ir al estado 31
+    POW    desplazar e ir al estado 32
+    RAIZ   desplazar e ir al estado 33
+    '('    desplazar e ir al estado 34
+
+    expr   ir al estado 120
+    term   ir al estado 37
+    form   ir al estado 38
+    form2  ir al estado 39
+
+
+Estado 107
+
+   26 condicion2: MENOR expr expr .
+
+    $default  reduce usando la regla 26 (condicion2)
+
+
+Estado 108
+
+   28 condicion2: MAYOR IGIG expr . expr
+
+    ID     desplazar e ir al estado 26
+    NUM    desplazar e ir al estado 27
+    MAS    desplazar e ir al estado 28
+    MENOS  desplazar e ir al estado 29
+    MULT   desplazar e ir al estado 30
+    DIV    desplazar e ir al estado 31
+    POW    desplazar e ir al estado 32
+    RAIZ   desplazar e ir al estado 33
+    '('    desplazar e ir al estado 34
+
+    expr   ir al estado 121
+    term   ir al estado 37
+    form   ir al estado 38
+    form2  ir al estado 39
+
+
+Estado 109
+
+   27 condicion2: MAYOR expr expr .
+
+    $default  reduce usando la regla 27 (condicion2)
+
+
+Estado 110
+
+   30 cont: MAS . expr expr
+
+    ID     desplazar e ir al estado 26
+    NUM    desplazar e ir al estado 27
+    MAS    desplazar e ir al estado 28
+    MENOS  desplazar e ir al estado 29
+    MULT   desplazar e ir al estado 30
+    DIV    desplazar e ir al estado 31
+    POW    desplazar e ir al estado 32
+    RAIZ   desplazar e ir al estado 33
+    '('    desplazar e ir al estado 34
+
+    expr   ir al estado 122
+    term   ir al estado 37
+    form   ir al estado 38
+    form2  ir al estado 39
+
+
+Estado 111
+
+   31 cont: MENOS . expr expr
+
+    ID     desplazar e ir al estado 26
+    NUM    desplazar e ir al estado 27
+    MAS    desplazar e ir al estado 28
+    MENOS  desplazar e ir al estado 29
+    MULT   desplazar e ir al estado 30
+    DIV    desplazar e ir al estado 31
+    POW    desplazar e ir al estado 32
+    RAIZ   desplazar e ir al estado 33
+    '('    desplazar e ir al estado 34
+
+    expr   ir al estado 123
+    term   ir al estado 37
+    form   ir al estado 38
+    form2  ir al estado 39
+
+
+Estado 112
+
+   17 sentencia_for: '%' '(' asignacion condicion2 PUNTCOM cont . ')' '[' lista_expr ']'
+
+    ')'  desplazar e ir al estado 124
+
+
+Estado 113
+
+    8 funcion: '(' '"' ID '"' lista_ID ')' '[' . funcion_cuerpo ']'
+
+    IGUAL  desplazar e ir al estado 3
+    '?'    desplazar e ir al estado 5
+    '#'    desplazar e ir al estado 6
+    '%'    desplazar e ir al estado 7
+
+    $default  reduce usando la regla 14 (lista_expr)
+
+    funcion_cuerpo   ir al estado 125
+    lista_expr       ir al estado 126
+    sentencia_if     ir al estado 101
+    sentencia_while  ir al estado 102
+    sentencia_for    ir al estado 103
+    asignacion       ir al estado 104
+
+
+Estado 114
+
+   15 sentencia_if: '?' '(' lista_cond ')' '[' lista_expr ']' .
+
+    $default  reduce usando la regla 15 (sentencia_if)
+
+
+Estado 115
+
+   11 lista_expr: sentencia_if lista_expr .
+
+    $default  reduce usando la regla 11 (lista_expr)
+
+
+Estado 116
+
+   12 lista_expr: sentencia_while lista_expr .
+
+    $default  reduce usando la regla 12 (lista_expr)
+
+
+Estado 117
+
+   13 lista_expr: sentencia_for lista_expr .
+
+    $default  reduce usando la regla 13 (lista_expr)
+
+
+Estado 118
+
+   10 lista_expr: asignacion lista_expr .
+
+    $default  reduce usando la regla 10 (lista_expr)
+
+
+Estado 119
+
+   16 sentencia_while: '#' '(' lista_cond ')' '[' lista_expr ']' .
+
+    $default  reduce usando la regla 16 (sentencia_while)
+
+
+Estado 120
+
+   29 condicion2: MENOR IGIG expr expr .
+
+    $default  reduce usando la regla 29 (condicion2)
+
+
+Estado 121
+
+   28 condicion2: MAYOR IGIG expr expr .
+
+    $default  reduce usando la regla 28 (condicion2)
+
+
+Estado 122
+
+   30 cont: MAS expr . expr
+
+    ID     desplazar e ir al estado 26
+    NUM    desplazar e ir al estado 27
+    MAS    desplazar e ir al estado 28
+    MENOS  desplazar e ir al estado 29
+    MULT   desplazar e ir al estado 30
+    DIV    desplazar e ir al estado 31
+    POW    desplazar e ir al estado 32
+    RAIZ   desplazar e ir al estado 33
+    '('    desplazar e ir al estado 34
+
+    expr   ir al estado 127
+    term   ir al estado 37
+    form   ir al estado 38
+    form2  ir al estado 39
+
+
+Estado 123
+
+   31 cont: MENOS expr . expr
+
+    ID     desplazar e ir al estado 26
+    NUM    desplazar e ir al estado 27
+    MAS    desplazar e ir al estado 28
+    MENOS  desplazar e ir al estado 29
+    MULT   desplazar e ir al estado 30
+    DIV    desplazar e ir al estado 31
+    POW    desplazar e ir al estado 32
+    RAIZ   desplazar e ir al estado 33
+    '('    desplazar e ir al estado 34
+
+    expr   ir al estado 128
+    term   ir al estado 37
+    form   ir al estado 38
+    form2  ir al estado 39
+
+
+Estado 124
+
+   17 sentencia_for: '%' '(' asignacion condicion2 PUNTCOM cont ')' . '[' lista_expr ']'
+
+    '['  desplazar e ir al estado 129
+
+
+Estado 125
+
+    8 funcion: '(' '"' ID '"' lista_ID ')' '[' funcion_cuerpo . ']'
+
+    ']'  desplazar e ir al estado 130
+
+
+Estado 126
+
+    9 funcion_cuerpo: lista_expr .
+
+    $default  reduce usando la regla 9 (funcion_cuerpo)
+
+
+Estado 127
+
+   30 cont: MAS expr expr .
+
+    $default  reduce usando la regla 30 (cont)
+
+
+Estado 128
+
+   31 cont: MENOS expr expr .
+
+    $default  reduce usando la regla 31 (cont)
+
+
+Estado 129
+
+   17 sentencia_for: '%' '(' asignacion condicion2 PUNTCOM cont ')' '[' . lista_expr ']'
+
+    IGUAL  desplazar e ir al estado 3
+    '?'    desplazar e ir al estado 5
+    '#'    desplazar e ir al estado 6
+    '%'    desplazar e ir al estado 7
+
+    $default  reduce usando la regla 14 (lista_expr)
+
+    lista_expr       ir al estado 131
+    sentencia_if     ir al estado 101
+    sentencia_while  ir al estado 102
+    sentencia_for    ir al estado 103
+    asignacion       ir al estado 104
+
+
+Estado 130
+
+    8 funcion: '(' '"' ID '"' lista_ID ')' '[' funcion_cuerpo ']' .
+
+    $default  reduce usando la regla 8 (funcion)
+
+
+Estado 131
+
+   17 sentencia_for: '%' '(' asignacion condicion2 PUNTCOM cont ')' '[' lista_expr . ']'
+
+    ']'  desplazar e ir al estado 132
+
+
+Estado 132
+
+   17 sentencia_for: '%' '(' asignacion condicion2 PUNTCOM cont ')' '[' lista_expr ']' .
+
+    $default  reduce usando la regla 17 (sentencia_for)

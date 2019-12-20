@@ -1,0 +1,13 @@
+a:=2
+
+
+ESTADO						ENTRADA							ACCION
+0						ID : = NUM							D1
+01							: = NUM							D3
+013							  = NUM							D5
+0135							NUM							D6
+01356							$							R3
+01357							$							R1
+02								$							D4
+024								$							aceptar
+

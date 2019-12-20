@@ -1,0 +1,1869 @@
+Terminales no usados en la gramática
+
+   BOOL
+
+
+Estado 1 conflictos: 3 desplazamiento/reducción
+Estado 35 conflictos: 3 desplazamiento/reducción
+Estado 38 conflictos: 1 desplazamiento/reducción
+Estado 40 conflictos: 1 desplazamiento/reducción
+Estado 41 conflictos: 1 reducción/reducción
+Estado 51 conflictos: 1 desplazamiento/reducción
+Estado 60 conflictos: 3 desplazamiento/reducción
+Estado 77 conflictos: 1 desplazamiento/reducción
+Estado 80 conflictos: 1 desplazamiento/reducción, 1 reducción/reducción
+Estado 119 conflictos: 1 desplazamiento/reducción
+Estado 122 conflictos: 1 desplazamiento/reducción
+Estado 140 conflictos: 1 desplazamiento/reducción
+Estado 148 conflictos: 1 desplazamiento/reducción
+
+
+Gramática
+
+    0 $accept: main $end
+
+    1 main: INICIO_PROGRAMA primera_linea_clase primera_linea_metodo_main FIN_PROGRAMA
+
+    2 primera_linea_clase: permiso INICIO_CLASE ID resto_clase FIN_CLASE primera_linea_clase
+    3                    | permiso INICIO_CLASE ID EXTIENDE ID resto_clase FIN_CLASE primera_linea_clase
+    4                    | %empty
+
+    5 resto_clase: atributo resto_clase
+    6            | primera_linea_metodo resto_clase
+    7            | %empty
+
+    8 atributo: permiso ID IGUAL nivel1 PUNTOYCOMA
+    9         | permiso ID PUNTOYCOMA
+   10         | permiso asign PUNTOYCOMA
+
+   11 primera_linea_metodo: permiso INICIO_METODO asign ABRE_PARENTESIS declaracion CIERRA_PARENTESIS contenido FIN_METODO
+   12                     | permiso INICIO_METODO asign ABRE_PARENTESIS CIERRA_PARENTESIS contenido FIN_METODO
+   13                     | permiso INICIO_METODO asign ABRE_PARENTESIS declaracion CIERRA_PARENTESIS contenido RETURN nivel1 PUNTOYCOMA FIN_METODO
+   14                     | permiso INICIO_METODO asign ABRE_PARENTESIS CIERRA_PARENTESIS contenido RETURN nivel1 PUNTOYCOMA FIN_METODO
+
+   15 primera_linea_metodo_main: primera_linea_metodo primera_linea_metodo_main
+   16                          | %empty
+
+   17 declaracion: ID
+   18            | ID PUNTOYCOMA declaracion
+   19            | asign
+   20            | asign COMA declaracion
+
+   21 contenido: var PUNTOYCOMA contenido
+   22          | contenido_metodo_main contenido
+   23          | contenido_objeto contenido
+   24          | contenido_metodo_objeto contenido
+   25          | %empty
+
+   26 contenido_objeto: asign IGUAL NUEVO ID ABRE_PARENTESIS parametros_bloq CIERRA_PARENTESIS PUNTOYCOMA
+   27                 | asign IGUAL NUEVO ID ABRE_PARENTESIS CIERRA_PARENTESIS PUNTOYCOMA
+
+   28 contenido_metodo_objeto: ID PUNTO ID ABRE_PARENTESIS parametros_bloq CIERRA_PARENTESIS PUNTOYCOMA
+   29                        | ID PUNTO ID ABRE_PARENTESIS CIERRA_PARENTESIS PUNTOYCOMA
+   30                        | ID IGUAL ID PUNTO ID ABRE_PARENTESIS parametros_bloq CIERRA_PARENTESIS PUNTOYCOMA
+   31                        | ID IGUAL ID PUNTO ID ABRE_PARENTESIS CIERRA_PARENTESIS PUNTOYCOMA
+
+   32 contenido_metodo_main: asign ABRE_PARENTESIS parametros_bloq CIERRA_PARENTESIS PUNTOYCOMA
+   33                      | asign ABRE_PARENTESIS CIERRA_PARENTESIS PUNTOYCOMA
+   34                      | asign IGUAL ID ABRE_PARENTESIS parametros_bloq CIERRA_PARENTESIS PUNTOYCOMA
+   35                      | asign IGUAL ID ABRE_PARENTESIS CIERRA_PARENTESIS PUNTOYCOMA
+
+   36 parametros_bloq: term
+   37                | term PUNTOYCOMA parametros_bloq
+
+   38 var: ID IGUAL nivel1
+   39    | ID PUNTO ID IGUAL nivel1
+
+   40 nivel1: nivel2 ABRE_PARENTESIS nivel1 CIERRA_PARENTESIS nivel2
+   41       | nivel2
+
+   42 nivel2: nivel2 MAS nivel3
+   43       | nivel2 MENOS nivel3
+   44       | nivel3
+
+   45 nivel3: nivel3 POR nivel4
+   46       | nivel3 ENTRE nivel4
+   47       | nivel4
+
+   48 nivel4: nivel4 POW nivel5
+   49       | SENO ABRE_PARENTESIS nivel5 CIERRA_PARENTESIS
+   50       | COSENO ABRE_PARENTESIS nivel5 CIERRA_PARENTESIS
+
+   51 nivel5: IGUAL term
+   52       | term
+
+   53 asign: ENT ID
+   54      | REAL
+   55      | ID
+   56      | CHAR ID
+   57      | CAD ID
+   58      | ID ID
+   59      | asign COMA asign
+
+   60 term: NUM
+   61     | DEC
+   62     | CHAR
+   63     | CAD
+   64     | ID
+   65     | ID PUNTO ID
+   66     | %empty
+
+   67 permiso: PROTEGIDO
+   68        | PRIVADO
+   69        | PUBLICO
+
+
+Terminales con las reglas donde aparecen
+
+$end (0) 0
+error (256)
+INICIO_PROGRAMA (258) 1
+FIN_PROGRAMA (259) 1
+INICIO_CLASE (260) 2 3
+FIN_CLASE (261) 2 3
+INICIO_METODO (262) 11 12 13 14
+FIN_METODO (263) 11 12 13 14
+EXTIENDE (264) 3
+ID (265) 2 3 8 9 17 18 26 27 28 29 30 31 34 35 38 39 53 55 56 57 58
+    64 65
+PUNTOYCOMA (266) 8 9 10 13 14 18 21 26 27 28 29 30 31 32 33 34 35 37
+PUNTO (267) 28 29 30 31 39 65
+RETURN (268) 13 14
+NUEVO (269) 26 27
+COMA (270) 20 59
+MAS (271) 42
+MENOS (272) 43
+POR (273) 45
+ENTRE (274) 46
+IGUAL (275) 8 26 27 30 31 34 35 38 39 51
+POW (276) 48
+SENO (277) 49
+COSENO (278) 50
+ABRE_PARENTESIS (279) 11 12 13 14 26 27 28 29 30 31 32 33 34 35 40
+    49 50
+CIERRA_PARENTESIS (280) 11 12 13 14 26 27 28 29 30 31 32 33 34 35 40
+    49 50
+ENT (281) 53
+DEC (282) 61
+CHAR (283) 56 62
+CAD (284) 57 63
+BOOL (285)
+REAL (286) 54
+NUM (287) 60
+PROTEGIDO (288) 67
+PRIVADO (289) 68
+PUBLICO (290) 69
+
+
+No terminales con las reglas donde aparecen
+
+$accept (36)
+    en la izquierda: 0
+main (37)
+    en la izquierda: 1, en la derecha: 0
+primera_linea_clase (38)
+    en la izquierda: 2 3 4, en la derecha: 1 2 3
+resto_clase (39)
+    en la izquierda: 5 6 7, en la derecha: 2 3 5 6
+atributo (40)
+    en la izquierda: 8 9 10, en la derecha: 5
+primera_linea_metodo (41)
+    en la izquierda: 11 12 13 14, en la derecha: 6 15
+primera_linea_metodo_main (42)
+    en la izquierda: 15 16, en la derecha: 1 15
+declaracion (43)
+    en la izquierda: 17 18 19 20, en la derecha: 11 13 18 20
+contenido (44)
+    en la izquierda: 21 22 23 24 25, en la derecha: 11 12 13 14 21
+    22 23 24
+contenido_objeto (45)
+    en la izquierda: 26 27, en la derecha: 23
+contenido_metodo_objeto (46)
+    en la izquierda: 28 29 30 31, en la derecha: 24
+contenido_metodo_main (47)
+    en la izquierda: 32 33 34 35, en la derecha: 22
+parametros_bloq (48)
+    en la izquierda: 36 37, en la derecha: 26 28 30 32 34 37
+var (49)
+    en la izquierda: 38 39, en la derecha: 21
+nivel1 (50)
+    en la izquierda: 40 41, en la derecha: 8 13 14 38 39 40
+nivel2 (51)
+    en la izquierda: 42 43 44, en la derecha: 40 41 42 43
+nivel3 (52)
+    en la izquierda: 45 46 47, en la derecha: 42 43 44 45 46
+nivel4 (53)
+    en la izquierda: 48 49 50, en la derecha: 45 46 47 48
+nivel5 (54)
+    en la izquierda: 51 52, en la derecha: 48 49 50
+asign (55)
+    en la izquierda: 53 54 55 56 57 58 59, en la derecha: 10 11 12
+    13 14 19 20 26 27 32 33 34 35 59
+term (56)
+    en la izquierda: 60 61 62 63 64 65 66, en la derecha: 36 37 51
+    52
+permiso (57)
+    en la izquierda: 67 68 69, en la derecha: 2 3 8 9 10 11 12 13 14
+
+
+Estado 0
+
+    0 $accept: . main $end
+
+    INICIO_PROGRAMA  desplazar e ir al estado 1
+
+    main  ir al estado 2
+
+
+Estado 1
+
+    1 main: INICIO_PROGRAMA . primera_linea_clase primera_linea_metodo_main FIN_PROGRAMA
+
+    PROTEGIDO  desplazar e ir al estado 3
+    PRIVADO    desplazar e ir al estado 4
+    PUBLICO    desplazar e ir al estado 5
+
+    PROTEGIDO  [reduce usando la regla 4 (primera_linea_clase)]
+    PRIVADO    [reduce usando la regla 4 (primera_linea_clase)]
+    PUBLICO    [reduce usando la regla 4 (primera_linea_clase)]
+    $default   reduce usando la regla 4 (primera_linea_clase)
+
+    primera_linea_clase  ir al estado 6
+    permiso              ir al estado 7
+
+
+Estado 2
+
+    0 $accept: main . $end
+
+    $end  desplazar e ir al estado 8
+
+
+Estado 3
+
+   67 permiso: PROTEGIDO .
+
+    $default  reduce usando la regla 67 (permiso)
+
+
+Estado 4
+
+   68 permiso: PRIVADO .
+
+    $default  reduce usando la regla 68 (permiso)
+
+
+Estado 5
+
+   69 permiso: PUBLICO .
+
+    $default  reduce usando la regla 69 (permiso)
+
+
+Estado 6
+
+    1 main: INICIO_PROGRAMA primera_linea_clase . primera_linea_metodo_main FIN_PROGRAMA
+
+    PROTEGIDO  desplazar e ir al estado 3
+    PRIVADO    desplazar e ir al estado 4
+    PUBLICO    desplazar e ir al estado 5
+
+    $default  reduce usando la regla 16 (primera_linea_metodo_main)
+
+    primera_linea_metodo       ir al estado 9
+    primera_linea_metodo_main  ir al estado 10
+    permiso                    ir al estado 11
+
+
+Estado 7
+
+    2 primera_linea_clase: permiso . INICIO_CLASE ID resto_clase FIN_CLASE primera_linea_clase
+    3                    | permiso . INICIO_CLASE ID EXTIENDE ID resto_clase FIN_CLASE primera_linea_clase
+
+    INICIO_CLASE  desplazar e ir al estado 12
+
+
+Estado 8
+
+    0 $accept: main $end .
+
+    $default  aceptar
+
+
+Estado 9
+
+   15 primera_linea_metodo_main: primera_linea_metodo . primera_linea_metodo_main
+
+    PROTEGIDO  desplazar e ir al estado 3
+    PRIVADO    desplazar e ir al estado 4
+    PUBLICO    desplazar e ir al estado 5
+
+    $default  reduce usando la regla 16 (primera_linea_metodo_main)
+
+    primera_linea_metodo       ir al estado 9
+    primera_linea_metodo_main  ir al estado 13
+    permiso                    ir al estado 11
+
+
+Estado 10
+
+    1 main: INICIO_PROGRAMA primera_linea_clase primera_linea_metodo_main . FIN_PROGRAMA
+
+    FIN_PROGRAMA  desplazar e ir al estado 14
+
+
+Estado 11
+
+   11 primera_linea_metodo: permiso . INICIO_METODO asign ABRE_PARENTESIS declaracion CIERRA_PARENTESIS contenido FIN_METODO
+   12                     | permiso . INICIO_METODO asign ABRE_PARENTESIS CIERRA_PARENTESIS contenido FIN_METODO
+   13                     | permiso . INICIO_METODO asign ABRE_PARENTESIS declaracion CIERRA_PARENTESIS contenido RETURN nivel1 PUNTOYCOMA FIN_METODO
+   14                     | permiso . INICIO_METODO asign ABRE_PARENTESIS CIERRA_PARENTESIS contenido RETURN nivel1 PUNTOYCOMA FIN_METODO
+
+    INICIO_METODO  desplazar e ir al estado 15
+
+
+Estado 12
+
+    2 primera_linea_clase: permiso INICIO_CLASE . ID resto_clase FIN_CLASE primera_linea_clase
+    3                    | permiso INICIO_CLASE . ID EXTIENDE ID resto_clase FIN_CLASE primera_linea_clase
+
+    ID  desplazar e ir al estado 16
+
+
+Estado 13
+
+   15 primera_linea_metodo_main: primera_linea_metodo primera_linea_metodo_main .
+
+    $default  reduce usando la regla 15 (primera_linea_metodo_main)
+
+
+Estado 14
+
+    1 main: INICIO_PROGRAMA primera_linea_clase primera_linea_metodo_main FIN_PROGRAMA .
+
+    $default  reduce usando la regla 1 (main)
+
+
+Estado 15
+
+   11 primera_linea_metodo: permiso INICIO_METODO . asign ABRE_PARENTESIS declaracion CIERRA_PARENTESIS contenido FIN_METODO
+   12                     | permiso INICIO_METODO . asign ABRE_PARENTESIS CIERRA_PARENTESIS contenido FIN_METODO
+   13                     | permiso INICIO_METODO . asign ABRE_PARENTESIS declaracion CIERRA_PARENTESIS contenido RETURN nivel1 PUNTOYCOMA FIN_METODO
+   14                     | permiso INICIO_METODO . asign ABRE_PARENTESIS CIERRA_PARENTESIS contenido RETURN nivel1 PUNTOYCOMA FIN_METODO
+
+    ID    desplazar e ir al estado 17
+    ENT   desplazar e ir al estado 18
+    CHAR  desplazar e ir al estado 19
+    CAD   desplazar e ir al estado 20
+    REAL  desplazar e ir al estado 21
+
+    asign  ir al estado 22
+
+
+Estado 16
+
+    2 primera_linea_clase: permiso INICIO_CLASE ID . resto_clase FIN_CLASE primera_linea_clase
+    3                    | permiso INICIO_CLASE ID . EXTIENDE ID resto_clase FIN_CLASE primera_linea_clase
+
+    EXTIENDE   desplazar e ir al estado 23
+    PROTEGIDO  desplazar e ir al estado 3
+    PRIVADO    desplazar e ir al estado 4
+    PUBLICO    desplazar e ir al estado 5
+
+    $default  reduce usando la regla 7 (resto_clase)
+
+    resto_clase           ir al estado 24
+    atributo              ir al estado 25
+    primera_linea_metodo  ir al estado 26
+    permiso               ir al estado 27
+
+
+Estado 17
+
+   55 asign: ID .
+   58      | ID . ID
+
+    ID  desplazar e ir al estado 28
+
+    $default  reduce usando la regla 55 (asign)
+
+
+Estado 18
+
+   53 asign: ENT . ID
+
+    ID  desplazar e ir al estado 29
+
+
+Estado 19
+
+   56 asign: CHAR . ID
+
+    ID  desplazar e ir al estado 30
+
+
+Estado 20
+
+   57 asign: CAD . ID
+
+    ID  desplazar e ir al estado 31
+
+
+Estado 21
+
+   54 asign: REAL .
+
+    $default  reduce usando la regla 54 (asign)
+
+
+Estado 22
+
+   11 primera_linea_metodo: permiso INICIO_METODO asign . ABRE_PARENTESIS declaracion CIERRA_PARENTESIS contenido FIN_METODO
+   12                     | permiso INICIO_METODO asign . ABRE_PARENTESIS CIERRA_PARENTESIS contenido FIN_METODO
+   13                     | permiso INICIO_METODO asign . ABRE_PARENTESIS declaracion CIERRA_PARENTESIS contenido RETURN nivel1 PUNTOYCOMA FIN_METODO
+   14                     | permiso INICIO_METODO asign . ABRE_PARENTESIS CIERRA_PARENTESIS contenido RETURN nivel1 PUNTOYCOMA FIN_METODO
+   59 asign: asign . COMA asign
+
+    COMA             desplazar e ir al estado 32
+    ABRE_PARENTESIS  desplazar e ir al estado 33
+
+
+Estado 23
+
+    3 primera_linea_clase: permiso INICIO_CLASE ID EXTIENDE . ID resto_clase FIN_CLASE primera_linea_clase
+
+    ID  desplazar e ir al estado 34
+
+
+Estado 24
+
+    2 primera_linea_clase: permiso INICIO_CLASE ID resto_clase . FIN_CLASE primera_linea_clase
+
+    FIN_CLASE  desplazar e ir al estado 35
+
+
+Estado 25
+
+    5 resto_clase: atributo . resto_clase
+
+    PROTEGIDO  desplazar e ir al estado 3
+    PRIVADO    desplazar e ir al estado 4
+    PUBLICO    desplazar e ir al estado 5
+
+    $default  reduce usando la regla 7 (resto_clase)
+
+    resto_clase           ir al estado 36
+    atributo              ir al estado 25
+    primera_linea_metodo  ir al estado 26
+    permiso               ir al estado 27
+
+
+Estado 26
+
+    6 resto_clase: primera_linea_metodo . resto_clase
+
+    PROTEGIDO  desplazar e ir al estado 3
+    PRIVADO    desplazar e ir al estado 4
+    PUBLICO    desplazar e ir al estado 5
+
+    $default  reduce usando la regla 7 (resto_clase)
+
+    resto_clase           ir al estado 37
+    atributo              ir al estado 25
+    primera_linea_metodo  ir al estado 26
+    permiso               ir al estado 27
+
+
+Estado 27
+
+    8 atributo: permiso . ID IGUAL nivel1 PUNTOYCOMA
+    9         | permiso . ID PUNTOYCOMA
+   10         | permiso . asign PUNTOYCOMA
+   11 primera_linea_metodo: permiso . INICIO_METODO asign ABRE_PARENTESIS declaracion CIERRA_PARENTESIS contenido FIN_METODO
+   12                     | permiso . INICIO_METODO asign ABRE_PARENTESIS CIERRA_PARENTESIS contenido FIN_METODO
+   13                     | permiso . INICIO_METODO asign ABRE_PARENTESIS declaracion CIERRA_PARENTESIS contenido RETURN nivel1 PUNTOYCOMA FIN_METODO
+   14                     | permiso . INICIO_METODO asign ABRE_PARENTESIS CIERRA_PARENTESIS contenido RETURN nivel1 PUNTOYCOMA FIN_METODO
+
+    INICIO_METODO  desplazar e ir al estado 15
+    ID             desplazar e ir al estado 38
+    ENT            desplazar e ir al estado 18
+    CHAR           desplazar e ir al estado 19
+    CAD            desplazar e ir al estado 20
+    REAL           desplazar e ir al estado 21
+
+    asign  ir al estado 39
+
+
+Estado 28
+
+   58 asign: ID ID .
+
+    $default  reduce usando la regla 58 (asign)
+
+
+Estado 29
+
+   53 asign: ENT ID .
+
+    $default  reduce usando la regla 53 (asign)
+
+
+Estado 30
+
+   56 asign: CHAR ID .
+
+    $default  reduce usando la regla 56 (asign)
+
+
+Estado 31
+
+   57 asign: CAD ID .
+
+    $default  reduce usando la regla 57 (asign)
+
+
+Estado 32
+
+   59 asign: asign COMA . asign
+
+    ID    desplazar e ir al estado 17
+    ENT   desplazar e ir al estado 18
+    CHAR  desplazar e ir al estado 19
+    CAD   desplazar e ir al estado 20
+    REAL  desplazar e ir al estado 21
+
+    asign  ir al estado 40
+
+
+Estado 33
+
+   11 primera_linea_metodo: permiso INICIO_METODO asign ABRE_PARENTESIS . declaracion CIERRA_PARENTESIS contenido FIN_METODO
+   12                     | permiso INICIO_METODO asign ABRE_PARENTESIS . CIERRA_PARENTESIS contenido FIN_METODO
+   13                     | permiso INICIO_METODO asign ABRE_PARENTESIS . declaracion CIERRA_PARENTESIS contenido RETURN nivel1 PUNTOYCOMA FIN_METODO
+   14                     | permiso INICIO_METODO asign ABRE_PARENTESIS . CIERRA_PARENTESIS contenido RETURN nivel1 PUNTOYCOMA FIN_METODO
+
+    ID                 desplazar e ir al estado 41
+    CIERRA_PARENTESIS  desplazar e ir al estado 42
+    ENT                desplazar e ir al estado 18
+    CHAR               desplazar e ir al estado 19
+    CAD                desplazar e ir al estado 20
+    REAL               desplazar e ir al estado 21
+
+    declaracion  ir al estado 43
+    asign        ir al estado 44
+
+
+Estado 34
+
+    3 primera_linea_clase: permiso INICIO_CLASE ID EXTIENDE ID . resto_clase FIN_CLASE primera_linea_clase
+
+    PROTEGIDO  desplazar e ir al estado 3
+    PRIVADO    desplazar e ir al estado 4
+    PUBLICO    desplazar e ir al estado 5
+
+    $default  reduce usando la regla 7 (resto_clase)
+
+    resto_clase           ir al estado 45
+    atributo              ir al estado 25
+    primera_linea_metodo  ir al estado 26
+    permiso               ir al estado 27
+
+
+Estado 35
+
+    2 primera_linea_clase: permiso INICIO_CLASE ID resto_clase FIN_CLASE . primera_linea_clase
+
+    PROTEGIDO  desplazar e ir al estado 3
+    PRIVADO    desplazar e ir al estado 4
+    PUBLICO    desplazar e ir al estado 5
+
+    PROTEGIDO  [reduce usando la regla 4 (primera_linea_clase)]
+    PRIVADO    [reduce usando la regla 4 (primera_linea_clase)]
+    PUBLICO    [reduce usando la regla 4 (primera_linea_clase)]
+    $default   reduce usando la regla 4 (primera_linea_clase)
+
+    primera_linea_clase  ir al estado 46
+    permiso              ir al estado 7
+
+
+Estado 36
+
+    5 resto_clase: atributo resto_clase .
+
+    $default  reduce usando la regla 5 (resto_clase)
+
+
+Estado 37
+
+    6 resto_clase: primera_linea_metodo resto_clase .
+
+    $default  reduce usando la regla 6 (resto_clase)
+
+
+Estado 38
+
+    8 atributo: permiso ID . IGUAL nivel1 PUNTOYCOMA
+    9         | permiso ID . PUNTOYCOMA
+   55 asign: ID .
+   58      | ID . ID
+
+    ID          desplazar e ir al estado 28
+    PUNTOYCOMA  desplazar e ir al estado 47
+    IGUAL       desplazar e ir al estado 48
+
+    PUNTOYCOMA  [reduce usando la regla 55 (asign)]
+    $default    reduce usando la regla 55 (asign)
+
+
+Estado 39
+
+   10 atributo: permiso asign . PUNTOYCOMA
+   59 asign: asign . COMA asign
+
+    PUNTOYCOMA  desplazar e ir al estado 49
+    COMA        desplazar e ir al estado 32
+
+
+Estado 40
+
+   59 asign: asign . COMA asign
+   59      | asign COMA asign .
+
+    COMA  desplazar e ir al estado 32
+
+    COMA      [reduce usando la regla 59 (asign)]
+    $default  reduce usando la regla 59 (asign)
+
+
+Estado 41
+
+   17 declaracion: ID .
+   18            | ID . PUNTOYCOMA declaracion
+   55 asign: ID .
+   58      | ID . ID
+
+    ID          desplazar e ir al estado 28
+    PUNTOYCOMA  desplazar e ir al estado 50
+
+    COMA               reduce usando la regla 55 (asign)
+    CIERRA_PARENTESIS  reduce usando la regla 17 (declaracion)
+    CIERRA_PARENTESIS  [reduce usando la regla 55 (asign)]
+    $default           reduce usando la regla 17 (declaracion)
+
+
+Estado 42
+
+   12 primera_linea_metodo: permiso INICIO_METODO asign ABRE_PARENTESIS CIERRA_PARENTESIS . contenido FIN_METODO
+   14                     | permiso INICIO_METODO asign ABRE_PARENTESIS CIERRA_PARENTESIS . contenido RETURN nivel1 PUNTOYCOMA FIN_METODO
+
+    ID    desplazar e ir al estado 51
+    ENT   desplazar e ir al estado 18
+    CHAR  desplazar e ir al estado 19
+    CAD   desplazar e ir al estado 20
+    REAL  desplazar e ir al estado 21
+
+    $default  reduce usando la regla 25 (contenido)
+
+    contenido                ir al estado 52
+    contenido_objeto         ir al estado 53
+    contenido_metodo_objeto  ir al estado 54
+    contenido_metodo_main    ir al estado 55
+    var                      ir al estado 56
+    asign                    ir al estado 57
+
+
+Estado 43
+
+   11 primera_linea_metodo: permiso INICIO_METODO asign ABRE_PARENTESIS declaracion . CIERRA_PARENTESIS contenido FIN_METODO
+   13                     | permiso INICIO_METODO asign ABRE_PARENTESIS declaracion . CIERRA_PARENTESIS contenido RETURN nivel1 PUNTOYCOMA FIN_METODO
+
+    CIERRA_PARENTESIS  desplazar e ir al estado 58
+
+
+Estado 44
+
+   19 declaracion: asign .
+   20            | asign . COMA declaracion
+   59 asign: asign . COMA asign
+
+    COMA  desplazar e ir al estado 59
+
+    $default  reduce usando la regla 19 (declaracion)
+
+
+Estado 45
+
+    3 primera_linea_clase: permiso INICIO_CLASE ID EXTIENDE ID resto_clase . FIN_CLASE primera_linea_clase
+
+    FIN_CLASE  desplazar e ir al estado 60
+
+
+Estado 46
+
+    2 primera_linea_clase: permiso INICIO_CLASE ID resto_clase FIN_CLASE primera_linea_clase .
+
+    $default  reduce usando la regla 2 (primera_linea_clase)
+
+
+Estado 47
+
+    9 atributo: permiso ID PUNTOYCOMA .
+
+    $default  reduce usando la regla 9 (atributo)
+
+
+Estado 48
+
+    8 atributo: permiso ID IGUAL . nivel1 PUNTOYCOMA
+
+    SENO    desplazar e ir al estado 61
+    COSENO  desplazar e ir al estado 62
+
+    nivel1  ir al estado 63
+    nivel2  ir al estado 64
+    nivel3  ir al estado 65
+    nivel4  ir al estado 66
+
+
+Estado 49
+
+   10 atributo: permiso asign PUNTOYCOMA .
+
+    $default  reduce usando la regla 10 (atributo)
+
+
+Estado 50
+
+   18 declaracion: ID PUNTOYCOMA . declaracion
+
+    ID    desplazar e ir al estado 41
+    ENT   desplazar e ir al estado 18
+    CHAR  desplazar e ir al estado 19
+    CAD   desplazar e ir al estado 20
+    REAL  desplazar e ir al estado 21
+
+    declaracion  ir al estado 67
+    asign        ir al estado 44
+
+
+Estado 51
+
+   28 contenido_metodo_objeto: ID . PUNTO ID ABRE_PARENTESIS parametros_bloq CIERRA_PARENTESIS PUNTOYCOMA
+   29                        | ID . PUNTO ID ABRE_PARENTESIS CIERRA_PARENTESIS PUNTOYCOMA
+   30                        | ID . IGUAL ID PUNTO ID ABRE_PARENTESIS parametros_bloq CIERRA_PARENTESIS PUNTOYCOMA
+   31                        | ID . IGUAL ID PUNTO ID ABRE_PARENTESIS CIERRA_PARENTESIS PUNTOYCOMA
+   38 var: ID . IGUAL nivel1
+   39    | ID . PUNTO ID IGUAL nivel1
+   55 asign: ID .
+   58      | ID . ID
+
+    ID     desplazar e ir al estado 28
+    PUNTO  desplazar e ir al estado 68
+    IGUAL  desplazar e ir al estado 69
+
+    IGUAL     [reduce usando la regla 55 (asign)]
+    $default  reduce usando la regla 55 (asign)
+
+
+Estado 52
+
+   12 primera_linea_metodo: permiso INICIO_METODO asign ABRE_PARENTESIS CIERRA_PARENTESIS contenido . FIN_METODO
+   14                     | permiso INICIO_METODO asign ABRE_PARENTESIS CIERRA_PARENTESIS contenido . RETURN nivel1 PUNTOYCOMA FIN_METODO
+
+    FIN_METODO  desplazar e ir al estado 70
+    RETURN      desplazar e ir al estado 71
+
+
+Estado 53
+
+   23 contenido: contenido_objeto . contenido
+
+    ID    desplazar e ir al estado 51
+    ENT   desplazar e ir al estado 18
+    CHAR  desplazar e ir al estado 19
+    CAD   desplazar e ir al estado 20
+    REAL  desplazar e ir al estado 21
+
+    $default  reduce usando la regla 25 (contenido)
+
+    contenido                ir al estado 72
+    contenido_objeto         ir al estado 53
+    contenido_metodo_objeto  ir al estado 54
+    contenido_metodo_main    ir al estado 55
+    var                      ir al estado 56
+    asign                    ir al estado 57
+
+
+Estado 54
+
+   24 contenido: contenido_metodo_objeto . contenido
+
+    ID    desplazar e ir al estado 51
+    ENT   desplazar e ir al estado 18
+    CHAR  desplazar e ir al estado 19
+    CAD   desplazar e ir al estado 20
+    REAL  desplazar e ir al estado 21
+
+    $default  reduce usando la regla 25 (contenido)
+
+    contenido                ir al estado 73
+    contenido_objeto         ir al estado 53
+    contenido_metodo_objeto  ir al estado 54
+    contenido_metodo_main    ir al estado 55
+    var                      ir al estado 56
+    asign                    ir al estado 57
+
+
+Estado 55
+
+   22 contenido: contenido_metodo_main . contenido
+
+    ID    desplazar e ir al estado 51
+    ENT   desplazar e ir al estado 18
+    CHAR  desplazar e ir al estado 19
+    CAD   desplazar e ir al estado 20
+    REAL  desplazar e ir al estado 21
+
+    $default  reduce usando la regla 25 (contenido)
+
+    contenido                ir al estado 74
+    contenido_objeto         ir al estado 53
+    contenido_metodo_objeto  ir al estado 54
+    contenido_metodo_main    ir al estado 55
+    var                      ir al estado 56
+    asign                    ir al estado 57
+
+
+Estado 56
+
+   21 contenido: var . PUNTOYCOMA contenido
+
+    PUNTOYCOMA  desplazar e ir al estado 75
+
+
+Estado 57
+
+   26 contenido_objeto: asign . IGUAL NUEVO ID ABRE_PARENTESIS parametros_bloq CIERRA_PARENTESIS PUNTOYCOMA
+   27                 | asign . IGUAL NUEVO ID ABRE_PARENTESIS CIERRA_PARENTESIS PUNTOYCOMA
+   32 contenido_metodo_main: asign . ABRE_PARENTESIS parametros_bloq CIERRA_PARENTESIS PUNTOYCOMA
+   33                      | asign . ABRE_PARENTESIS CIERRA_PARENTESIS PUNTOYCOMA
+   34                      | asign . IGUAL ID ABRE_PARENTESIS parametros_bloq CIERRA_PARENTESIS PUNTOYCOMA
+   35                      | asign . IGUAL ID ABRE_PARENTESIS CIERRA_PARENTESIS PUNTOYCOMA
+   59 asign: asign . COMA asign
+
+    COMA             desplazar e ir al estado 32
+    IGUAL            desplazar e ir al estado 76
+    ABRE_PARENTESIS  desplazar e ir al estado 77
+
+
+Estado 58
+
+   11 primera_linea_metodo: permiso INICIO_METODO asign ABRE_PARENTESIS declaracion CIERRA_PARENTESIS . contenido FIN_METODO
+   13                     | permiso INICIO_METODO asign ABRE_PARENTESIS declaracion CIERRA_PARENTESIS . contenido RETURN nivel1 PUNTOYCOMA FIN_METODO
+
+    ID    desplazar e ir al estado 51
+    ENT   desplazar e ir al estado 18
+    CHAR  desplazar e ir al estado 19
+    CAD   desplazar e ir al estado 20
+    REAL  desplazar e ir al estado 21
+
+    $default  reduce usando la regla 25 (contenido)
+
+    contenido                ir al estado 78
+    contenido_objeto         ir al estado 53
+    contenido_metodo_objeto  ir al estado 54
+    contenido_metodo_main    ir al estado 55
+    var                      ir al estado 56
+    asign                    ir al estado 57
+
+
+Estado 59
+
+   20 declaracion: asign COMA . declaracion
+   59 asign: asign COMA . asign
+
+    ID    desplazar e ir al estado 41
+    ENT   desplazar e ir al estado 18
+    CHAR  desplazar e ir al estado 19
+    CAD   desplazar e ir al estado 20
+    REAL  desplazar e ir al estado 21
+
+    declaracion  ir al estado 79
+    asign        ir al estado 80
+
+
+Estado 60
+
+    3 primera_linea_clase: permiso INICIO_CLASE ID EXTIENDE ID resto_clase FIN_CLASE . primera_linea_clase
+
+    PROTEGIDO  desplazar e ir al estado 3
+    PRIVADO    desplazar e ir al estado 4
+    PUBLICO    desplazar e ir al estado 5
+
+    PROTEGIDO  [reduce usando la regla 4 (primera_linea_clase)]
+    PRIVADO    [reduce usando la regla 4 (primera_linea_clase)]
+    PUBLICO    [reduce usando la regla 4 (primera_linea_clase)]
+    $default   reduce usando la regla 4 (primera_linea_clase)
+
+    primera_linea_clase  ir al estado 81
+    permiso              ir al estado 7
+
+
+Estado 61
+
+   49 nivel4: SENO . ABRE_PARENTESIS nivel5 CIERRA_PARENTESIS
+
+    ABRE_PARENTESIS  desplazar e ir al estado 82
+
+
+Estado 62
+
+   50 nivel4: COSENO . ABRE_PARENTESIS nivel5 CIERRA_PARENTESIS
+
+    ABRE_PARENTESIS  desplazar e ir al estado 83
+
+
+Estado 63
+
+    8 atributo: permiso ID IGUAL nivel1 . PUNTOYCOMA
+
+    PUNTOYCOMA  desplazar e ir al estado 84
+
+
+Estado 64
+
+   40 nivel1: nivel2 . ABRE_PARENTESIS nivel1 CIERRA_PARENTESIS nivel2
+   41       | nivel2 .
+   42 nivel2: nivel2 . MAS nivel3
+   43       | nivel2 . MENOS nivel3
+
+    MAS              desplazar e ir al estado 85
+    MENOS            desplazar e ir al estado 86
+    ABRE_PARENTESIS  desplazar e ir al estado 87
+
+    $default  reduce usando la regla 41 (nivel1)
+
+
+Estado 65
+
+   44 nivel2: nivel3 .
+   45 nivel3: nivel3 . POR nivel4
+   46       | nivel3 . ENTRE nivel4
+
+    POR    desplazar e ir al estado 88
+    ENTRE  desplazar e ir al estado 89
+
+    $default  reduce usando la regla 44 (nivel2)
+
+
+Estado 66
+
+   47 nivel3: nivel4 .
+   48 nivel4: nivel4 . POW nivel5
+
+    POW  desplazar e ir al estado 90
+
+    $default  reduce usando la regla 47 (nivel3)
+
+
+Estado 67
+
+   18 declaracion: ID PUNTOYCOMA declaracion .
+
+    $default  reduce usando la regla 18 (declaracion)
+
+
+Estado 68
+
+   28 contenido_metodo_objeto: ID PUNTO . ID ABRE_PARENTESIS parametros_bloq CIERRA_PARENTESIS PUNTOYCOMA
+   29                        | ID PUNTO . ID ABRE_PARENTESIS CIERRA_PARENTESIS PUNTOYCOMA
+   39 var: ID PUNTO . ID IGUAL nivel1
+
+    ID  desplazar e ir al estado 91
+
+
+Estado 69
+
+   30 contenido_metodo_objeto: ID IGUAL . ID PUNTO ID ABRE_PARENTESIS parametros_bloq CIERRA_PARENTESIS PUNTOYCOMA
+   31                        | ID IGUAL . ID PUNTO ID ABRE_PARENTESIS CIERRA_PARENTESIS PUNTOYCOMA
+   38 var: ID IGUAL . nivel1
+
+    ID      desplazar e ir al estado 92
+    SENO    desplazar e ir al estado 61
+    COSENO  desplazar e ir al estado 62
+
+    nivel1  ir al estado 93
+    nivel2  ir al estado 64
+    nivel3  ir al estado 65
+    nivel4  ir al estado 66
+
+
+Estado 70
+
+   12 primera_linea_metodo: permiso INICIO_METODO asign ABRE_PARENTESIS CIERRA_PARENTESIS contenido FIN_METODO .
+
+    $default  reduce usando la regla 12 (primera_linea_metodo)
+
+
+Estado 71
+
+   14 primera_linea_metodo: permiso INICIO_METODO asign ABRE_PARENTESIS CIERRA_PARENTESIS contenido RETURN . nivel1 PUNTOYCOMA FIN_METODO
+
+    SENO    desplazar e ir al estado 61
+    COSENO  desplazar e ir al estado 62
+
+    nivel1  ir al estado 94
+    nivel2  ir al estado 64
+    nivel3  ir al estado 65
+    nivel4  ir al estado 66
+
+
+Estado 72
+
+   23 contenido: contenido_objeto contenido .
+
+    $default  reduce usando la regla 23 (contenido)
+
+
+Estado 73
+
+   24 contenido: contenido_metodo_objeto contenido .
+
+    $default  reduce usando la regla 24 (contenido)
+
+
+Estado 74
+
+   22 contenido: contenido_metodo_main contenido .
+
+    $default  reduce usando la regla 22 (contenido)
+
+
+Estado 75
+
+   21 contenido: var PUNTOYCOMA . contenido
+
+    ID    desplazar e ir al estado 51
+    ENT   desplazar e ir al estado 18
+    CHAR  desplazar e ir al estado 19
+    CAD   desplazar e ir al estado 20
+    REAL  desplazar e ir al estado 21
+
+    $default  reduce usando la regla 25 (contenido)
+
+    contenido                ir al estado 95
+    contenido_objeto         ir al estado 53
+    contenido_metodo_objeto  ir al estado 54
+    contenido_metodo_main    ir al estado 55
+    var                      ir al estado 56
+    asign                    ir al estado 57
+
+
+Estado 76
+
+   26 contenido_objeto: asign IGUAL . NUEVO ID ABRE_PARENTESIS parametros_bloq CIERRA_PARENTESIS PUNTOYCOMA
+   27                 | asign IGUAL . NUEVO ID ABRE_PARENTESIS CIERRA_PARENTESIS PUNTOYCOMA
+   34 contenido_metodo_main: asign IGUAL . ID ABRE_PARENTESIS parametros_bloq CIERRA_PARENTESIS PUNTOYCOMA
+   35                      | asign IGUAL . ID ABRE_PARENTESIS CIERRA_PARENTESIS PUNTOYCOMA
+
+    ID     desplazar e ir al estado 96
+    NUEVO  desplazar e ir al estado 97
+
+
+Estado 77
+
+   32 contenido_metodo_main: asign ABRE_PARENTESIS . parametros_bloq CIERRA_PARENTESIS PUNTOYCOMA
+   33                      | asign ABRE_PARENTESIS . CIERRA_PARENTESIS PUNTOYCOMA
+
+    ID                 desplazar e ir al estado 98
+    CIERRA_PARENTESIS  desplazar e ir al estado 99
+    DEC                desplazar e ir al estado 100
+    CHAR               desplazar e ir al estado 101
+    CAD                desplazar e ir al estado 102
+    NUM                desplazar e ir al estado 103
+
+    CIERRA_PARENTESIS  [reduce usando la regla 66 (term)]
+    $default           reduce usando la regla 66 (term)
+
+    parametros_bloq  ir al estado 104
+    term             ir al estado 105
+
+
+Estado 78
+
+   11 primera_linea_metodo: permiso INICIO_METODO asign ABRE_PARENTESIS declaracion CIERRA_PARENTESIS contenido . FIN_METODO
+   13                     | permiso INICIO_METODO asign ABRE_PARENTESIS declaracion CIERRA_PARENTESIS contenido . RETURN nivel1 PUNTOYCOMA FIN_METODO
+
+    FIN_METODO  desplazar e ir al estado 106
+    RETURN      desplazar e ir al estado 107
+
+
+Estado 79
+
+   20 declaracion: asign COMA declaracion .
+
+    $default  reduce usando la regla 20 (declaracion)
+
+
+Estado 80
+
+   19 declaracion: asign .
+   20            | asign . COMA declaracion
+   59 asign: asign . COMA asign
+   59      | asign COMA asign .
+
+    COMA  desplazar e ir al estado 59
+
+    COMA               [reduce usando la regla 59 (asign)]
+    CIERRA_PARENTESIS  reduce usando la regla 19 (declaracion)
+    CIERRA_PARENTESIS  [reduce usando la regla 59 (asign)]
+    $default           reduce usando la regla 19 (declaracion)
+
+
+Estado 81
+
+    3 primera_linea_clase: permiso INICIO_CLASE ID EXTIENDE ID resto_clase FIN_CLASE primera_linea_clase .
+
+    $default  reduce usando la regla 3 (primera_linea_clase)
+
+
+Estado 82
+
+   49 nivel4: SENO ABRE_PARENTESIS . nivel5 CIERRA_PARENTESIS
+
+    ID     desplazar e ir al estado 98
+    IGUAL  desplazar e ir al estado 108
+    DEC    desplazar e ir al estado 100
+    CHAR   desplazar e ir al estado 101
+    CAD    desplazar e ir al estado 102
+    NUM    desplazar e ir al estado 103
+
+    $default  reduce usando la regla 66 (term)
+
+    nivel5  ir al estado 109
+    term    ir al estado 110
+
+
+Estado 83
+
+   50 nivel4: COSENO ABRE_PARENTESIS . nivel5 CIERRA_PARENTESIS
+
+    ID     desplazar e ir al estado 98
+    IGUAL  desplazar e ir al estado 108
+    DEC    desplazar e ir al estado 100
+    CHAR   desplazar e ir al estado 101
+    CAD    desplazar e ir al estado 102
+    NUM    desplazar e ir al estado 103
+
+    $default  reduce usando la regla 66 (term)
+
+    nivel5  ir al estado 111
+    term    ir al estado 110
+
+
+Estado 84
+
+    8 atributo: permiso ID IGUAL nivel1 PUNTOYCOMA .
+
+    $default  reduce usando la regla 8 (atributo)
+
+
+Estado 85
+
+   42 nivel2: nivel2 MAS . nivel3
+
+    SENO    desplazar e ir al estado 61
+    COSENO  desplazar e ir al estado 62
+
+    nivel3  ir al estado 112
+    nivel4  ir al estado 66
+
+
+Estado 86
+
+   43 nivel2: nivel2 MENOS . nivel3
+
+    SENO    desplazar e ir al estado 61
+    COSENO  desplazar e ir al estado 62
+
+    nivel3  ir al estado 113
+    nivel4  ir al estado 66
+
+
+Estado 87
+
+   40 nivel1: nivel2 ABRE_PARENTESIS . nivel1 CIERRA_PARENTESIS nivel2
+
+    SENO    desplazar e ir al estado 61
+    COSENO  desplazar e ir al estado 62
+
+    nivel1  ir al estado 114
+    nivel2  ir al estado 64
+    nivel3  ir al estado 65
+    nivel4  ir al estado 66
+
+
+Estado 88
+
+   45 nivel3: nivel3 POR . nivel4
+
+    SENO    desplazar e ir al estado 61
+    COSENO  desplazar e ir al estado 62
+
+    nivel4  ir al estado 115
+
+
+Estado 89
+
+   46 nivel3: nivel3 ENTRE . nivel4
+
+    SENO    desplazar e ir al estado 61
+    COSENO  desplazar e ir al estado 62
+
+    nivel4  ir al estado 116
+
+
+Estado 90
+
+   48 nivel4: nivel4 POW . nivel5
+
+    ID     desplazar e ir al estado 98
+    IGUAL  desplazar e ir al estado 108
+    DEC    desplazar e ir al estado 100
+    CHAR   desplazar e ir al estado 101
+    CAD    desplazar e ir al estado 102
+    NUM    desplazar e ir al estado 103
+
+    $default  reduce usando la regla 66 (term)
+
+    nivel5  ir al estado 117
+    term    ir al estado 110
+
+
+Estado 91
+
+   28 contenido_metodo_objeto: ID PUNTO ID . ABRE_PARENTESIS parametros_bloq CIERRA_PARENTESIS PUNTOYCOMA
+   29                        | ID PUNTO ID . ABRE_PARENTESIS CIERRA_PARENTESIS PUNTOYCOMA
+   39 var: ID PUNTO ID . IGUAL nivel1
+
+    IGUAL            desplazar e ir al estado 118
+    ABRE_PARENTESIS  desplazar e ir al estado 119
+
+
+Estado 92
+
+   30 contenido_metodo_objeto: ID IGUAL ID . PUNTO ID ABRE_PARENTESIS parametros_bloq CIERRA_PARENTESIS PUNTOYCOMA
+   31                        | ID IGUAL ID . PUNTO ID ABRE_PARENTESIS CIERRA_PARENTESIS PUNTOYCOMA
+
+    PUNTO  desplazar e ir al estado 120
+
+
+Estado 93
+
+   38 var: ID IGUAL nivel1 .
+
+    $default  reduce usando la regla 38 (var)
+
+
+Estado 94
+
+   14 primera_linea_metodo: permiso INICIO_METODO asign ABRE_PARENTESIS CIERRA_PARENTESIS contenido RETURN nivel1 . PUNTOYCOMA FIN_METODO
+
+    PUNTOYCOMA  desplazar e ir al estado 121
+
+
+Estado 95
+
+   21 contenido: var PUNTOYCOMA contenido .
+
+    $default  reduce usando la regla 21 (contenido)
+
+
+Estado 96
+
+   34 contenido_metodo_main: asign IGUAL ID . ABRE_PARENTESIS parametros_bloq CIERRA_PARENTESIS PUNTOYCOMA
+   35                      | asign IGUAL ID . ABRE_PARENTESIS CIERRA_PARENTESIS PUNTOYCOMA
+
+    ABRE_PARENTESIS  desplazar e ir al estado 122
+
+
+Estado 97
+
+   26 contenido_objeto: asign IGUAL NUEVO . ID ABRE_PARENTESIS parametros_bloq CIERRA_PARENTESIS PUNTOYCOMA
+   27                 | asign IGUAL NUEVO . ID ABRE_PARENTESIS CIERRA_PARENTESIS PUNTOYCOMA
+
+    ID  desplazar e ir al estado 123
+
+
+Estado 98
+
+   64 term: ID .
+   65     | ID . PUNTO ID
+
+    PUNTO  desplazar e ir al estado 124
+
+    $default  reduce usando la regla 64 (term)
+
+
+Estado 99
+
+   33 contenido_metodo_main: asign ABRE_PARENTESIS CIERRA_PARENTESIS . PUNTOYCOMA
+
+    PUNTOYCOMA  desplazar e ir al estado 125
+
+
+Estado 100
+
+   61 term: DEC .
+
+    $default  reduce usando la regla 61 (term)
+
+
+Estado 101
+
+   62 term: CHAR .
+
+    $default  reduce usando la regla 62 (term)
+
+
+Estado 102
+
+   63 term: CAD .
+
+    $default  reduce usando la regla 63 (term)
+
+
+Estado 103
+
+   60 term: NUM .
+
+    $default  reduce usando la regla 60 (term)
+
+
+Estado 104
+
+   32 contenido_metodo_main: asign ABRE_PARENTESIS parametros_bloq . CIERRA_PARENTESIS PUNTOYCOMA
+
+    CIERRA_PARENTESIS  desplazar e ir al estado 126
+
+
+Estado 105
+
+   36 parametros_bloq: term .
+   37                | term . PUNTOYCOMA parametros_bloq
+
+    PUNTOYCOMA  desplazar e ir al estado 127
+
+    $default  reduce usando la regla 36 (parametros_bloq)
+
+
+Estado 106
+
+   11 primera_linea_metodo: permiso INICIO_METODO asign ABRE_PARENTESIS declaracion CIERRA_PARENTESIS contenido FIN_METODO .
+
+    $default  reduce usando la regla 11 (primera_linea_metodo)
+
+
+Estado 107
+
+   13 primera_linea_metodo: permiso INICIO_METODO asign ABRE_PARENTESIS declaracion CIERRA_PARENTESIS contenido RETURN . nivel1 PUNTOYCOMA FIN_METODO
+
+    SENO    desplazar e ir al estado 61
+    COSENO  desplazar e ir al estado 62
+
+    nivel1  ir al estado 128
+    nivel2  ir al estado 64
+    nivel3  ir al estado 65
+    nivel4  ir al estado 66
+
+
+Estado 108
+
+   51 nivel5: IGUAL . term
+
+    ID    desplazar e ir al estado 98
+    DEC   desplazar e ir al estado 100
+    CHAR  desplazar e ir al estado 101
+    CAD   desplazar e ir al estado 102
+    NUM   desplazar e ir al estado 103
+
+    $default  reduce usando la regla 66 (term)
+
+    term  ir al estado 129
+
+
+Estado 109
+
+   49 nivel4: SENO ABRE_PARENTESIS nivel5 . CIERRA_PARENTESIS
+
+    CIERRA_PARENTESIS  desplazar e ir al estado 130
+
+
+Estado 110
+
+   52 nivel5: term .
+
+    $default  reduce usando la regla 52 (nivel5)
+
+
+Estado 111
+
+   50 nivel4: COSENO ABRE_PARENTESIS nivel5 . CIERRA_PARENTESIS
+
+    CIERRA_PARENTESIS  desplazar e ir al estado 131
+
+
+Estado 112
+
+   42 nivel2: nivel2 MAS nivel3 .
+   45 nivel3: nivel3 . POR nivel4
+   46       | nivel3 . ENTRE nivel4
+
+    POR    desplazar e ir al estado 88
+    ENTRE  desplazar e ir al estado 89
+
+    $default  reduce usando la regla 42 (nivel2)
+
+
+Estado 113
+
+   43 nivel2: nivel2 MENOS nivel3 .
+   45 nivel3: nivel3 . POR nivel4
+   46       | nivel3 . ENTRE nivel4
+
+    POR    desplazar e ir al estado 88
+    ENTRE  desplazar e ir al estado 89
+
+    $default  reduce usando la regla 43 (nivel2)
+
+
+Estado 114
+
+   40 nivel1: nivel2 ABRE_PARENTESIS nivel1 . CIERRA_PARENTESIS nivel2
+
+    CIERRA_PARENTESIS  desplazar e ir al estado 132
+
+
+Estado 115
+
+   45 nivel3: nivel3 POR nivel4 .
+   48 nivel4: nivel4 . POW nivel5
+
+    POW  desplazar e ir al estado 90
+
+    $default  reduce usando la regla 45 (nivel3)
+
+
+Estado 116
+
+   46 nivel3: nivel3 ENTRE nivel4 .
+   48 nivel4: nivel4 . POW nivel5
+
+    POW  desplazar e ir al estado 90
+
+    $default  reduce usando la regla 46 (nivel3)
+
+
+Estado 117
+
+   48 nivel4: nivel4 POW nivel5 .
+
+    $default  reduce usando la regla 48 (nivel4)
+
+
+Estado 118
+
+   39 var: ID PUNTO ID IGUAL . nivel1
+
+    SENO    desplazar e ir al estado 61
+    COSENO  desplazar e ir al estado 62
+
+    nivel1  ir al estado 133
+    nivel2  ir al estado 64
+    nivel3  ir al estado 65
+    nivel4  ir al estado 66
+
+
+Estado 119
+
+   28 contenido_metodo_objeto: ID PUNTO ID ABRE_PARENTESIS . parametros_bloq CIERRA_PARENTESIS PUNTOYCOMA
+   29                        | ID PUNTO ID ABRE_PARENTESIS . CIERRA_PARENTESIS PUNTOYCOMA
+
+    ID                 desplazar e ir al estado 98
+    CIERRA_PARENTESIS  desplazar e ir al estado 134
+    DEC                desplazar e ir al estado 100
+    CHAR               desplazar e ir al estado 101
+    CAD                desplazar e ir al estado 102
+    NUM                desplazar e ir al estado 103
+
+    CIERRA_PARENTESIS  [reduce usando la regla 66 (term)]
+    $default           reduce usando la regla 66 (term)
+
+    parametros_bloq  ir al estado 135
+    term             ir al estado 105
+
+
+Estado 120
+
+   30 contenido_metodo_objeto: ID IGUAL ID PUNTO . ID ABRE_PARENTESIS parametros_bloq CIERRA_PARENTESIS PUNTOYCOMA
+   31                        | ID IGUAL ID PUNTO . ID ABRE_PARENTESIS CIERRA_PARENTESIS PUNTOYCOMA
+
+    ID  desplazar e ir al estado 136
+
+
+Estado 121
+
+   14 primera_linea_metodo: permiso INICIO_METODO asign ABRE_PARENTESIS CIERRA_PARENTESIS contenido RETURN nivel1 PUNTOYCOMA . FIN_METODO
+
+    FIN_METODO  desplazar e ir al estado 137
+
+
+Estado 122
+
+   34 contenido_metodo_main: asign IGUAL ID ABRE_PARENTESIS . parametros_bloq CIERRA_PARENTESIS PUNTOYCOMA
+   35                      | asign IGUAL ID ABRE_PARENTESIS . CIERRA_PARENTESIS PUNTOYCOMA
+
+    ID                 desplazar e ir al estado 98
+    CIERRA_PARENTESIS  desplazar e ir al estado 138
+    DEC                desplazar e ir al estado 100
+    CHAR               desplazar e ir al estado 101
+    CAD                desplazar e ir al estado 102
+    NUM                desplazar e ir al estado 103
+
+    CIERRA_PARENTESIS  [reduce usando la regla 66 (term)]
+    $default           reduce usando la regla 66 (term)
+
+    parametros_bloq  ir al estado 139
+    term             ir al estado 105
+
+
+Estado 123
+
+   26 contenido_objeto: asign IGUAL NUEVO ID . ABRE_PARENTESIS parametros_bloq CIERRA_PARENTESIS PUNTOYCOMA
+   27                 | asign IGUAL NUEVO ID . ABRE_PARENTESIS CIERRA_PARENTESIS PUNTOYCOMA
+
+    ABRE_PARENTESIS  desplazar e ir al estado 140
+
+
+Estado 124
+
+   65 term: ID PUNTO . ID
+
+    ID  desplazar e ir al estado 141
+
+
+Estado 125
+
+   33 contenido_metodo_main: asign ABRE_PARENTESIS CIERRA_PARENTESIS PUNTOYCOMA .
+
+    $default  reduce usando la regla 33 (contenido_metodo_main)
+
+
+Estado 126
+
+   32 contenido_metodo_main: asign ABRE_PARENTESIS parametros_bloq CIERRA_PARENTESIS . PUNTOYCOMA
+
+    PUNTOYCOMA  desplazar e ir al estado 142
+
+
+Estado 127
+
+   37 parametros_bloq: term PUNTOYCOMA . parametros_bloq
+
+    ID    desplazar e ir al estado 98
+    DEC   desplazar e ir al estado 100
+    CHAR  desplazar e ir al estado 101
+    CAD   desplazar e ir al estado 102
+    NUM   desplazar e ir al estado 103
+
+    $default  reduce usando la regla 66 (term)
+
+    parametros_bloq  ir al estado 143
+    term             ir al estado 105
+
+
+Estado 128
+
+   13 primera_linea_metodo: permiso INICIO_METODO asign ABRE_PARENTESIS declaracion CIERRA_PARENTESIS contenido RETURN nivel1 . PUNTOYCOMA FIN_METODO
+
+    PUNTOYCOMA  desplazar e ir al estado 144
+
+
+Estado 129
+
+   51 nivel5: IGUAL term .
+
+    $default  reduce usando la regla 51 (nivel5)
+
+
+Estado 130
+
+   49 nivel4: SENO ABRE_PARENTESIS nivel5 CIERRA_PARENTESIS .
+
+    $default  reduce usando la regla 49 (nivel4)
+
+
+Estado 131
+
+   50 nivel4: COSENO ABRE_PARENTESIS nivel5 CIERRA_PARENTESIS .
+
+    $default  reduce usando la regla 50 (nivel4)
+
+
+Estado 132
+
+   40 nivel1: nivel2 ABRE_PARENTESIS nivel1 CIERRA_PARENTESIS . nivel2
+
+    SENO    desplazar e ir al estado 61
+    COSENO  desplazar e ir al estado 62
+
+    nivel2  ir al estado 145
+    nivel3  ir al estado 65
+    nivel4  ir al estado 66
+
+
+Estado 133
+
+   39 var: ID PUNTO ID IGUAL nivel1 .
+
+    $default  reduce usando la regla 39 (var)
+
+
+Estado 134
+
+   29 contenido_metodo_objeto: ID PUNTO ID ABRE_PARENTESIS CIERRA_PARENTESIS . PUNTOYCOMA
+
+    PUNTOYCOMA  desplazar e ir al estado 146
+
+
+Estado 135
+
+   28 contenido_metodo_objeto: ID PUNTO ID ABRE_PARENTESIS parametros_bloq . CIERRA_PARENTESIS PUNTOYCOMA
+
+    CIERRA_PARENTESIS  desplazar e ir al estado 147
+
+
+Estado 136
+
+   30 contenido_metodo_objeto: ID IGUAL ID PUNTO ID . ABRE_PARENTESIS parametros_bloq CIERRA_PARENTESIS PUNTOYCOMA
+   31                        | ID IGUAL ID PUNTO ID . ABRE_PARENTESIS CIERRA_PARENTESIS PUNTOYCOMA
+
+    ABRE_PARENTESIS  desplazar e ir al estado 148
+
+
+Estado 137
+
+   14 primera_linea_metodo: permiso INICIO_METODO asign ABRE_PARENTESIS CIERRA_PARENTESIS contenido RETURN nivel1 PUNTOYCOMA FIN_METODO .
+
+    $default  reduce usando la regla 14 (primera_linea_metodo)
+
+
+Estado 138
+
+   35 contenido_metodo_main: asign IGUAL ID ABRE_PARENTESIS CIERRA_PARENTESIS . PUNTOYCOMA
+
+    PUNTOYCOMA  desplazar e ir al estado 149
+
+
+Estado 139
+
+   34 contenido_metodo_main: asign IGUAL ID ABRE_PARENTESIS parametros_bloq . CIERRA_PARENTESIS PUNTOYCOMA
+
+    CIERRA_PARENTESIS  desplazar e ir al estado 150
+
+
+Estado 140
+
+   26 contenido_objeto: asign IGUAL NUEVO ID ABRE_PARENTESIS . parametros_bloq CIERRA_PARENTESIS PUNTOYCOMA
+   27                 | asign IGUAL NUEVO ID ABRE_PARENTESIS . CIERRA_PARENTESIS PUNTOYCOMA
+
+    ID                 desplazar e ir al estado 98
+    CIERRA_PARENTESIS  desplazar e ir al estado 151
+    DEC                desplazar e ir al estado 100
+    CHAR               desplazar e ir al estado 101
+    CAD                desplazar e ir al estado 102
+    NUM                desplazar e ir al estado 103
+
+    CIERRA_PARENTESIS  [reduce usando la regla 66 (term)]
+    $default           reduce usando la regla 66 (term)
+
+    parametros_bloq  ir al estado 152
+    term             ir al estado 105
+
+
+Estado 141
+
+   65 term: ID PUNTO ID .
+
+    $default  reduce usando la regla 65 (term)
+
+
+Estado 142
+
+   32 contenido_metodo_main: asign ABRE_PARENTESIS parametros_bloq CIERRA_PARENTESIS PUNTOYCOMA .
+
+    $default  reduce usando la regla 32 (contenido_metodo_main)
+
+
+Estado 143
+
+   37 parametros_bloq: term PUNTOYCOMA parametros_bloq .
+
+    $default  reduce usando la regla 37 (parametros_bloq)
+
+
+Estado 144
+
+   13 primera_linea_metodo: permiso INICIO_METODO asign ABRE_PARENTESIS declaracion CIERRA_PARENTESIS contenido RETURN nivel1 PUNTOYCOMA . FIN_METODO
+
+    FIN_METODO  desplazar e ir al estado 153
+
+
+Estado 145
+
+   40 nivel1: nivel2 ABRE_PARENTESIS nivel1 CIERRA_PARENTESIS nivel2 .
+   42 nivel2: nivel2 . MAS nivel3
+   43       | nivel2 . MENOS nivel3
+
+    MAS    desplazar e ir al estado 85
+    MENOS  desplazar e ir al estado 86
+
+    $default  reduce usando la regla 40 (nivel1)
+
+
+Estado 146
+
+   29 contenido_metodo_objeto: ID PUNTO ID ABRE_PARENTESIS CIERRA_PARENTESIS PUNTOYCOMA .
+
+    $default  reduce usando la regla 29 (contenido_metodo_objeto)
+
+
+Estado 147
+
+   28 contenido_metodo_objeto: ID PUNTO ID ABRE_PARENTESIS parametros_bloq CIERRA_PARENTESIS . PUNTOYCOMA
+
+    PUNTOYCOMA  desplazar e ir al estado 154
+
+
+Estado 148
+
+   30 contenido_metodo_objeto: ID IGUAL ID PUNTO ID ABRE_PARENTESIS . parametros_bloq CIERRA_PARENTESIS PUNTOYCOMA
+   31                        | ID IGUAL ID PUNTO ID ABRE_PARENTESIS . CIERRA_PARENTESIS PUNTOYCOMA
+
+    ID                 desplazar e ir al estado 98
+    CIERRA_PARENTESIS  desplazar e ir al estado 155
+    DEC                desplazar e ir al estado 100
+    CHAR               desplazar e ir al estado 101
+    CAD                desplazar e ir al estado 102
+    NUM                desplazar e ir al estado 103
+
+    CIERRA_PARENTESIS  [reduce usando la regla 66 (term)]
+    $default           reduce usando la regla 66 (term)
+
+    parametros_bloq  ir al estado 156
+    term             ir al estado 105
+
+
+Estado 149
+
+   35 contenido_metodo_main: asign IGUAL ID ABRE_PARENTESIS CIERRA_PARENTESIS PUNTOYCOMA .
+
+    $default  reduce usando la regla 35 (contenido_metodo_main)
+
+
+Estado 150
+
+   34 contenido_metodo_main: asign IGUAL ID ABRE_PARENTESIS parametros_bloq CIERRA_PARENTESIS . PUNTOYCOMA
+
+    PUNTOYCOMA  desplazar e ir al estado 157
+
+
+Estado 151
+
+   27 contenido_objeto: asign IGUAL NUEVO ID ABRE_PARENTESIS CIERRA_PARENTESIS . PUNTOYCOMA
+
+    PUNTOYCOMA  desplazar e ir al estado 158
+
+
+Estado 152
+
+   26 contenido_objeto: asign IGUAL NUEVO ID ABRE_PARENTESIS parametros_bloq . CIERRA_PARENTESIS PUNTOYCOMA
+
+    CIERRA_PARENTESIS  desplazar e ir al estado 159
+
+
+Estado 153
+
+   13 primera_linea_metodo: permiso INICIO_METODO asign ABRE_PARENTESIS declaracion CIERRA_PARENTESIS contenido RETURN nivel1 PUNTOYCOMA FIN_METODO .
+
+    $default  reduce usando la regla 13 (primera_linea_metodo)
+
+
+Estado 154
+
+   28 contenido_metodo_objeto: ID PUNTO ID ABRE_PARENTESIS parametros_bloq CIERRA_PARENTESIS PUNTOYCOMA .
+
+    $default  reduce usando la regla 28 (contenido_metodo_objeto)
+
+
+Estado 155
+
+   31 contenido_metodo_objeto: ID IGUAL ID PUNTO ID ABRE_PARENTESIS CIERRA_PARENTESIS . PUNTOYCOMA
+
+    PUNTOYCOMA  desplazar e ir al estado 160
+
+
+Estado 156
+
+   30 contenido_metodo_objeto: ID IGUAL ID PUNTO ID ABRE_PARENTESIS parametros_bloq . CIERRA_PARENTESIS PUNTOYCOMA
+
+    CIERRA_PARENTESIS  desplazar e ir al estado 161
+
+
+Estado 157
+
+   34 contenido_metodo_main: asign IGUAL ID ABRE_PARENTESIS parametros_bloq CIERRA_PARENTESIS PUNTOYCOMA .
+
+    $default  reduce usando la regla 34 (contenido_metodo_main)
+
+
+Estado 158
+
+   27 contenido_objeto: asign IGUAL NUEVO ID ABRE_PARENTESIS CIERRA_PARENTESIS PUNTOYCOMA .
+
+    $default  reduce usando la regla 27 (contenido_objeto)
+
+
+Estado 159
+
+   26 contenido_objeto: asign IGUAL NUEVO ID ABRE_PARENTESIS parametros_bloq CIERRA_PARENTESIS . PUNTOYCOMA
+
+    PUNTOYCOMA  desplazar e ir al estado 162
+
+
+Estado 160
+
+   31 contenido_metodo_objeto: ID IGUAL ID PUNTO ID ABRE_PARENTESIS CIERRA_PARENTESIS PUNTOYCOMA .
+
+    $default  reduce usando la regla 31 (contenido_metodo_objeto)
+
+
+Estado 161
+
+   30 contenido_metodo_objeto: ID IGUAL ID PUNTO ID ABRE_PARENTESIS parametros_bloq CIERRA_PARENTESIS . PUNTOYCOMA
+
+    PUNTOYCOMA  desplazar e ir al estado 163
+
+
+Estado 162
+
+   26 contenido_objeto: asign IGUAL NUEVO ID ABRE_PARENTESIS parametros_bloq CIERRA_PARENTESIS PUNTOYCOMA .
+
+    $default  reduce usando la regla 26 (contenido_objeto)
+
+
+Estado 163
+
+   30 contenido_metodo_objeto: ID IGUAL ID PUNTO ID ABRE_PARENTESIS parametros_bloq CIERRA_PARENTESIS PUNTOYCOMA .
+
+    $default  reduce usando la regla 30 (contenido_metodo_objeto)

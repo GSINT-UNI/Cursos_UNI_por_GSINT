@@ -1,0 +1,539 @@
+Gramática
+
+    0 $accept: fuente $end
+
+    1 fuente: PROGRAM ID lista_var
+    2       | %empty
+
+    3 lista_var: VAL ID lista_ID cuerpo
+
+    4 lista_ID: %empty
+    5         | ID lista_ID
+
+    6 cuerpo: BEGIN lista_instr END
+
+    7 lista_instr: instr lista_instr
+    8            | %empty
+
+    9 instr: ID ':' IGUAL expr PUNTCOM
+
+   10 expr: expr MAS term
+   11     | term
+   12     | expr MENOS term
+
+   13 term: form
+   14     | term '*' form
+   15     | term '/' form
+
+   16 form: '(' expr ')'
+   17     | NUM
+   18     | ID
+   19     | MENOS form
+   20     | SENO '(' expr ')'
+   21     | RAIZ '(' expr ')'
+
+
+Terminales con las reglas donde aparecen
+
+$end (0) 0
+'(' (40) 16 20 21
+')' (41) 16 20 21
+'*' (42) 14
+'/' (47) 15
+':' (58) 9
+error (256)
+ID (258) 1 3 5 9 18
+IGUAL (259) 9
+NUM (260) 17
+PUNTCOM (261) 9
+MAS (262) 10
+MENOS (263) 12 19
+RAIZ (264) 21
+SENO (265) 20
+BEGIN (266) 6
+END (267) 6
+PROGRAM (268) 1
+VAL (269) 3
+
+
+No terminales con las reglas donde aparecen
+
+$accept (20)
+    en la izquierda: 0
+fuente (21)
+    en la izquierda: 1 2, en la derecha: 0
+lista_var (22)
+    en la izquierda: 3, en la derecha: 1
+lista_ID (23)
+    en la izquierda: 4 5, en la derecha: 3 5
+cuerpo (24)
+    en la izquierda: 6, en la derecha: 3
+lista_instr (25)
+    en la izquierda: 7 8, en la derecha: 6 7
+instr (26)
+    en la izquierda: 9, en la derecha: 7
+expr (27)
+    en la izquierda: 10 11 12, en la derecha: 9 10 12 16 20 21
+term (28)
+    en la izquierda: 13 14 15, en la derecha: 10 11 12 14 15
+form (29)
+    en la izquierda: 16 17 18 19 20 21, en la derecha: 13 14 15 19
+
+
+Estado 0
+
+    0 $accept: . fuente $end
+
+    PROGRAM  desplazar e ir al estado 1
+
+    $default  reduce usando la regla 2 (fuente)
+
+    fuente  ir al estado 2
+
+
+Estado 1
+
+    1 fuente: PROGRAM . ID lista_var
+
+    ID  desplazar e ir al estado 3
+
+
+Estado 2
+
+    0 $accept: fuente . $end
+
+    $end  desplazar e ir al estado 4
+
+
+Estado 3
+
+    1 fuente: PROGRAM ID . lista_var
+
+    VAL  desplazar e ir al estado 5
+
+    lista_var  ir al estado 6
+
+
+Estado 4
+
+    0 $accept: fuente $end .
+
+    $default  aceptar
+
+
+Estado 5
+
+    3 lista_var: VAL . ID lista_ID cuerpo
+
+    ID  desplazar e ir al estado 7
+
+
+Estado 6
+
+    1 fuente: PROGRAM ID lista_var .
+
+    $default  reduce usando la regla 1 (fuente)
+
+
+Estado 7
+
+    3 lista_var: VAL ID . lista_ID cuerpo
+
+    ID  desplazar e ir al estado 8
+
+    $default  reduce usando la regla 4 (lista_ID)
+
+    lista_ID  ir al estado 9
+
+
+Estado 8
+
+    5 lista_ID: ID . lista_ID
+
+    ID  desplazar e ir al estado 8
+
+    $default  reduce usando la regla 4 (lista_ID)
+
+    lista_ID  ir al estado 10
+
+
+Estado 9
+
+    3 lista_var: VAL ID lista_ID . cuerpo
+
+    BEGIN  desplazar e ir al estado 11
+
+    cuerpo  ir al estado 12
+
+
+Estado 10
+
+    5 lista_ID: ID lista_ID .
+
+    $default  reduce usando la regla 5 (lista_ID)
+
+
+Estado 11
+
+    6 cuerpo: BEGIN . lista_instr END
+
+    ID  desplazar e ir al estado 13
+
+    $default  reduce usando la regla 8 (lista_instr)
+
+    lista_instr  ir al estado 14
+    instr        ir al estado 15
+
+
+Estado 12
+
+    3 lista_var: VAL ID lista_ID cuerpo .
+
+    $default  reduce usando la regla 3 (lista_var)
+
+
+Estado 13
+
+    9 instr: ID . ':' IGUAL expr PUNTCOM
+
+    ':'  desplazar e ir al estado 16
+
+
+Estado 14
+
+    6 cuerpo: BEGIN lista_instr . END
+
+    END  desplazar e ir al estado 17
+
+
+Estado 15
+
+    7 lista_instr: instr . lista_instr
+
+    ID  desplazar e ir al estado 13
+
+    $default  reduce usando la regla 8 (lista_instr)
+
+    lista_instr  ir al estado 18
+    instr        ir al estado 15
+
+
+Estado 16
+
+    9 instr: ID ':' . IGUAL expr PUNTCOM
+
+    IGUAL  desplazar e ir al estado 19
+
+
+Estado 17
+
+    6 cuerpo: BEGIN lista_instr END .
+
+    $default  reduce usando la regla 6 (cuerpo)
+
+
+Estado 18
+
+    7 lista_instr: instr lista_instr .
+
+    $default  reduce usando la regla 7 (lista_instr)
+
+
+Estado 19
+
+    9 instr: ID ':' IGUAL . expr PUNTCOM
+
+    ID     desplazar e ir al estado 20
+    NUM    desplazar e ir al estado 21
+    MENOS  desplazar e ir al estado 22
+    RAIZ   desplazar e ir al estado 23
+    SENO   desplazar e ir al estado 24
+    '('    desplazar e ir al estado 25
+
+    expr  ir al estado 26
+    term  ir al estado 27
+    form  ir al estado 28
+
+
+Estado 20
+
+   18 form: ID .
+
+    $default  reduce usando la regla 18 (form)
+
+
+Estado 21
+
+   17 form: NUM .
+
+    $default  reduce usando la regla 17 (form)
+
+
+Estado 22
+
+   19 form: MENOS . form
+
+    ID     desplazar e ir al estado 20
+    NUM    desplazar e ir al estado 21
+    MENOS  desplazar e ir al estado 22
+    RAIZ   desplazar e ir al estado 23
+    SENO   desplazar e ir al estado 24
+    '('    desplazar e ir al estado 25
+
+    form  ir al estado 29
+
+
+Estado 23
+
+   21 form: RAIZ . '(' expr ')'
+
+    '('  desplazar e ir al estado 30
+
+
+Estado 24
+
+   20 form: SENO . '(' expr ')'
+
+    '('  desplazar e ir al estado 31
+
+
+Estado 25
+
+   16 form: '(' . expr ')'
+
+    ID     desplazar e ir al estado 20
+    NUM    desplazar e ir al estado 21
+    MENOS  desplazar e ir al estado 22
+    RAIZ   desplazar e ir al estado 23
+    SENO   desplazar e ir al estado 24
+    '('    desplazar e ir al estado 25
+
+    expr  ir al estado 32
+    term  ir al estado 27
+    form  ir al estado 28
+
+
+Estado 26
+
+    9 instr: ID ':' IGUAL expr . PUNTCOM
+   10 expr: expr . MAS term
+   12     | expr . MENOS term
+
+    PUNTCOM  desplazar e ir al estado 33
+    MAS      desplazar e ir al estado 34
+    MENOS    desplazar e ir al estado 35
+
+
+Estado 27
+
+   11 expr: term .
+   14 term: term . '*' form
+   15     | term . '/' form
+
+    '*'  desplazar e ir al estado 36
+    '/'  desplazar e ir al estado 37
+
+    $default  reduce usando la regla 11 (expr)
+
+
+Estado 28
+
+   13 term: form .
+
+    $default  reduce usando la regla 13 (term)
+
+
+Estado 29
+
+   19 form: MENOS form .
+
+    $default  reduce usando la regla 19 (form)
+
+
+Estado 30
+
+   21 form: RAIZ '(' . expr ')'
+
+    ID     desplazar e ir al estado 20
+    NUM    desplazar e ir al estado 21
+    MENOS  desplazar e ir al estado 22
+    RAIZ   desplazar e ir al estado 23
+    SENO   desplazar e ir al estado 24
+    '('    desplazar e ir al estado 25
+
+    expr  ir al estado 38
+    term  ir al estado 27
+    form  ir al estado 28
+
+
+Estado 31
+
+   20 form: SENO '(' . expr ')'
+
+    ID     desplazar e ir al estado 20
+    NUM    desplazar e ir al estado 21
+    MENOS  desplazar e ir al estado 22
+    RAIZ   desplazar e ir al estado 23
+    SENO   desplazar e ir al estado 24
+    '('    desplazar e ir al estado 25
+
+    expr  ir al estado 39
+    term  ir al estado 27
+    form  ir al estado 28
+
+
+Estado 32
+
+   10 expr: expr . MAS term
+   12     | expr . MENOS term
+   16 form: '(' expr . ')'
+
+    MAS    desplazar e ir al estado 34
+    MENOS  desplazar e ir al estado 35
+    ')'    desplazar e ir al estado 40
+
+
+Estado 33
+
+    9 instr: ID ':' IGUAL expr PUNTCOM .
+
+    $default  reduce usando la regla 9 (instr)
+
+
+Estado 34
+
+   10 expr: expr MAS . term
+
+    ID     desplazar e ir al estado 20
+    NUM    desplazar e ir al estado 21
+    MENOS  desplazar e ir al estado 22
+    RAIZ   desplazar e ir al estado 23
+    SENO   desplazar e ir al estado 24
+    '('    desplazar e ir al estado 25
+
+    term  ir al estado 41
+    form  ir al estado 28
+
+
+Estado 35
+
+   12 expr: expr MENOS . term
+
+    ID     desplazar e ir al estado 20
+    NUM    desplazar e ir al estado 21
+    MENOS  desplazar e ir al estado 22
+    RAIZ   desplazar e ir al estado 23
+    SENO   desplazar e ir al estado 24
+    '('    desplazar e ir al estado 25
+
+    term  ir al estado 42
+    form  ir al estado 28
+
+
+Estado 36
+
+   14 term: term '*' . form
+
+    ID     desplazar e ir al estado 20
+    NUM    desplazar e ir al estado 21
+    MENOS  desplazar e ir al estado 22
+    RAIZ   desplazar e ir al estado 23
+    SENO   desplazar e ir al estado 24
+    '('    desplazar e ir al estado 25
+
+    form  ir al estado 43
+
+
+Estado 37
+
+   15 term: term '/' . form
+
+    ID     desplazar e ir al estado 20
+    NUM    desplazar e ir al estado 21
+    MENOS  desplazar e ir al estado 22
+    RAIZ   desplazar e ir al estado 23
+    SENO   desplazar e ir al estado 24
+    '('    desplazar e ir al estado 25
+
+    form  ir al estado 44
+
+
+Estado 38
+
+   10 expr: expr . MAS term
+   12     | expr . MENOS term
+   21 form: RAIZ '(' expr . ')'
+
+    MAS    desplazar e ir al estado 34
+    MENOS  desplazar e ir al estado 35
+    ')'    desplazar e ir al estado 45
+
+
+Estado 39
+
+   10 expr: expr . MAS term
+   12     | expr . MENOS term
+   20 form: SENO '(' expr . ')'
+
+    MAS    desplazar e ir al estado 34
+    MENOS  desplazar e ir al estado 35
+    ')'    desplazar e ir al estado 46
+
+
+Estado 40
+
+   16 form: '(' expr ')' .
+
+    $default  reduce usando la regla 16 (form)
+
+
+Estado 41
+
+   10 expr: expr MAS term .
+   14 term: term . '*' form
+   15     | term . '/' form
+
+    '*'  desplazar e ir al estado 36
+    '/'  desplazar e ir al estado 37
+
+    $default  reduce usando la regla 10 (expr)
+
+
+Estado 42
+
+   12 expr: expr MENOS term .
+   14 term: term . '*' form
+   15     | term . '/' form
+
+    '*'  desplazar e ir al estado 36
+    '/'  desplazar e ir al estado 37
+
+    $default  reduce usando la regla 12 (expr)
+
+
+Estado 43
+
+   14 term: term '*' form .
+
+    $default  reduce usando la regla 14 (term)
+
+
+Estado 44
+
+   15 term: term '/' form .
+
+    $default  reduce usando la regla 15 (term)
+
+
+Estado 45
+
+   21 form: RAIZ '(' expr ')' .
+
+    $default  reduce usando la regla 21 (form)
+
+
+Estado 46
+
+   20 form: SENO '(' expr ')' .
+
+    $default  reduce usando la regla 20 (form)

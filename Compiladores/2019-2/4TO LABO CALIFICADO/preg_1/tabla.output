@@ -1,0 +1,1213 @@
+Terminales no usados en la gramática
+
+    VARIABLE
+    ASIGNAR
+    SUMAR
+    RESTAR
+    MULTIPLICAR
+    DIVIDIR
+    MAYOR
+    MENOR
+    IGUAL
+    MAYOR_IGUAL
+    MENOR_IGUAL
+    IF
+    SALTARF1
+    SALTARF2
+    PARENTESIS
+    BUCLE
+    BUCLE_1
+    BUCLE_2
+    SALTARF3
+    RAIZ
+
+
+Gramática
+
+    0 $accept: s $end
+
+    1 s: PROGRAMA ID INICIO listaInstr FIN '.'
+
+    2 listaInstr: asignacion listaInstr
+    3           | bloque_if listaInstr
+    4           | bucle_for listaInstr
+    5           | imprimir listaInstr
+    6           | %empty
+
+    7 @1: %empty
+
+    8 @2: %empty
+
+    9 $@3: %empty
+
+   10 bloque_if: SI '(' condicion ')' @1 ENTONCES '{' listaInstr '}' @2 $@3 otro
+
+   11 otro: SINO '{' listaInstr '}'
+   12     | %empty
+
+   13 condicion: expr '>' expr
+   14          | expr '<' expr
+   15          | expr '=' '=' expr
+   16          | expr '<' '>' expr
+   17          | expr '>' '=' expr
+   18          | expr '<' '=' expr
+
+   19 $@4: %empty
+
+   20 $@5: %empty
+
+   21 imprimir: IMPRIMIR expr $@4 $@5 ','
+
+   22 @6: %empty
+
+   23 $@7: %empty
+
+   24 asignacion: ID @6 '=' expr $@7 ','
+
+   25 expr: expr '+' term
+   26     | expr '-' term
+   27     | term
+
+   28 term: term '*' fact
+   29     | term '/' fact
+   30     | fact
+
+   31 fact: '(' expr ')'
+   32     | element
+
+   33 element: SQRT '(' number ')'
+   34        | number
+
+   35 number: NUM
+   36       | ID
+   37       | '-' NUM
+
+   38 $@8: %empty
+
+   39 @9: %empty
+
+   40 @10: %empty
+
+   41 $@11: %empty
+
+   42 bucle_for: DESDE number HASTA number HACER $@8 @9 '{' listaInstr '}' @10 $@11
+
+
+Terminales con las reglas donde aparecen
+
+    $end (0) 0
+    '(' (40) 10 31 33
+    ')' (41) 10 31 33
+    '*' (42) 28
+    '+' (43) 25
+    ',' (44) 21 24
+    '-' (45) 26 37
+    '.' (46) 1
+    '/' (47) 29
+    '<' (60) 14 16 18
+    '=' (61) 15 17 18 24
+    '>' (62) 13 16 17
+    '{' (123) 10 11 42
+    '}' (125) 10 11 42
+    error (256)
+    DESDE (258) 42
+    HASTA (259) 42
+    HACER (260) 42
+    PROGRAMA (261) 1
+    ID (262) 1 24 36
+    INICIO (263) 1
+    FIN (264) 1
+    NUM (265) 35 37
+    VARIABLE (266)
+    SI (267) 10
+    SINO (268) 11
+    ASIGNAR (269)
+    SUMAR (270)
+    RESTAR (271)
+    MULTIPLICAR (272)
+    DIVIDIR (273)
+    MAYOR (274)
+    MENOR (275)
+    IGUAL (276)
+    MAYOR_IGUAL (277)
+    MENOR_IGUAL (278)
+    IF (279)
+    ENTONCES (280) 10
+    SALTARF1 (281)
+    SALTARF2 (282)
+    IMPRIMIR (283) 21
+    PARENTESIS (284)
+    BUCLE (285)
+    BUCLE_1 (286)
+    BUCLE_2 (287)
+    SALTARF3 (288)
+    SQRT (289) 33
+    RAIZ (290)
+
+
+No terminales con las reglas donde aparecen
+
+    $accept (49)
+        on left: 0
+    s (50)
+        on left: 1
+        on right: 0
+    listaInstr (51)
+        on left: 2 3 4 5 6
+        on right: 1 2 3 4 5 10 11 42
+    bloque_if (52)
+        on left: 10
+        on right: 3
+    @1 (53)
+        on left: 7
+        on right: 10
+    @2 (54)
+        on left: 8
+        on right: 10
+    $@3 (55)
+        on left: 9
+        on right: 10
+    otro (56)
+        on left: 11 12
+        on right: 10
+    condicion (57)
+        on left: 13 14 15 16 17 18
+        on right: 10
+    imprimir (58)
+        on left: 21
+        on right: 5
+    $@4 (59)
+        on left: 19
+        on right: 21
+    $@5 (60)
+        on left: 20
+        on right: 21
+    asignacion (61)
+        on left: 24
+        on right: 2
+    @6 (62)
+        on left: 22
+        on right: 24
+    $@7 (63)
+        on left: 23
+        on right: 24
+    expr (64)
+        on left: 25 26 27
+        on right: 13 14 15 16 17 18 21 24 25 26 31
+    term (65)
+        on left: 28 29 30
+        on right: 25 26 27 28 29
+    fact (66)
+        on left: 31 32
+        on right: 28 29 30
+    element (67)
+        on left: 33 34
+        on right: 32
+    number (68)
+        on left: 35 36 37
+        on right: 33 34 42
+    bucle_for (69)
+        on left: 42
+        on right: 4
+    $@8 (70)
+        on left: 38
+        on right: 42
+    @9 (71)
+        on left: 39
+        on right: 42
+    @10 (72)
+        on left: 40
+        on right: 42
+    $@11 (73)
+        on left: 41
+        on right: 42
+
+
+Estado 0
+
+    0 $accept: . s $end
+
+    PROGRAMA  desplazar e ir al estado 1
+
+    s  ir al estado 2
+
+
+Estado 1
+
+    1 s: PROGRAMA . ID INICIO listaInstr FIN '.'
+
+    ID  desplazar e ir al estado 3
+
+
+Estado 2
+
+    0 $accept: s . $end
+
+    $end  desplazar e ir al estado 4
+
+
+Estado 3
+
+    1 s: PROGRAMA ID . INICIO listaInstr FIN '.'
+
+    INICIO  desplazar e ir al estado 5
+
+
+Estado 4
+
+    0 $accept: s $end .
+
+    $default  aceptar
+
+
+Estado 5
+
+    1 s: PROGRAMA ID INICIO . listaInstr FIN '.'
+
+    DESDE     desplazar e ir al estado 6
+    ID        desplazar e ir al estado 7
+    SI        desplazar e ir al estado 8
+    IMPRIMIR  desplazar e ir al estado 9
+
+    $default  reduce usando la regla 6 (listaInstr)
+
+    listaInstr  ir al estado 10
+    bloque_if   ir al estado 11
+    imprimir    ir al estado 12
+    asignacion  ir al estado 13
+    bucle_for   ir al estado 14
+
+
+Estado 6
+
+   42 bucle_for: DESDE . number HASTA number HACER $@8 @9 '{' listaInstr '}' @10 $@11
+
+    ID   desplazar e ir al estado 15
+    NUM  desplazar e ir al estado 16
+    '-'  desplazar e ir al estado 17
+
+    number  ir al estado 18
+
+
+Estado 7
+
+   24 asignacion: ID . @6 '=' expr $@7 ','
+
+    $default  reduce usando la regla 22 (@6)
+
+    @6  ir al estado 19
+
+
+Estado 8
+
+   10 bloque_if: SI . '(' condicion ')' @1 ENTONCES '{' listaInstr '}' @2 $@3 otro
+
+    '('  desplazar e ir al estado 20
+
+
+Estado 9
+
+   21 imprimir: IMPRIMIR . expr $@4 $@5 ','
+
+    ID    desplazar e ir al estado 15
+    NUM   desplazar e ir al estado 16
+    SQRT  desplazar e ir al estado 21
+    '('   desplazar e ir al estado 22
+    '-'   desplazar e ir al estado 17
+
+    expr     ir al estado 23
+    term     ir al estado 24
+    fact     ir al estado 25
+    element  ir al estado 26
+    number   ir al estado 27
+
+
+Estado 10
+
+    1 s: PROGRAMA ID INICIO listaInstr . FIN '.'
+
+    FIN  desplazar e ir al estado 28
+
+
+Estado 11
+
+    3 listaInstr: bloque_if . listaInstr
+
+    DESDE     desplazar e ir al estado 6
+    ID        desplazar e ir al estado 7
+    SI        desplazar e ir al estado 8
+    IMPRIMIR  desplazar e ir al estado 9
+
+    $default  reduce usando la regla 6 (listaInstr)
+
+    listaInstr  ir al estado 29
+    bloque_if   ir al estado 11
+    imprimir    ir al estado 12
+    asignacion  ir al estado 13
+    bucle_for   ir al estado 14
+
+
+Estado 12
+
+    5 listaInstr: imprimir . listaInstr
+
+    DESDE     desplazar e ir al estado 6
+    ID        desplazar e ir al estado 7
+    SI        desplazar e ir al estado 8
+    IMPRIMIR  desplazar e ir al estado 9
+
+    $default  reduce usando la regla 6 (listaInstr)
+
+    listaInstr  ir al estado 30
+    bloque_if   ir al estado 11
+    imprimir    ir al estado 12
+    asignacion  ir al estado 13
+    bucle_for   ir al estado 14
+
+
+Estado 13
+
+    2 listaInstr: asignacion . listaInstr
+
+    DESDE     desplazar e ir al estado 6
+    ID        desplazar e ir al estado 7
+    SI        desplazar e ir al estado 8
+    IMPRIMIR  desplazar e ir al estado 9
+
+    $default  reduce usando la regla 6 (listaInstr)
+
+    listaInstr  ir al estado 31
+    bloque_if   ir al estado 11
+    imprimir    ir al estado 12
+    asignacion  ir al estado 13
+    bucle_for   ir al estado 14
+
+
+Estado 14
+
+    4 listaInstr: bucle_for . listaInstr
+
+    DESDE     desplazar e ir al estado 6
+    ID        desplazar e ir al estado 7
+    SI        desplazar e ir al estado 8
+    IMPRIMIR  desplazar e ir al estado 9
+
+    $default  reduce usando la regla 6 (listaInstr)
+
+    listaInstr  ir al estado 32
+    bloque_if   ir al estado 11
+    imprimir    ir al estado 12
+    asignacion  ir al estado 13
+    bucle_for   ir al estado 14
+
+
+Estado 15
+
+   36 number: ID .
+
+    $default  reduce usando la regla 36 (number)
+
+
+Estado 16
+
+   35 number: NUM .
+
+    $default  reduce usando la regla 35 (number)
+
+
+Estado 17
+
+   37 number: '-' . NUM
+
+    NUM  desplazar e ir al estado 33
+
+
+Estado 18
+
+   42 bucle_for: DESDE number . HASTA number HACER $@8 @9 '{' listaInstr '}' @10 $@11
+
+    HASTA  desplazar e ir al estado 34
+
+
+Estado 19
+
+   24 asignacion: ID @6 . '=' expr $@7 ','
+
+    '='  desplazar e ir al estado 35
+
+
+Estado 20
+
+   10 bloque_if: SI '(' . condicion ')' @1 ENTONCES '{' listaInstr '}' @2 $@3 otro
+
+    ID    desplazar e ir al estado 15
+    NUM   desplazar e ir al estado 16
+    SQRT  desplazar e ir al estado 21
+    '('   desplazar e ir al estado 22
+    '-'   desplazar e ir al estado 17
+
+    condicion  ir al estado 36
+    expr       ir al estado 37
+    term       ir al estado 24
+    fact       ir al estado 25
+    element    ir al estado 26
+    number     ir al estado 27
+
+
+Estado 21
+
+   33 element: SQRT . '(' number ')'
+
+    '('  desplazar e ir al estado 38
+
+
+Estado 22
+
+   31 fact: '(' . expr ')'
+
+    ID    desplazar e ir al estado 15
+    NUM   desplazar e ir al estado 16
+    SQRT  desplazar e ir al estado 21
+    '('   desplazar e ir al estado 22
+    '-'   desplazar e ir al estado 17
+
+    expr     ir al estado 39
+    term     ir al estado 24
+    fact     ir al estado 25
+    element  ir al estado 26
+    number   ir al estado 27
+
+
+Estado 23
+
+   21 imprimir: IMPRIMIR expr . $@4 $@5 ','
+   25 expr: expr . '+' term
+   26     | expr . '-' term
+
+    '+'  desplazar e ir al estado 40
+    '-'  desplazar e ir al estado 41
+
+    $default  reduce usando la regla 19 ($@4)
+
+    $@4  ir al estado 42
+
+
+Estado 24
+
+   27 expr: term .
+   28 term: term . '*' fact
+   29     | term . '/' fact
+
+    '*'  desplazar e ir al estado 43
+    '/'  desplazar e ir al estado 44
+
+    $default  reduce usando la regla 27 (expr)
+
+
+Estado 25
+
+   30 term: fact .
+
+    $default  reduce usando la regla 30 (term)
+
+
+Estado 26
+
+   32 fact: element .
+
+    $default  reduce usando la regla 32 (fact)
+
+
+Estado 27
+
+   34 element: number .
+
+    $default  reduce usando la regla 34 (element)
+
+
+Estado 28
+
+    1 s: PROGRAMA ID INICIO listaInstr FIN . '.'
+
+    '.'  desplazar e ir al estado 45
+
+
+Estado 29
+
+    3 listaInstr: bloque_if listaInstr .
+
+    $default  reduce usando la regla 3 (listaInstr)
+
+
+Estado 30
+
+    5 listaInstr: imprimir listaInstr .
+
+    $default  reduce usando la regla 5 (listaInstr)
+
+
+Estado 31
+
+    2 listaInstr: asignacion listaInstr .
+
+    $default  reduce usando la regla 2 (listaInstr)
+
+
+Estado 32
+
+    4 listaInstr: bucle_for listaInstr .
+
+    $default  reduce usando la regla 4 (listaInstr)
+
+
+Estado 33
+
+   37 number: '-' NUM .
+
+    $default  reduce usando la regla 37 (number)
+
+
+Estado 34
+
+   42 bucle_for: DESDE number HASTA . number HACER $@8 @9 '{' listaInstr '}' @10 $@11
+
+    ID   desplazar e ir al estado 15
+    NUM  desplazar e ir al estado 16
+    '-'  desplazar e ir al estado 17
+
+    number  ir al estado 46
+
+
+Estado 35
+
+   24 asignacion: ID @6 '=' . expr $@7 ','
+
+    ID    desplazar e ir al estado 15
+    NUM   desplazar e ir al estado 16
+    SQRT  desplazar e ir al estado 21
+    '('   desplazar e ir al estado 22
+    '-'   desplazar e ir al estado 17
+
+    expr     ir al estado 47
+    term     ir al estado 24
+    fact     ir al estado 25
+    element  ir al estado 26
+    number   ir al estado 27
+
+
+Estado 36
+
+   10 bloque_if: SI '(' condicion . ')' @1 ENTONCES '{' listaInstr '}' @2 $@3 otro
+
+    ')'  desplazar e ir al estado 48
+
+
+Estado 37
+
+   13 condicion: expr . '>' expr
+   14          | expr . '<' expr
+   15          | expr . '=' '=' expr
+   16          | expr . '<' '>' expr
+   17          | expr . '>' '=' expr
+   18          | expr . '<' '=' expr
+   25 expr: expr . '+' term
+   26     | expr . '-' term
+
+    '>'  desplazar e ir al estado 49
+    '<'  desplazar e ir al estado 50
+    '='  desplazar e ir al estado 51
+    '+'  desplazar e ir al estado 40
+    '-'  desplazar e ir al estado 41
+
+
+Estado 38
+
+   33 element: SQRT '(' . number ')'
+
+    ID   desplazar e ir al estado 15
+    NUM  desplazar e ir al estado 16
+    '-'  desplazar e ir al estado 17
+
+    number  ir al estado 52
+
+
+Estado 39
+
+   25 expr: expr . '+' term
+   26     | expr . '-' term
+   31 fact: '(' expr . ')'
+
+    ')'  desplazar e ir al estado 53
+    '+'  desplazar e ir al estado 40
+    '-'  desplazar e ir al estado 41
+
+
+Estado 40
+
+   25 expr: expr '+' . term
+
+    ID    desplazar e ir al estado 15
+    NUM   desplazar e ir al estado 16
+    SQRT  desplazar e ir al estado 21
+    '('   desplazar e ir al estado 22
+    '-'   desplazar e ir al estado 17
+
+    term     ir al estado 54
+    fact     ir al estado 25
+    element  ir al estado 26
+    number   ir al estado 27
+
+
+Estado 41
+
+   26 expr: expr '-' . term
+
+    ID    desplazar e ir al estado 15
+    NUM   desplazar e ir al estado 16
+    SQRT  desplazar e ir al estado 21
+    '('   desplazar e ir al estado 22
+    '-'   desplazar e ir al estado 17
+
+    term     ir al estado 55
+    fact     ir al estado 25
+    element  ir al estado 26
+    number   ir al estado 27
+
+
+Estado 42
+
+   21 imprimir: IMPRIMIR expr $@4 . $@5 ','
+
+    $default  reduce usando la regla 20 ($@5)
+
+    $@5  ir al estado 56
+
+
+Estado 43
+
+   28 term: term '*' . fact
+
+    ID    desplazar e ir al estado 15
+    NUM   desplazar e ir al estado 16
+    SQRT  desplazar e ir al estado 21
+    '('   desplazar e ir al estado 22
+    '-'   desplazar e ir al estado 17
+
+    fact     ir al estado 57
+    element  ir al estado 26
+    number   ir al estado 27
+
+
+Estado 44
+
+   29 term: term '/' . fact
+
+    ID    desplazar e ir al estado 15
+    NUM   desplazar e ir al estado 16
+    SQRT  desplazar e ir al estado 21
+    '('   desplazar e ir al estado 22
+    '-'   desplazar e ir al estado 17
+
+    fact     ir al estado 58
+    element  ir al estado 26
+    number   ir al estado 27
+
+
+Estado 45
+
+    1 s: PROGRAMA ID INICIO listaInstr FIN '.' .
+
+    $default  reduce usando la regla 1 (s)
+
+
+Estado 46
+
+   42 bucle_for: DESDE number HASTA number . HACER $@8 @9 '{' listaInstr '}' @10 $@11
+
+    HACER  desplazar e ir al estado 59
+
+
+Estado 47
+
+   24 asignacion: ID @6 '=' expr . $@7 ','
+   25 expr: expr . '+' term
+   26     | expr . '-' term
+
+    '+'  desplazar e ir al estado 40
+    '-'  desplazar e ir al estado 41
+
+    $default  reduce usando la regla 23 ($@7)
+
+    $@7  ir al estado 60
+
+
+Estado 48
+
+   10 bloque_if: SI '(' condicion ')' . @1 ENTONCES '{' listaInstr '}' @2 $@3 otro
+
+    $default  reduce usando la regla 7 (@1)
+
+    @1  ir al estado 61
+
+
+Estado 49
+
+   13 condicion: expr '>' . expr
+   17          | expr '>' . '=' expr
+
+    ID    desplazar e ir al estado 15
+    NUM   desplazar e ir al estado 16
+    SQRT  desplazar e ir al estado 21
+    '('   desplazar e ir al estado 22
+    '='   desplazar e ir al estado 62
+    '-'   desplazar e ir al estado 17
+
+    expr     ir al estado 63
+    term     ir al estado 24
+    fact     ir al estado 25
+    element  ir al estado 26
+    number   ir al estado 27
+
+
+Estado 50
+
+   14 condicion: expr '<' . expr
+   16          | expr '<' . '>' expr
+   18          | expr '<' . '=' expr
+
+    ID    desplazar e ir al estado 15
+    NUM   desplazar e ir al estado 16
+    SQRT  desplazar e ir al estado 21
+    '('   desplazar e ir al estado 22
+    '>'   desplazar e ir al estado 64
+    '='   desplazar e ir al estado 65
+    '-'   desplazar e ir al estado 17
+
+    expr     ir al estado 66
+    term     ir al estado 24
+    fact     ir al estado 25
+    element  ir al estado 26
+    number   ir al estado 27
+
+
+Estado 51
+
+   15 condicion: expr '=' . '=' expr
+
+    '='  desplazar e ir al estado 67
+
+
+Estado 52
+
+   33 element: SQRT '(' number . ')'
+
+    ')'  desplazar e ir al estado 68
+
+
+Estado 53
+
+   31 fact: '(' expr ')' .
+
+    $default  reduce usando la regla 31 (fact)
+
+
+Estado 54
+
+   25 expr: expr '+' term .
+   28 term: term . '*' fact
+   29     | term . '/' fact
+
+    '*'  desplazar e ir al estado 43
+    '/'  desplazar e ir al estado 44
+
+    $default  reduce usando la regla 25 (expr)
+
+
+Estado 55
+
+   26 expr: expr '-' term .
+   28 term: term . '*' fact
+   29     | term . '/' fact
+
+    '*'  desplazar e ir al estado 43
+    '/'  desplazar e ir al estado 44
+
+    $default  reduce usando la regla 26 (expr)
+
+
+Estado 56
+
+   21 imprimir: IMPRIMIR expr $@4 $@5 . ','
+
+    ','  desplazar e ir al estado 69
+
+
+Estado 57
+
+   28 term: term '*' fact .
+
+    $default  reduce usando la regla 28 (term)
+
+
+Estado 58
+
+   29 term: term '/' fact .
+
+    $default  reduce usando la regla 29 (term)
+
+
+Estado 59
+
+   42 bucle_for: DESDE number HASTA number HACER . $@8 @9 '{' listaInstr '}' @10 $@11
+
+    $default  reduce usando la regla 38 ($@8)
+
+    $@8  ir al estado 70
+
+
+Estado 60
+
+   24 asignacion: ID @6 '=' expr $@7 . ','
+
+    ','  desplazar e ir al estado 71
+
+
+Estado 61
+
+   10 bloque_if: SI '(' condicion ')' @1 . ENTONCES '{' listaInstr '}' @2 $@3 otro
+
+    ENTONCES  desplazar e ir al estado 72
+
+
+Estado 62
+
+   17 condicion: expr '>' '=' . expr
+
+    ID    desplazar e ir al estado 15
+    NUM   desplazar e ir al estado 16
+    SQRT  desplazar e ir al estado 21
+    '('   desplazar e ir al estado 22
+    '-'   desplazar e ir al estado 17
+
+    expr     ir al estado 73
+    term     ir al estado 24
+    fact     ir al estado 25
+    element  ir al estado 26
+    number   ir al estado 27
+
+
+Estado 63
+
+   13 condicion: expr '>' expr .
+   25 expr: expr . '+' term
+   26     | expr . '-' term
+
+    '+'  desplazar e ir al estado 40
+    '-'  desplazar e ir al estado 41
+
+    $default  reduce usando la regla 13 (condicion)
+
+
+Estado 64
+
+   16 condicion: expr '<' '>' . expr
+
+    ID    desplazar e ir al estado 15
+    NUM   desplazar e ir al estado 16
+    SQRT  desplazar e ir al estado 21
+    '('   desplazar e ir al estado 22
+    '-'   desplazar e ir al estado 17
+
+    expr     ir al estado 74
+    term     ir al estado 24
+    fact     ir al estado 25
+    element  ir al estado 26
+    number   ir al estado 27
+
+
+Estado 65
+
+   18 condicion: expr '<' '=' . expr
+
+    ID    desplazar e ir al estado 15
+    NUM   desplazar e ir al estado 16
+    SQRT  desplazar e ir al estado 21
+    '('   desplazar e ir al estado 22
+    '-'   desplazar e ir al estado 17
+
+    expr     ir al estado 75
+    term     ir al estado 24
+    fact     ir al estado 25
+    element  ir al estado 26
+    number   ir al estado 27
+
+
+Estado 66
+
+   14 condicion: expr '<' expr .
+   25 expr: expr . '+' term
+   26     | expr . '-' term
+
+    '+'  desplazar e ir al estado 40
+    '-'  desplazar e ir al estado 41
+
+    $default  reduce usando la regla 14 (condicion)
+
+
+Estado 67
+
+   15 condicion: expr '=' '=' . expr
+
+    ID    desplazar e ir al estado 15
+    NUM   desplazar e ir al estado 16
+    SQRT  desplazar e ir al estado 21
+    '('   desplazar e ir al estado 22
+    '-'   desplazar e ir al estado 17
+
+    expr     ir al estado 76
+    term     ir al estado 24
+    fact     ir al estado 25
+    element  ir al estado 26
+    number   ir al estado 27
+
+
+Estado 68
+
+   33 element: SQRT '(' number ')' .
+
+    $default  reduce usando la regla 33 (element)
+
+
+Estado 69
+
+   21 imprimir: IMPRIMIR expr $@4 $@5 ',' .
+
+    $default  reduce usando la regla 21 (imprimir)
+
+
+Estado 70
+
+   42 bucle_for: DESDE number HASTA number HACER $@8 . @9 '{' listaInstr '}' @10 $@11
+
+    $default  reduce usando la regla 39 (@9)
+
+    @9  ir al estado 77
+
+
+Estado 71
+
+   24 asignacion: ID @6 '=' expr $@7 ',' .
+
+    $default  reduce usando la regla 24 (asignacion)
+
+
+Estado 72
+
+   10 bloque_if: SI '(' condicion ')' @1 ENTONCES . '{' listaInstr '}' @2 $@3 otro
+
+    '{'  desplazar e ir al estado 78
+
+
+Estado 73
+
+   17 condicion: expr '>' '=' expr .
+   25 expr: expr . '+' term
+   26     | expr . '-' term
+
+    '+'  desplazar e ir al estado 40
+    '-'  desplazar e ir al estado 41
+
+    $default  reduce usando la regla 17 (condicion)
+
+
+Estado 74
+
+   16 condicion: expr '<' '>' expr .
+   25 expr: expr . '+' term
+   26     | expr . '-' term
+
+    '+'  desplazar e ir al estado 40
+    '-'  desplazar e ir al estado 41
+
+    $default  reduce usando la regla 16 (condicion)
+
+
+Estado 75
+
+   18 condicion: expr '<' '=' expr .
+   25 expr: expr . '+' term
+   26     | expr . '-' term
+
+    '+'  desplazar e ir al estado 40
+    '-'  desplazar e ir al estado 41
+
+    $default  reduce usando la regla 18 (condicion)
+
+
+Estado 76
+
+   15 condicion: expr '=' '=' expr .
+   25 expr: expr . '+' term
+   26     | expr . '-' term
+
+    '+'  desplazar e ir al estado 40
+    '-'  desplazar e ir al estado 41
+
+    $default  reduce usando la regla 15 (condicion)
+
+
+Estado 77
+
+   42 bucle_for: DESDE number HASTA number HACER $@8 @9 . '{' listaInstr '}' @10 $@11
+
+    '{'  desplazar e ir al estado 79
+
+
+Estado 78
+
+   10 bloque_if: SI '(' condicion ')' @1 ENTONCES '{' . listaInstr '}' @2 $@3 otro
+
+    DESDE     desplazar e ir al estado 6
+    ID        desplazar e ir al estado 7
+    SI        desplazar e ir al estado 8
+    IMPRIMIR  desplazar e ir al estado 9
+
+    $default  reduce usando la regla 6 (listaInstr)
+
+    listaInstr  ir al estado 80
+    bloque_if   ir al estado 11
+    imprimir    ir al estado 12
+    asignacion  ir al estado 13
+    bucle_for   ir al estado 14
+
+
+Estado 79
+
+   42 bucle_for: DESDE number HASTA number HACER $@8 @9 '{' . listaInstr '}' @10 $@11
+
+    DESDE     desplazar e ir al estado 6
+    ID        desplazar e ir al estado 7
+    SI        desplazar e ir al estado 8
+    IMPRIMIR  desplazar e ir al estado 9
+
+    $default  reduce usando la regla 6 (listaInstr)
+
+    listaInstr  ir al estado 81
+    bloque_if   ir al estado 11
+    imprimir    ir al estado 12
+    asignacion  ir al estado 13
+    bucle_for   ir al estado 14
+
+
+Estado 80
+
+   10 bloque_if: SI '(' condicion ')' @1 ENTONCES '{' listaInstr . '}' @2 $@3 otro
+
+    '}'  desplazar e ir al estado 82
+
+
+Estado 81
+
+   42 bucle_for: DESDE number HASTA number HACER $@8 @9 '{' listaInstr . '}' @10 $@11
+
+    '}'  desplazar e ir al estado 83
+
+
+Estado 82
+
+   10 bloque_if: SI '(' condicion ')' @1 ENTONCES '{' listaInstr '}' . @2 $@3 otro
+
+    $default  reduce usando la regla 8 (@2)
+
+    @2  ir al estado 84
+
+
+Estado 83
+
+   42 bucle_for: DESDE number HASTA number HACER $@8 @9 '{' listaInstr '}' . @10 $@11
+
+    $default  reduce usando la regla 40 (@10)
+
+    @10  ir al estado 85
+
+
+Estado 84
+
+   10 bloque_if: SI '(' condicion ')' @1 ENTONCES '{' listaInstr '}' @2 . $@3 otro
+
+    $default  reduce usando la regla 9 ($@3)
+
+    $@3  ir al estado 86
+
+
+Estado 85
+
+   42 bucle_for: DESDE number HASTA number HACER $@8 @9 '{' listaInstr '}' @10 . $@11
+
+    $default  reduce usando la regla 41 ($@11)
+
+    $@11  ir al estado 87
+
+
+Estado 86
+
+   10 bloque_if: SI '(' condicion ')' @1 ENTONCES '{' listaInstr '}' @2 $@3 . otro
+
+    SINO  desplazar e ir al estado 88
+
+    $default  reduce usando la regla 12 (otro)
+
+    otro  ir al estado 89
+
+
+Estado 87
+
+   42 bucle_for: DESDE number HASTA number HACER $@8 @9 '{' listaInstr '}' @10 $@11 .
+
+    $default  reduce usando la regla 42 (bucle_for)
+
+
+Estado 88
+
+   11 otro: SINO . '{' listaInstr '}'
+
+    '{'  desplazar e ir al estado 90
+
+
+Estado 89
+
+   10 bloque_if: SI '(' condicion ')' @1 ENTONCES '{' listaInstr '}' @2 $@3 otro .
+
+    $default  reduce usando la regla 10 (bloque_if)
+
+
+Estado 90
+
+   11 otro: SINO '{' . listaInstr '}'
+
+    DESDE     desplazar e ir al estado 6
+    ID        desplazar e ir al estado 7
+    SI        desplazar e ir al estado 8
+    IMPRIMIR  desplazar e ir al estado 9
+
+    $default  reduce usando la regla 6 (listaInstr)
+
+    listaInstr  ir al estado 91
+    bloque_if   ir al estado 11
+    imprimir    ir al estado 12
+    asignacion  ir al estado 13
+    bucle_for   ir al estado 14
+
+
+Estado 91
+
+   11 otro: SINO '{' listaInstr . '}'
+
+    '}'  desplazar e ir al estado 92
+
+
+Estado 92
+
+   11 otro: SINO '{' listaInstr '}' .
+
+    $default  reduce usando la regla 11 (otro)

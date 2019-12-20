@@ -1,0 +1,17 @@
+
+
+si (< x 3 ) entonces { = y +w *4 raiz(9) ; }
+
+para (=i 0;< i n;= i + i 3) { = total pot( 5, 4) ; }
+
+mientras (< 0 3) hacer { = y + + *3 4 /2 w uy; }
+
+= x 5; =y 2; =i 0; =w + 2 3; 
+
+si (< n 5) entonces { = x TRUE; } sino { = x FALSE ; }
+
+#escribir comentarios$
+
+
+
+

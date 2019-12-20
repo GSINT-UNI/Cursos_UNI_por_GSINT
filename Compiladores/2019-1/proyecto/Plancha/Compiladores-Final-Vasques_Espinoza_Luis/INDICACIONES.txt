@@ -1,0 +1,58 @@
+Curso: Compiladores
+Examen Final
+
+Alumno: Vasquez Espinoza, Luis
+Codigo: 20152231J
+
+== Instrucciones:
+
+Para ejecutar el producto final deberá tener python3 y PyQt instalado:
+- sudo apt install python3-pyqt4
+
+Luego, navegar al directorio:
+- Compiladores-Final-Vasques_Espinoza_Luis/Proyecto-Ensambla
+
+Se utilizó codigo fuente del proyecto del curso, por lo que algunos nombres de los archivos por el apuro no se modificaron. El archivo principal a revisar (bison) es:
+
+- /home/pcs4/Escritorio/Compiladores-Final-Vasques_Espinoza_Luis/Proyecto-Ensambla/compilers/free/free_bison.y
+
+== Examen
+
+Ahora, en el examen se pedía:
+
+1 Mostrar las tablas pertinentes de ejecucion del programa (9p)
+2 Implementar una funcion de ingreso de variables x, y & z. (5p)
+3 Usar una interfaz grafica (6p)
+
+Sólo se desarrollaron la 1 y 3, tomando como ejemplo el codigo proporcionado
+
+Programa Ejemplo
+{ Vars x=-10, y=11, z=2, s=0;
+cuando x < y
+[calcular desde x aumentando en z hasta y
+s = s + x^2;
+Imprimir s]
+sino x=y
+Imprimir 0;
+otroCase
+Imprimir "No existe la suma"
+}
+
+Y se implemento un lenguaje lo mas paecido posible que obedece a este ejemplo:
+(La tabulacion es opcional)
+===================
+Programa Ejemplo
+{ Vars x=-10, y=11, z=2, s=0;
+	cuando x < y{
+		[calcular (desde t=x; hasta t<=y; aumentando t=t+z)
+			s = s + x^2;
+			Imprimir(s);]
+	}sino x==y {
+		Imprimir (0);
+	} otroCaso {
+		Imprimir (-1);
+	}
+}
+==================
+
+Se adjunta una captura de pantalla de la ejecucion sobre la GUI.

@@ -1,0 +1,11 @@
+Program Ruby;
+Begin
+x:=4;
+Si (x<8) entonces
+{
+	a:= 5;
+	x:=x+6;
+	
+}
+
+End.

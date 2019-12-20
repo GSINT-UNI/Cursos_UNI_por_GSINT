@@ -1,0 +1,29 @@
+programa  
+publico clase persona
+privado entero edad;
+publico metodo entero aumentar(entero edad)
+persona obj = nuevo persona();
+edad = edad + 2;
+edad = sen(edad);
+retornar edad;
+finmetodo
+finclase
+publico clase profesor extiende persona
+privado cadena nombre;
+publico metodo buscar()
+obj.aumentar(2);
+finmetodo
+publico metodo main()
+nombre.mostrar();
+finmetodo
+finclase
+finprograma
+
+
+
+programa
+publico clase persona
+privado nombre;
+finclase
+finprograma
+

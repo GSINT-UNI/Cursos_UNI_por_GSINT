@@ -1,0 +1,27 @@
+Programa:
+Inicio
+    
+    d = 0;
+    a= 5;
+    agg = 0;
+    
+    crear distancia (arg,argu) {
+	   z = 2;
+       x = 3;
+       y = 4;
+	}
+
+    crear otra (aea,og) {
+
+        agg = agg + 123;
+    }
+
+    f = 5;
+
+    b = a+2;
+    c = 15;
+    llamar otra(agg,pe);
+    llamar otra(agg,pe);
+
+
+Fin.

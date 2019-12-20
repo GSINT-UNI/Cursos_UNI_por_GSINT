@@ -1,0 +1,275 @@
+
+Compilador GAAA
+
+Compilador basado en las siguientes tecnologias Bison, Flex y escrito en el lenguaje C++.
+
+1. Lenguaje GAEA
+
+Dentro de los lenguajes informaticos, la gran mayoria estan basados en ingles y poseen una estructura 
+complicada para poder aprender a programar. GAEA nos de reglas simples, a fin de poder escribir codigo 
+fuente mas legible y de manera estandarizada.
+
+El lenguaje GAEA se basa en la sintaxis de Python y C ya que estos son dos lenguajes importantes para 
+poder aprender otros. Este lenguaje sera una poderosa herramienta para aquellos que quieran iniciarse 
+en el mundo de la programacion.
+
+1.1. Estructura del Lenguaje
+
+Todo codigo debe iniciar con la palabra clave "Programa" seguida de ":" y  estar entre "Inicio" y 
+"Fin.", con la siguiente estructura:
+
+#-------------------------------------------------------------
+Programa :
+
+Inicio
+ 
+
+Fin.
+#-------------------------------------------------------------
+
+1.2. Elementos del Lenguaje
+
+La mayoria de los lenguaje de programacion de alto nivel se compone de una serie de elementos, pero 
+en Gaea se compone de solo un elemento "variables".
+
+1.2.1. Variables 
+
+Una variable es un espacio para almacenar datos modificables, en la memoria de un ordenador. En Gaea, 
+una variable se define con la sintaxis:
+
+#-----------------------------------------------------
+nombre_de_la_variable = valor_de_la_variable;
+#-----------------------------------------------------
+
+
+Cada variable, tiene un nombre y un valor, el cual define a la vez, el tipo de datos de la variable.
+
+PEP 8: variables
+
+Utilizar nombres descriptivos y en minusculas. Para nombres compuestos, separar las palabras por una 
+mayuscula. Antes y  despues del signo =, debe haber uno (y solo un) espacio en blanco y terminar con 
+un ";".
+
+# Correcto
+miVariable = 12;
+
+# Incorrectos
+_miVariable = 12            <--- falta el ;
+mi variable = 12;
+mi_variable=12
+
+
+1.2.2. Impresion
+
+Para imprimir un valor en pantalla, en GAEA, se utiliza la palabra clave "Imprimir":
+
+miVariable = 15;
+Imprimir miVariable;
+
+1.2.3. Tipos de datos
+
+Una variable puede contener solo valores de tipo numerico: int, flotante.
+
+precio = 75.28;
+precio = 15;
+
+1.2.3. Operadores Aritmeticos
+
+Entre los operadores aritmeticos que GAEA utiliza, podemos encontrar los siguientes:
+
+---------------------------------------------------------------------
+  Simbolo 	   Significado 	         Ejemplo 	        Resultado
+---------------------------------------------------------------------
+    + 	        Suma 	            a = 10 + 5 	        a es 15
+    - 	        Resta 	            a = 12 - 7 	        a es 5
+    * 	        Multiplicacion 	    a = 7 * 5 	        a es 35
+    / 	        Division 	        a = 12.5 / 2 	    a es 6.25
+    # 	        Modulo 	            a = 27 # 4 	        a es 3
+---------------------------------------------------------------------
+
+1.2.4. Operaciones adicionales 
+
+- Potencia:
+    x = pot[variable, valor]
+
+- Raiz Cuadrada:
+    x = raiz[variable] 
+
+1.3. Estructuras de Control de Flujo
+
+Una estructura de control, es un bloque de codigo que permite agrupar instrucciones de manera 
+controlada. En este capitulo, hablaremos sobre dos estructuras de control:
+
+    - Estructuras de control condicionales
+    - Estructuras de control iterativas
+
+1.3.1. Identacion
+
+Para hablar de estructuras de control de flujo en Python, es imprescindible primero, hablar de 
+identacion.
+
+¿Que es la identacion? 
+En un lenguaje informatico, la identacion es lo que la sangria al lenguaje humano escrito 
+(a nivel formal). Asi como para el lenguaje formal, cuando uno redacta una carta, debe respetar
+ ciertas sangrias, los lenguajes informaticos, requieren una identacion.
+
+No todos los lenguajes de programacion, necesitan de una identacion, aunque si, se estila 
+implementarla, a fin de otorgar mayor legibilidad al codigo fuente. Pero en el caso de Python, 
+la identacion NO ES OBLIGATORIA, ya que de ella, no dependera su estructura.
+
+Una estructura de control, entonces, se define de la siguiente forma:
+
+# Ejemplo 
+inicio de la estructura de control:
+    expresiones                        
+
+
+Una identacion de 4 (cuatro) espacios en blanco
+
+
+1.3.2. Estructuras de control de flujo condicionales
+
+Las estructuras de control condicionales, son aquellas que nos permiten evaluar si una o mas 
+condiciones se cumplen, para decir que accion vamos a ejecutar. La evaluacion de condiciones, 
+solo puede arrojar 1 de 2 resultados: verdadero o falso.
+
+Para describir la evaluacion a realizar sobre una condicion, se utilizan operadores 
+relacionales (o de comparacion):
+
+---------------------------------------------------------------------
+  Simbolo 	       Significado 	        Ejemplo 	  Resultado
+--------------------------------------------------------------------- 
+    == 	           Igual que 	        5 == 7 	        False
+    != 	           Distinto que 	    rojo != verde 	True
+    < 	           Menor que 	        8 < 12 	        True
+    > 	           Mayor que 	        12 > 7 	        True
+    <= 	           Menor o igual que 	12 <= 12 	    True
+    >= 	           Mayor o igual que 	4 >= 5 	        False
+---------------------------------------------------------------------
+
+Y para evaluar mas de una condicion simultaneamente, se utilizan anidacion de estructuras.
+
+Las estructuras de control de flujo condicionales, se definen mediante el uso de tres palabras
+ claves reservadas, del lenguaje: Si, Sino.
+
+Veamos algunos ejemplos:
+
+Si la compra es mayor a $100, obtengo un descuento del 10%.
+
+#------------------------------------------------------------------
+
+importePagar = 0; 
+totalCompra = 200;
+
+Si (totalCompra > 100): 
+    tasaDescuento = 10;
+    importeDescuento = totalCompra * tasaDescuento / 100;
+    importePagar = totalCompra - importeDescuento;
+finSi
+
+Sino{
+
+    importePagar = totalCompra;
+}
+
+#------------------------------------------------------------------
+
+Notar que el Sino usa llaves "{ }", esto es para conservar la estructura de C.
+
+1.3.3. Estructuras de control iterativas
+
+A diferencia de las estructuras de control condicionales, las iterativas (tambien llamadas 
+ciclicas o bucles), nos permiten ejecutar un mismo codigo, de manera repetida, mientras se 
+cumpla una condicion.
+
+En GAEA se dispone de dos estructuras ciclicas:
+
+    - El bucle "mientras"
+    - El bucle "desde hasta" similar al for
+
+Las veremos en detalle a continuacion.
+
+1.3.3.1. Bucle mientras
+
+Este bucle, se encarga de ejecutar una misma accion "mientras que" una determinada condicion 
+se cumpla. Ejemplo: Mientras que anio sea menor o igual a 2012, imprimir los anios.
+
+#------------------------------------------------------------------
+
+anio = 2001;
+
+mientras (anio <= 2012): 
+    Imprimir anio;
+    anio = anio + 1;
+finMientras
+
+#------------------------------------------------------------------
+
+Podras notar que en cada iteracion, incrementamos el valor de la variable que condiciona el 
+bucle (anio). Si no lo hicieramos, esta variable siempre seria igual a 2001 y el bucle se 
+ejecutaria de forma infinita, ya que la condicion (anio <= 2012) siempre se estaria cumpliendo.
+
+1.3.3.2. Bucle for
+
+El bucle "desde", en GAEA, es aquel que nos permitira iterar sobre una variable:
+
+1) Por cada nombre en mi_lista, imprimir nombre
+#------------------------------------------------------------------
+
+anio = 2001;
+Desde 2001 Hasta 2012 Hacer:
+    Imprimir anio; 
+    anio = anio + 1;
+
+#------------------------------------------------------------------
+
+
+1.4. Funciones definidas por el usuario
+
+Una funcion, es la forma de agrupar expresiones y sentencias (algoritmos) que realicen 
+determinadas acciones, pero que estas, solo se ejecuten cuando son llamadas. Es decir, que
+ al colocar un algoritmo dentro de una funcion, al correr el archivo, el algoritmo no sera 
+ ejecutado si no se ha hecho una referencia a la funcion que lo contiene
+
+1.4.1. Definiendo funciones
+
+En GAEA, la definicion de funciones se realiza mediante la instruccion def mas un nombre 
+de funcion descriptivo -para el cual, aplican las mismas reglas que para el nombre de las 
+variables- seguido de parentesis de apertura y cierre. Como toda estructura de control en GAEA, 
+la definicion de la funcion inicializa y finaliza entre { } y el algoritmo que la compone, puede 
+ir identado con 4 espacios para tener un codigo limpio:
+
+crear miFuncion(){ 
+    # aqui el algoritmo
+}
+
+Para llamar a la funcion usar la palabra clave "llamar":
+
+llamar miFuncion();
+
+Todas las variables son globales, y no soporta argumentos.
+
+#Ejemplo para hallar la distacia
+#----------------------------
+Programa:
+Inicio
+    
+    d = 0;
+    x = 3;
+    y = 4;
+    
+    crear distancia () {
+	   d = pot[x,2] + pot[y,2];
+        d = raiz[d];
+    }
+
+
+    llamar distancia();
+    Imprimir d;
+
+Fin.
+
+#------------------------------------
+
+
+

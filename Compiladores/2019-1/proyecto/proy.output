@@ -1,0 +1,1304 @@
+Gramática
+
+    0 $accept: programa $end
+
+    1 programa: estructura
+
+    2 estructura: estructura comentario
+    3           | estructura while
+    4           | estructura for
+    5           | estructura ifelse
+    6           | estructura declaracion
+    7           | %empty
+
+    8 declaracion: IGUAL ID expresion PUNTCOM
+    9            | IGUAL ID expresion COM declaracion
+
+   10 expresion: MAS expresion producto
+   11          | MENOS expresion producto
+   12          | producto
+
+   13 producto: MUL producto agrupacion
+   14         | DIV producto agrupacion
+   15         | agrupacion
+
+   16 agrupacion: '(' expresion ')'
+   17           | RAIZ '(' expresion ')'
+   18           | POT '(' expresion COM expresion ')'
+   19           | valor
+
+   20 valor: NUM
+   21      | ID
+   22      | '(' MENOS NUM ')'
+
+   23 ifelse: SI '(' lista_condicion ')' ENTONCES '{' estructura '}' SINO '{' estructura '}'
+   24       | SI '(' lista_condicion ')' ENTONCES '{' estructura '}'
+
+   25 lista_condicion: condicion lista_condicion
+   26                | condicion '&' lista_condicion
+   27                | condicion '|' lista_condicion
+   28                | %empty
+
+   29 condicion: orden expresion expresion
+
+   30 orden: MAYOR
+   31      | MAYOR IGUAL
+   32      | MENOR
+   33      | MENOR IGUAL
+   34      | IGUAL
+   35      | DIFER
+
+   36 for: PARA '(' declaracion condicion PUNTCOM contador ')' '{' estructura '}'
+
+   37 contador: IGUAL ID expresion
+
+   38 while: MIENTRAS '(' lista_condicion ')' HACER '{' estructura '}'
+
+   39 comentario: '#' comen '$'
+
+   40 comen: comen ID
+   41      | comen SI
+   42      | comen ENTONCES
+   43      | comen SINO
+   44      | comen PARA
+   45      | comen MIENTRAS
+   46      | comen HACER
+   47      | comen RAIZ
+   48      | comen POT
+   49      | comen COM
+   50      | %empty
+
+
+Terminales con las reglas donde aparecen
+
+$end (0) 0
+'#' (35) 39
+'$' (36) 39
+'&' (38) 26
+'(' (40) 16 17 18 22 23 24 36 38
+')' (41) 16 17 18 22 23 24 36 38
+'{' (123) 23 24 36 38
+'|' (124) 27
+'}' (125) 23 24 36 38
+error (256)
+ID (258) 8 9 21 37 40
+IGUAL (259) 8 9 31 33 34 37
+NUM (260) 20 22
+PUNTCOM (261) 8 36
+MAS (262) 10
+MENOS (263) 11 22
+MUL (264) 13
+DIV (265) 14
+COM (266) 9 18 49
+POT (267) 18 48
+RAIZ (268) 17 47
+MAYOR (269) 30 31
+MENOR (270) 32 33
+DIFER (271) 35
+SI (272) 23 24 41
+ENTONCES (273) 23 24 42
+SINO (274) 23 43
+PARA (275) 36 44
+MIENTRAS (276) 38 45
+HACER (277) 38 46
+
+
+No terminales con las reglas donde aparecen
+
+$accept (31)
+    en la izquierda: 0
+programa (32)
+    en la izquierda: 1, en la derecha: 0
+estructura (33)
+    en la izquierda: 2 3 4 5 6 7, en la derecha: 1 2 3 4 5 6 23 24
+    36 38
+declaracion (34)
+    en la izquierda: 8 9, en la derecha: 6 9 36
+expresion (35)
+    en la izquierda: 10 11 12, en la derecha: 8 9 10 11 16 17 18 29
+    37
+producto (36)
+    en la izquierda: 13 14 15, en la derecha: 10 11 12 13 14
+agrupacion (37)
+    en la izquierda: 16 17 18 19, en la derecha: 13 14 15
+valor (38)
+    en la izquierda: 20 21 22, en la derecha: 19
+ifelse (39)
+    en la izquierda: 23 24, en la derecha: 5
+lista_condicion (40)
+    en la izquierda: 25 26 27 28, en la derecha: 23 24 25 26 27 38
+condicion (41)
+    en la izquierda: 29, en la derecha: 25 26 27 36
+orden (42)
+    en la izquierda: 30 31 32 33 34 35, en la derecha: 29
+for (43)
+    en la izquierda: 36, en la derecha: 4
+contador (44)
+    en la izquierda: 37, en la derecha: 36
+while (45)
+    en la izquierda: 38, en la derecha: 3
+comentario (46)
+    en la izquierda: 39, en la derecha: 2
+comen (47)
+    en la izquierda: 40 41 42 43 44 45 46 47 48 49 50, en la derecha:
+    39 40 41 42 43 44 45 46 47 48 49
+
+
+Estado 0
+
+    0 $accept: . programa $end
+
+    $default  reduce usando la regla 7 (estructura)
+
+    programa    ir al estado 1
+    estructura  ir al estado 2
+
+
+Estado 1
+
+    0 $accept: programa . $end
+
+    $end  desplazar e ir al estado 3
+
+
+Estado 2
+
+    1 programa: estructura .
+    2 estructura: estructura . comentario
+    3           | estructura . while
+    4           | estructura . for
+    5           | estructura . ifelse
+    6           | estructura . declaracion
+
+    IGUAL     desplazar e ir al estado 4
+    SI        desplazar e ir al estado 5
+    PARA      desplazar e ir al estado 6
+    MIENTRAS  desplazar e ir al estado 7
+    '#'       desplazar e ir al estado 8
+
+    $default  reduce usando la regla 1 (programa)
+
+    declaracion  ir al estado 9
+    ifelse       ir al estado 10
+    for          ir al estado 11
+    while        ir al estado 12
+    comentario   ir al estado 13
+
+
+Estado 3
+
+    0 $accept: programa $end .
+
+    $default  aceptar
+
+
+Estado 4
+
+    8 declaracion: IGUAL . ID expresion PUNTCOM
+    9            | IGUAL . ID expresion COM declaracion
+
+    ID  desplazar e ir al estado 14
+
+
+Estado 5
+
+   23 ifelse: SI . '(' lista_condicion ')' ENTONCES '{' estructura '}' SINO '{' estructura '}'
+   24       | SI . '(' lista_condicion ')' ENTONCES '{' estructura '}'
+
+    '('  desplazar e ir al estado 15
+
+
+Estado 6
+
+   36 for: PARA . '(' declaracion condicion PUNTCOM contador ')' '{' estructura '}'
+
+    '('  desplazar e ir al estado 16
+
+
+Estado 7
+
+   38 while: MIENTRAS . '(' lista_condicion ')' HACER '{' estructura '}'
+
+    '('  desplazar e ir al estado 17
+
+
+Estado 8
+
+   39 comentario: '#' . comen '$'
+
+    $default  reduce usando la regla 50 (comen)
+
+    comen  ir al estado 18
+
+
+Estado 9
+
+    6 estructura: estructura declaracion .
+
+    $default  reduce usando la regla 6 (estructura)
+
+
+Estado 10
+
+    5 estructura: estructura ifelse .
+
+    $default  reduce usando la regla 5 (estructura)
+
+
+Estado 11
+
+    4 estructura: estructura for .
+
+    $default  reduce usando la regla 4 (estructura)
+
+
+Estado 12
+
+    3 estructura: estructura while .
+
+    $default  reduce usando la regla 3 (estructura)
+
+
+Estado 13
+
+    2 estructura: estructura comentario .
+
+    $default  reduce usando la regla 2 (estructura)
+
+
+Estado 14
+
+    8 declaracion: IGUAL ID . expresion PUNTCOM
+    9            | IGUAL ID . expresion COM declaracion
+
+    ID     desplazar e ir al estado 19
+    NUM    desplazar e ir al estado 20
+    MAS    desplazar e ir al estado 21
+    MENOS  desplazar e ir al estado 22
+    MUL    desplazar e ir al estado 23
+    DIV    desplazar e ir al estado 24
+    POT    desplazar e ir al estado 25
+    RAIZ   desplazar e ir al estado 26
+    '('    desplazar e ir al estado 27
+
+    expresion   ir al estado 28
+    producto    ir al estado 29
+    agrupacion  ir al estado 30
+    valor       ir al estado 31
+
+
+Estado 15
+
+   23 ifelse: SI '(' . lista_condicion ')' ENTONCES '{' estructura '}' SINO '{' estructura '}'
+   24       | SI '(' . lista_condicion ')' ENTONCES '{' estructura '}'
+
+    IGUAL  desplazar e ir al estado 32
+    MAYOR  desplazar e ir al estado 33
+    MENOR  desplazar e ir al estado 34
+    DIFER  desplazar e ir al estado 35
+
+    $default  reduce usando la regla 28 (lista_condicion)
+
+    lista_condicion  ir al estado 36
+    condicion        ir al estado 37
+    orden            ir al estado 38
+
+
+Estado 16
+
+   36 for: PARA '(' . declaracion condicion PUNTCOM contador ')' '{' estructura '}'
+
+    IGUAL  desplazar e ir al estado 4
+
+    declaracion  ir al estado 39
+
+
+Estado 17
+
+   38 while: MIENTRAS '(' . lista_condicion ')' HACER '{' estructura '}'
+
+    IGUAL  desplazar e ir al estado 32
+    MAYOR  desplazar e ir al estado 33
+    MENOR  desplazar e ir al estado 34
+    DIFER  desplazar e ir al estado 35
+
+    $default  reduce usando la regla 28 (lista_condicion)
+
+    lista_condicion  ir al estado 40
+    condicion        ir al estado 37
+    orden            ir al estado 38
+
+
+Estado 18
+
+   39 comentario: '#' comen . '$'
+   40 comen: comen . ID
+   41      | comen . SI
+   42      | comen . ENTONCES
+   43      | comen . SINO
+   44      | comen . PARA
+   45      | comen . MIENTRAS
+   46      | comen . HACER
+   47      | comen . RAIZ
+   48      | comen . POT
+   49      | comen . COM
+
+    ID        desplazar e ir al estado 41
+    COM       desplazar e ir al estado 42
+    POT       desplazar e ir al estado 43
+    RAIZ      desplazar e ir al estado 44
+    SI        desplazar e ir al estado 45
+    ENTONCES  desplazar e ir al estado 46
+    SINO      desplazar e ir al estado 47
+    PARA      desplazar e ir al estado 48
+    MIENTRAS  desplazar e ir al estado 49
+    HACER     desplazar e ir al estado 50
+    '$'       desplazar e ir al estado 51
+
+
+Estado 19
+
+   21 valor: ID .
+
+    $default  reduce usando la regla 21 (valor)
+
+
+Estado 20
+
+   20 valor: NUM .
+
+    $default  reduce usando la regla 20 (valor)
+
+
+Estado 21
+
+   10 expresion: MAS . expresion producto
+
+    ID     desplazar e ir al estado 19
+    NUM    desplazar e ir al estado 20
+    MAS    desplazar e ir al estado 21
+    MENOS  desplazar e ir al estado 22
+    MUL    desplazar e ir al estado 23
+    DIV    desplazar e ir al estado 24
+    POT    desplazar e ir al estado 25
+    RAIZ   desplazar e ir al estado 26
+    '('    desplazar e ir al estado 27
+
+    expresion   ir al estado 52
+    producto    ir al estado 29
+    agrupacion  ir al estado 30
+    valor       ir al estado 31
+
+
+Estado 22
+
+   11 expresion: MENOS . expresion producto
+
+    ID     desplazar e ir al estado 19
+    NUM    desplazar e ir al estado 20
+    MAS    desplazar e ir al estado 21
+    MENOS  desplazar e ir al estado 22
+    MUL    desplazar e ir al estado 23
+    DIV    desplazar e ir al estado 24
+    POT    desplazar e ir al estado 25
+    RAIZ   desplazar e ir al estado 26
+    '('    desplazar e ir al estado 27
+
+    expresion   ir al estado 53
+    producto    ir al estado 29
+    agrupacion  ir al estado 30
+    valor       ir al estado 31
+
+
+Estado 23
+
+   13 producto: MUL . producto agrupacion
+
+    ID    desplazar e ir al estado 19
+    NUM   desplazar e ir al estado 20
+    MUL   desplazar e ir al estado 23
+    DIV   desplazar e ir al estado 24
+    POT   desplazar e ir al estado 25
+    RAIZ  desplazar e ir al estado 26
+    '('   desplazar e ir al estado 27
+
+    producto    ir al estado 54
+    agrupacion  ir al estado 30
+    valor       ir al estado 31
+
+
+Estado 24
+
+   14 producto: DIV . producto agrupacion
+
+    ID    desplazar e ir al estado 19
+    NUM   desplazar e ir al estado 20
+    MUL   desplazar e ir al estado 23
+    DIV   desplazar e ir al estado 24
+    POT   desplazar e ir al estado 25
+    RAIZ  desplazar e ir al estado 26
+    '('   desplazar e ir al estado 27
+
+    producto    ir al estado 55
+    agrupacion  ir al estado 30
+    valor       ir al estado 31
+
+
+Estado 25
+
+   18 agrupacion: POT . '(' expresion COM expresion ')'
+
+    '('  desplazar e ir al estado 56
+
+
+Estado 26
+
+   17 agrupacion: RAIZ . '(' expresion ')'
+
+    '('  desplazar e ir al estado 57
+
+
+Estado 27
+
+   16 agrupacion: '(' . expresion ')'
+   22 valor: '(' . MENOS NUM ')'
+
+    ID     desplazar e ir al estado 19
+    NUM    desplazar e ir al estado 20
+    MAS    desplazar e ir al estado 21
+    MENOS  desplazar e ir al estado 58
+    MUL    desplazar e ir al estado 23
+    DIV    desplazar e ir al estado 24
+    POT    desplazar e ir al estado 25
+    RAIZ   desplazar e ir al estado 26
+    '('    desplazar e ir al estado 27
+
+    expresion   ir al estado 59
+    producto    ir al estado 29
+    agrupacion  ir al estado 30
+    valor       ir al estado 31
+
+
+Estado 28
+
+    8 declaracion: IGUAL ID expresion . PUNTCOM
+    9            | IGUAL ID expresion . COM declaracion
+
+    PUNTCOM  desplazar e ir al estado 60
+    COM      desplazar e ir al estado 61
+
+
+Estado 29
+
+   12 expresion: producto .
+
+    $default  reduce usando la regla 12 (expresion)
+
+
+Estado 30
+
+   15 producto: agrupacion .
+
+    $default  reduce usando la regla 15 (producto)
+
+
+Estado 31
+
+   19 agrupacion: valor .
+
+    $default  reduce usando la regla 19 (agrupacion)
+
+
+Estado 32
+
+   34 orden: IGUAL .
+
+    $default  reduce usando la regla 34 (orden)
+
+
+Estado 33
+
+   30 orden: MAYOR .
+   31      | MAYOR . IGUAL
+
+    IGUAL  desplazar e ir al estado 62
+
+    $default  reduce usando la regla 30 (orden)
+
+
+Estado 34
+
+   32 orden: MENOR .
+   33      | MENOR . IGUAL
+
+    IGUAL  desplazar e ir al estado 63
+
+    $default  reduce usando la regla 32 (orden)
+
+
+Estado 35
+
+   35 orden: DIFER .
+
+    $default  reduce usando la regla 35 (orden)
+
+
+Estado 36
+
+   23 ifelse: SI '(' lista_condicion . ')' ENTONCES '{' estructura '}' SINO '{' estructura '}'
+   24       | SI '(' lista_condicion . ')' ENTONCES '{' estructura '}'
+
+    ')'  desplazar e ir al estado 64
+
+
+Estado 37
+
+   25 lista_condicion: condicion . lista_condicion
+   26                | condicion . '&' lista_condicion
+   27                | condicion . '|' lista_condicion
+
+    IGUAL  desplazar e ir al estado 32
+    MAYOR  desplazar e ir al estado 33
+    MENOR  desplazar e ir al estado 34
+    DIFER  desplazar e ir al estado 35
+    '&'    desplazar e ir al estado 65
+    '|'    desplazar e ir al estado 66
+
+    $default  reduce usando la regla 28 (lista_condicion)
+
+    lista_condicion  ir al estado 67
+    condicion        ir al estado 37
+    orden            ir al estado 38
+
+
+Estado 38
+
+   29 condicion: orden . expresion expresion
+
+    ID     desplazar e ir al estado 19
+    NUM    desplazar e ir al estado 20
+    MAS    desplazar e ir al estado 21
+    MENOS  desplazar e ir al estado 22
+    MUL    desplazar e ir al estado 23
+    DIV    desplazar e ir al estado 24
+    POT    desplazar e ir al estado 25
+    RAIZ   desplazar e ir al estado 26
+    '('    desplazar e ir al estado 27
+
+    expresion   ir al estado 68
+    producto    ir al estado 29
+    agrupacion  ir al estado 30
+    valor       ir al estado 31
+
+
+Estado 39
+
+   36 for: PARA '(' declaracion . condicion PUNTCOM contador ')' '{' estructura '}'
+
+    IGUAL  desplazar e ir al estado 32
+    MAYOR  desplazar e ir al estado 33
+    MENOR  desplazar e ir al estado 34
+    DIFER  desplazar e ir al estado 35
+
+    condicion  ir al estado 69
+    orden      ir al estado 38
+
+
+Estado 40
+
+   38 while: MIENTRAS '(' lista_condicion . ')' HACER '{' estructura '}'
+
+    ')'  desplazar e ir al estado 70
+
+
+Estado 41
+
+   40 comen: comen ID .
+
+    $default  reduce usando la regla 40 (comen)
+
+
+Estado 42
+
+   49 comen: comen COM .
+
+    $default  reduce usando la regla 49 (comen)
+
+
+Estado 43
+
+   48 comen: comen POT .
+
+    $default  reduce usando la regla 48 (comen)
+
+
+Estado 44
+
+   47 comen: comen RAIZ .
+
+    $default  reduce usando la regla 47 (comen)
+
+
+Estado 45
+
+   41 comen: comen SI .
+
+    $default  reduce usando la regla 41 (comen)
+
+
+Estado 46
+
+   42 comen: comen ENTONCES .
+
+    $default  reduce usando la regla 42 (comen)
+
+
+Estado 47
+
+   43 comen: comen SINO .
+
+    $default  reduce usando la regla 43 (comen)
+
+
+Estado 48
+
+   44 comen: comen PARA .
+
+    $default  reduce usando la regla 44 (comen)
+
+
+Estado 49
+
+   45 comen: comen MIENTRAS .
+
+    $default  reduce usando la regla 45 (comen)
+
+
+Estado 50
+
+   46 comen: comen HACER .
+
+    $default  reduce usando la regla 46 (comen)
+
+
+Estado 51
+
+   39 comentario: '#' comen '$' .
+
+    $default  reduce usando la regla 39 (comentario)
+
+
+Estado 52
+
+   10 expresion: MAS expresion . producto
+
+    ID    desplazar e ir al estado 19
+    NUM   desplazar e ir al estado 20
+    MUL   desplazar e ir al estado 23
+    DIV   desplazar e ir al estado 24
+    POT   desplazar e ir al estado 25
+    RAIZ  desplazar e ir al estado 26
+    '('   desplazar e ir al estado 27
+
+    producto    ir al estado 71
+    agrupacion  ir al estado 30
+    valor       ir al estado 31
+
+
+Estado 53
+
+   11 expresion: MENOS expresion . producto
+
+    ID    desplazar e ir al estado 19
+    NUM   desplazar e ir al estado 20
+    MUL   desplazar e ir al estado 23
+    DIV   desplazar e ir al estado 24
+    POT   desplazar e ir al estado 25
+    RAIZ  desplazar e ir al estado 26
+    '('   desplazar e ir al estado 27
+
+    producto    ir al estado 72
+    agrupacion  ir al estado 30
+    valor       ir al estado 31
+
+
+Estado 54
+
+   13 producto: MUL producto . agrupacion
+
+    ID    desplazar e ir al estado 19
+    NUM   desplazar e ir al estado 20
+    POT   desplazar e ir al estado 25
+    RAIZ  desplazar e ir al estado 26
+    '('   desplazar e ir al estado 27
+
+    agrupacion  ir al estado 73
+    valor       ir al estado 31
+
+
+Estado 55
+
+   14 producto: DIV producto . agrupacion
+
+    ID    desplazar e ir al estado 19
+    NUM   desplazar e ir al estado 20
+    POT   desplazar e ir al estado 25
+    RAIZ  desplazar e ir al estado 26
+    '('   desplazar e ir al estado 27
+
+    agrupacion  ir al estado 74
+    valor       ir al estado 31
+
+
+Estado 56
+
+   18 agrupacion: POT '(' . expresion COM expresion ')'
+
+    ID     desplazar e ir al estado 19
+    NUM    desplazar e ir al estado 20
+    MAS    desplazar e ir al estado 21
+    MENOS  desplazar e ir al estado 22
+    MUL    desplazar e ir al estado 23
+    DIV    desplazar e ir al estado 24
+    POT    desplazar e ir al estado 25
+    RAIZ   desplazar e ir al estado 26
+    '('    desplazar e ir al estado 27
+
+    expresion   ir al estado 75
+    producto    ir al estado 29
+    agrupacion  ir al estado 30
+    valor       ir al estado 31
+
+
+Estado 57
+
+   17 agrupacion: RAIZ '(' . expresion ')'
+
+    ID     desplazar e ir al estado 19
+    NUM    desplazar e ir al estado 20
+    MAS    desplazar e ir al estado 21
+    MENOS  desplazar e ir al estado 22
+    MUL    desplazar e ir al estado 23
+    DIV    desplazar e ir al estado 24
+    POT    desplazar e ir al estado 25
+    RAIZ   desplazar e ir al estado 26
+    '('    desplazar e ir al estado 27
+
+    expresion   ir al estado 76
+    producto    ir al estado 29
+    agrupacion  ir al estado 30
+    valor       ir al estado 31
+
+
+Estado 58
+
+   11 expresion: MENOS . expresion producto
+   22 valor: '(' MENOS . NUM ')'
+
+    ID     desplazar e ir al estado 19
+    NUM    desplazar e ir al estado 77
+    MAS    desplazar e ir al estado 21
+    MENOS  desplazar e ir al estado 22
+    MUL    desplazar e ir al estado 23
+    DIV    desplazar e ir al estado 24
+    POT    desplazar e ir al estado 25
+    RAIZ   desplazar e ir al estado 26
+    '('    desplazar e ir al estado 27
+
+    expresion   ir al estado 53
+    producto    ir al estado 29
+    agrupacion  ir al estado 30
+    valor       ir al estado 31
+
+
+Estado 59
+
+   16 agrupacion: '(' expresion . ')'
+
+    ')'  desplazar e ir al estado 78
+
+
+Estado 60
+
+    8 declaracion: IGUAL ID expresion PUNTCOM .
+
+    $default  reduce usando la regla 8 (declaracion)
+
+
+Estado 61
+
+    9 declaracion: IGUAL ID expresion COM . declaracion
+
+    IGUAL  desplazar e ir al estado 4
+
+    declaracion  ir al estado 79
+
+
+Estado 62
+
+   31 orden: MAYOR IGUAL .
+
+    $default  reduce usando la regla 31 (orden)
+
+
+Estado 63
+
+   33 orden: MENOR IGUAL .
+
+    $default  reduce usando la regla 33 (orden)
+
+
+Estado 64
+
+   23 ifelse: SI '(' lista_condicion ')' . ENTONCES '{' estructura '}' SINO '{' estructura '}'
+   24       | SI '(' lista_condicion ')' . ENTONCES '{' estructura '}'
+
+    ENTONCES  desplazar e ir al estado 80
+
+
+Estado 65
+
+   26 lista_condicion: condicion '&' . lista_condicion
+
+    IGUAL  desplazar e ir al estado 32
+    MAYOR  desplazar e ir al estado 33
+    MENOR  desplazar e ir al estado 34
+    DIFER  desplazar e ir al estado 35
+
+    $default  reduce usando la regla 28 (lista_condicion)
+
+    lista_condicion  ir al estado 81
+    condicion        ir al estado 37
+    orden            ir al estado 38
+
+
+Estado 66
+
+   27 lista_condicion: condicion '|' . lista_condicion
+
+    IGUAL  desplazar e ir al estado 32
+    MAYOR  desplazar e ir al estado 33
+    MENOR  desplazar e ir al estado 34
+    DIFER  desplazar e ir al estado 35
+
+    $default  reduce usando la regla 28 (lista_condicion)
+
+    lista_condicion  ir al estado 82
+    condicion        ir al estado 37
+    orden            ir al estado 38
+
+
+Estado 67
+
+   25 lista_condicion: condicion lista_condicion .
+
+    $default  reduce usando la regla 25 (lista_condicion)
+
+
+Estado 68
+
+   29 condicion: orden expresion . expresion
+
+    ID     desplazar e ir al estado 19
+    NUM    desplazar e ir al estado 20
+    MAS    desplazar e ir al estado 21
+    MENOS  desplazar e ir al estado 22
+    MUL    desplazar e ir al estado 23
+    DIV    desplazar e ir al estado 24
+    POT    desplazar e ir al estado 25
+    RAIZ   desplazar e ir al estado 26
+    '('    desplazar e ir al estado 27
+
+    expresion   ir al estado 83
+    producto    ir al estado 29
+    agrupacion  ir al estado 30
+    valor       ir al estado 31
+
+
+Estado 69
+
+   36 for: PARA '(' declaracion condicion . PUNTCOM contador ')' '{' estructura '}'
+
+    PUNTCOM  desplazar e ir al estado 84
+
+
+Estado 70
+
+   38 while: MIENTRAS '(' lista_condicion ')' . HACER '{' estructura '}'
+
+    HACER  desplazar e ir al estado 85
+
+
+Estado 71
+
+   10 expresion: MAS expresion producto .
+
+    $default  reduce usando la regla 10 (expresion)
+
+
+Estado 72
+
+   11 expresion: MENOS expresion producto .
+
+    $default  reduce usando la regla 11 (expresion)
+
+
+Estado 73
+
+   13 producto: MUL producto agrupacion .
+
+    $default  reduce usando la regla 13 (producto)
+
+
+Estado 74
+
+   14 producto: DIV producto agrupacion .
+
+    $default  reduce usando la regla 14 (producto)
+
+
+Estado 75
+
+   18 agrupacion: POT '(' expresion . COM expresion ')'
+
+    COM  desplazar e ir al estado 86
+
+
+Estado 76
+
+   17 agrupacion: RAIZ '(' expresion . ')'
+
+    ')'  desplazar e ir al estado 87
+
+
+Estado 77
+
+   20 valor: NUM .
+   22      | '(' MENOS NUM . ')'
+
+    ')'  desplazar e ir al estado 88
+
+    $default  reduce usando la regla 20 (valor)
+
+
+Estado 78
+
+   16 agrupacion: '(' expresion ')' .
+
+    $default  reduce usando la regla 16 (agrupacion)
+
+
+Estado 79
+
+    9 declaracion: IGUAL ID expresion COM declaracion .
+
+    $default  reduce usando la regla 9 (declaracion)
+
+
+Estado 80
+
+   23 ifelse: SI '(' lista_condicion ')' ENTONCES . '{' estructura '}' SINO '{' estructura '}'
+   24       | SI '(' lista_condicion ')' ENTONCES . '{' estructura '}'
+
+    '{'  desplazar e ir al estado 89
+
+
+Estado 81
+
+   26 lista_condicion: condicion '&' lista_condicion .
+
+    $default  reduce usando la regla 26 (lista_condicion)
+
+
+Estado 82
+
+   27 lista_condicion: condicion '|' lista_condicion .
+
+    $default  reduce usando la regla 27 (lista_condicion)
+
+
+Estado 83
+
+   29 condicion: orden expresion expresion .
+
+    $default  reduce usando la regla 29 (condicion)
+
+
+Estado 84
+
+   36 for: PARA '(' declaracion condicion PUNTCOM . contador ')' '{' estructura '}'
+
+    IGUAL  desplazar e ir al estado 90
+
+    contador  ir al estado 91
+
+
+Estado 85
+
+   38 while: MIENTRAS '(' lista_condicion ')' HACER . '{' estructura '}'
+
+    '{'  desplazar e ir al estado 92
+
+
+Estado 86
+
+   18 agrupacion: POT '(' expresion COM . expresion ')'
+
+    ID     desplazar e ir al estado 19
+    NUM    desplazar e ir al estado 20
+    MAS    desplazar e ir al estado 21
+    MENOS  desplazar e ir al estado 22
+    MUL    desplazar e ir al estado 23
+    DIV    desplazar e ir al estado 24
+    POT    desplazar e ir al estado 25
+    RAIZ   desplazar e ir al estado 26
+    '('    desplazar e ir al estado 27
+
+    expresion   ir al estado 93
+    producto    ir al estado 29
+    agrupacion  ir al estado 30
+    valor       ir al estado 31
+
+
+Estado 87
+
+   17 agrupacion: RAIZ '(' expresion ')' .
+
+    $default  reduce usando la regla 17 (agrupacion)
+
+
+Estado 88
+
+   22 valor: '(' MENOS NUM ')' .
+
+    $default  reduce usando la regla 22 (valor)
+
+
+Estado 89
+
+   23 ifelse: SI '(' lista_condicion ')' ENTONCES '{' . estructura '}' SINO '{' estructura '}'
+   24       | SI '(' lista_condicion ')' ENTONCES '{' . estructura '}'
+
+    $default  reduce usando la regla 7 (estructura)
+
+    estructura  ir al estado 94
+
+
+Estado 90
+
+   37 contador: IGUAL . ID expresion
+
+    ID  desplazar e ir al estado 95
+
+
+Estado 91
+
+   36 for: PARA '(' declaracion condicion PUNTCOM contador . ')' '{' estructura '}'
+
+    ')'  desplazar e ir al estado 96
+
+
+Estado 92
+
+   38 while: MIENTRAS '(' lista_condicion ')' HACER '{' . estructura '}'
+
+    $default  reduce usando la regla 7 (estructura)
+
+    estructura  ir al estado 97
+
+
+Estado 93
+
+   18 agrupacion: POT '(' expresion COM expresion . ')'
+
+    ')'  desplazar e ir al estado 98
+
+
+Estado 94
+
+    2 estructura: estructura . comentario
+    3           | estructura . while
+    4           | estructura . for
+    5           | estructura . ifelse
+    6           | estructura . declaracion
+   23 ifelse: SI '(' lista_condicion ')' ENTONCES '{' estructura . '}' SINO '{' estructura '}'
+   24       | SI '(' lista_condicion ')' ENTONCES '{' estructura . '}'
+
+    IGUAL     desplazar e ir al estado 4
+    SI        desplazar e ir al estado 5
+    PARA      desplazar e ir al estado 6
+    MIENTRAS  desplazar e ir al estado 7
+    '}'       desplazar e ir al estado 99
+    '#'       desplazar e ir al estado 8
+
+    declaracion  ir al estado 9
+    ifelse       ir al estado 10
+    for          ir al estado 11
+    while        ir al estado 12
+    comentario   ir al estado 13
+
+
+Estado 95
+
+   37 contador: IGUAL ID . expresion
+
+    ID     desplazar e ir al estado 19
+    NUM    desplazar e ir al estado 20
+    MAS    desplazar e ir al estado 21
+    MENOS  desplazar e ir al estado 22
+    MUL    desplazar e ir al estado 23
+    DIV    desplazar e ir al estado 24
+    POT    desplazar e ir al estado 25
+    RAIZ   desplazar e ir al estado 26
+    '('    desplazar e ir al estado 27
+
+    expresion   ir al estado 100
+    producto    ir al estado 29
+    agrupacion  ir al estado 30
+    valor       ir al estado 31
+
+
+Estado 96
+
+   36 for: PARA '(' declaracion condicion PUNTCOM contador ')' . '{' estructura '}'
+
+    '{'  desplazar e ir al estado 101
+
+
+Estado 97
+
+    2 estructura: estructura . comentario
+    3           | estructura . while
+    4           | estructura . for
+    5           | estructura . ifelse
+    6           | estructura . declaracion
+   38 while: MIENTRAS '(' lista_condicion ')' HACER '{' estructura . '}'
+
+    IGUAL     desplazar e ir al estado 4
+    SI        desplazar e ir al estado 5
+    PARA      desplazar e ir al estado 6
+    MIENTRAS  desplazar e ir al estado 7
+    '}'       desplazar e ir al estado 102
+    '#'       desplazar e ir al estado 8
+
+    declaracion  ir al estado 9
+    ifelse       ir al estado 10
+    for          ir al estado 11
+    while        ir al estado 12
+    comentario   ir al estado 13
+
+
+Estado 98
+
+   18 agrupacion: POT '(' expresion COM expresion ')' .
+
+    $default  reduce usando la regla 18 (agrupacion)
+
+
+Estado 99
+
+   23 ifelse: SI '(' lista_condicion ')' ENTONCES '{' estructura '}' . SINO '{' estructura '}'
+   24       | SI '(' lista_condicion ')' ENTONCES '{' estructura '}' .
+
+    SINO  desplazar e ir al estado 103
+
+    $default  reduce usando la regla 24 (ifelse)
+
+
+Estado 100
+
+   37 contador: IGUAL ID expresion .
+
+    $default  reduce usando la regla 37 (contador)
+
+
+Estado 101
+
+   36 for: PARA '(' declaracion condicion PUNTCOM contador ')' '{' . estructura '}'
+
+    $default  reduce usando la regla 7 (estructura)
+
+    estructura  ir al estado 104
+
+
+Estado 102
+
+   38 while: MIENTRAS '(' lista_condicion ')' HACER '{' estructura '}' .
+
+    $default  reduce usando la regla 38 (while)
+
+
+Estado 103
+
+   23 ifelse: SI '(' lista_condicion ')' ENTONCES '{' estructura '}' SINO . '{' estructura '}'
+
+    '{'  desplazar e ir al estado 105
+
+
+Estado 104
+
+    2 estructura: estructura . comentario
+    3           | estructura . while
+    4           | estructura . for
+    5           | estructura . ifelse
+    6           | estructura . declaracion
+   36 for: PARA '(' declaracion condicion PUNTCOM contador ')' '{' estructura . '}'
+
+    IGUAL     desplazar e ir al estado 4
+    SI        desplazar e ir al estado 5
+    PARA      desplazar e ir al estado 6
+    MIENTRAS  desplazar e ir al estado 7
+    '}'       desplazar e ir al estado 106
+    '#'       desplazar e ir al estado 8
+
+    declaracion  ir al estado 9
+    ifelse       ir al estado 10
+    for          ir al estado 11
+    while        ir al estado 12
+    comentario   ir al estado 13
+
+
+Estado 105
+
+   23 ifelse: SI '(' lista_condicion ')' ENTONCES '{' estructura '}' SINO '{' . estructura '}'
+
+    $default  reduce usando la regla 7 (estructura)
+
+    estructura  ir al estado 107
+
+
+Estado 106
+
+   36 for: PARA '(' declaracion condicion PUNTCOM contador ')' '{' estructura '}' .
+
+    $default  reduce usando la regla 36 (for)
+
+
+Estado 107
+
+    2 estructura: estructura . comentario
+    3           | estructura . while
+    4           | estructura . for
+    5           | estructura . ifelse
+    6           | estructura . declaracion
+   23 ifelse: SI '(' lista_condicion ')' ENTONCES '{' estructura '}' SINO '{' estructura . '}'
+
+    IGUAL     desplazar e ir al estado 4
+    SI        desplazar e ir al estado 5
+    PARA      desplazar e ir al estado 6
+    MIENTRAS  desplazar e ir al estado 7
+    '}'       desplazar e ir al estado 108
+    '#'       desplazar e ir al estado 8
+
+    declaracion  ir al estado 9
+    ifelse       ir al estado 10
+    for          ir al estado 11
+    while        ir al estado 12
+    comentario   ir al estado 13
+
+
+Estado 108
+
+   23 ifelse: SI '(' lista_condicion ')' ENTONCES '{' estructura '}' SINO '{' estructura '}' .
+
+    $default  reduce usando la regla 23 (ifelse)

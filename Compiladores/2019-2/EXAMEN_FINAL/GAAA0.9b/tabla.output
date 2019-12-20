@@ -1,0 +1,1762 @@
+Terminales no usados en la gramática
+
+    BUCLE
+    BUCLE_1
+    BUCLE_2
+    SALTARF3
+    SALTARF4
+    SALTARF5
+    WHILE
+    SALTARF1
+    SALTARF2
+    SUMAR
+    RESTAR
+    MULTIPLICAR
+    DIVIDIR
+    MODULO
+    PARENTESIS
+    MAYOR
+    MENOR
+    IGUAL
+    MAYOR_IGUAL
+    MENOR_IGUAL
+    ASIGNAR
+    POSFUNCION
+    SALIRFUNCION
+    LLAMADAFUNC
+
+
+Gramática
+
+    0 $accept: s $end
+
+    1 s: PROGRAMA ':' PROG_INICIO listaInstr PROG_FIN '.'
+
+    2 listaInstr: asignacion listaInstr
+    3           | bloque_if listaInstr
+    4           | bucle_for listaInstr
+    5           | bucle_while listaInstr
+    6           | imprimir listaInstr
+    7           | defFunc listaInstr
+    8           | callFunc listaInstr
+    9           | %empty
+
+   10 @1: %empty
+
+   11 defFunc: DEF ID @1 '(' args ')' '{' listaInstr '}'
+
+   12 $@2: %empty
+
+   13 callFunc: CALL ID $@2 '(' args ')' ';'
+
+   14 args: args ',' ID
+   15     | ID
+   16     | args ',' NUM
+   17     | NUM
+   18     | %empty
+
+   19 @3: %empty
+
+   20 $@4: %empty
+
+   21 asignacion: ID @3 '=' expresion $@4 ';'
+
+   22 $@5: %empty
+
+   23 @6: %empty
+
+   24 @7: %empty
+
+   25 $@8: %empty
+
+   26 bucle_for: DESDE valor HASTA valor HACER $@5 @6 ':' listaInstr FIN_DESDE @7 $@8
+
+   27 @9: %empty
+
+   28 @10: %empty
+
+   29 $@11: %empty
+
+   30 bucle_while: MIENTRAS '(' condicion ')' @9 ':' listaInstr FIN_MIENTRAS @10 $@11
+
+   31 @12: %empty
+
+   32 @13: %empty
+
+   33 $@14: %empty
+
+   34 bloque_if: SI '(' condicion ')' @12 ':' listaInstr FIN_SI @13 $@14 otro
+
+   35 otro: SINO '{' listaInstr '}'
+   36     | %empty
+
+   37 condicion: expresion '>' expresion
+   38          | expresion '<' expresion
+   39          | expresion '=' '=' expresion
+   40          | expresion '>' '=' expresion
+   41          | expresion '<' '=' expresion
+
+   42 $@15: %empty
+
+   43 $@16: %empty
+
+   44 imprimir: IMPRIMIR expresion $@15 $@16 ';'
+
+   45 expresion: expresion '+' producto
+   46          | expresion '-' producto
+   47          | expresion '#' producto
+   48          | producto
+
+   49 producto: producto '*' agrupacion
+   50         | producto '/' agrupacion
+   51         | agrupacion
+
+   52 agrupacion: RAIZ '[' expresion ']'
+   53           | POT '[' expresion ',' expresion ']'
+   54           | '(' expresion ')'
+   55           | valor
+
+   56 valor: NUM
+   57      | ID
+
+
+Terminales con las reglas donde aparecen
+
+    $end (0) 0
+    '#' (35) 47
+    '(' (40) 11 13 30 34 54
+    ')' (41) 11 13 30 34 54
+    '*' (42) 49
+    '+' (43) 45
+    ',' (44) 14 16 53
+    '-' (45) 46
+    '.' (46) 1
+    '/' (47) 50
+    ':' (58) 1 26 30 34
+    ';' (59) 13 21 44
+    '<' (60) 38 41
+    '=' (61) 21 39 40 41
+    '>' (62) 37 40
+    '[' (91) 52 53
+    ']' (93) 52 53
+    '{' (123) 11 35
+    '}' (125) 11 35
+    error (256)
+    PROGRAMA (258) 1
+    PROG_INICIO (259) 1
+    PROG_FIN (260) 1
+    DESDE (261) 26
+    FIN_DESDE (262) 26
+    HASTA (263) 26
+    HACER (264) 26
+    BUCLE (265)
+    BUCLE_1 (266)
+    BUCLE_2 (267)
+    SALTARF3 (268)
+    MIENTRAS (269) 30
+    FIN_MIENTRAS (270) 30
+    SALTARF4 (271)
+    SALTARF5 (272)
+    WHILE (273)
+    SI (274) 34
+    FIN_SI (275) 34
+    SINO (276) 35
+    SALTARF1 (277)
+    SALTARF2 (278)
+    SUMAR (279)
+    RESTAR (280)
+    MULTIPLICAR (281)
+    DIVIDIR (282)
+    MODULO (283)
+    PARENTESIS (284)
+    RAIZ (285) 52
+    POT (286) 53
+    MAYOR (287)
+    MENOR (288)
+    IGUAL (289)
+    MAYOR_IGUAL (290)
+    MENOR_IGUAL (291)
+    IMPRIMIR (292) 44
+    ASIGNAR (293)
+    DEF (294) 11
+    CALL (295) 13
+    POSFUNCION (296)
+    SALIRFUNCION (297)
+    LLAMADAFUNC (298)
+    NUM (299) 16 17 56
+    ID <stype> (300) 11 13 14 15 21 57
+
+
+No terminales con las reglas donde aparecen
+
+    $accept (64)
+        on left: 0
+    s (65)
+        on left: 1
+        on right: 0
+    listaInstr (66)
+        on left: 2 3 4 5 6 7 8 9
+        on right: 1 2 3 4 5 6 7 8 11 26 30 34 35
+    defFunc (67)
+        on left: 11
+        on right: 7
+    @1 (68)
+        on left: 10
+        on right: 11
+    callFunc (69)
+        on left: 13
+        on right: 8
+    $@2 (70)
+        on left: 12
+        on right: 13
+    args (71)
+        on left: 14 15 16 17 18
+        on right: 11 13 14 16
+    asignacion (72)
+        on left: 21
+        on right: 2
+    @3 (73)
+        on left: 19
+        on right: 21
+    $@4 (74)
+        on left: 20
+        on right: 21
+    bucle_for (75)
+        on left: 26
+        on right: 4
+    $@5 (76)
+        on left: 22
+        on right: 26
+    @6 (77)
+        on left: 23
+        on right: 26
+    @7 (78)
+        on left: 24
+        on right: 26
+    $@8 (79)
+        on left: 25
+        on right: 26
+    bucle_while (80)
+        on left: 30
+        on right: 5
+    @9 (81)
+        on left: 27
+        on right: 30
+    @10 (82)
+        on left: 28
+        on right: 30
+    $@11 (83)
+        on left: 29
+        on right: 30
+    bloque_if (84)
+        on left: 34
+        on right: 3
+    @12 (85)
+        on left: 31
+        on right: 34
+    @13 (86)
+        on left: 32
+        on right: 34
+    $@14 (87)
+        on left: 33
+        on right: 34
+    otro (88)
+        on left: 35 36
+        on right: 34
+    condicion <itype> (89)
+        on left: 37 38 39 40 41
+        on right: 30 34
+    imprimir (90)
+        on left: 44
+        on right: 6
+    $@15 (91)
+        on left: 42
+        on right: 44
+    $@16 (92)
+        on left: 43
+        on right: 44
+    expresion <ftype> (93)
+        on left: 45 46 47 48
+        on right: 21 37 38 39 40 41 44 45 46 47 52 53 54
+    producto <ftype> (94)
+        on left: 49 50 51
+        on right: 45 46 47 48 49 50
+    agrupacion <ftype> (95)
+        on left: 52 53 54 55
+        on right: 49 50 51
+    valor (96)
+        on left: 56 57
+        on right: 26 55
+
+
+Estado 0
+
+    0 $accept: . s $end
+
+    PROGRAMA  desplazar e ir al estado 1
+
+    s  ir al estado 2
+
+
+Estado 1
+
+    1 s: PROGRAMA . ':' PROG_INICIO listaInstr PROG_FIN '.'
+
+    ':'  desplazar e ir al estado 3
+
+
+Estado 2
+
+    0 $accept: s . $end
+
+    $end  desplazar e ir al estado 4
+
+
+Estado 3
+
+    1 s: PROGRAMA ':' . PROG_INICIO listaInstr PROG_FIN '.'
+
+    PROG_INICIO  desplazar e ir al estado 5
+
+
+Estado 4
+
+    0 $accept: s $end .
+
+    $default  aceptar
+
+
+Estado 5
+
+    1 s: PROGRAMA ':' PROG_INICIO . listaInstr PROG_FIN '.'
+
+    DESDE     desplazar e ir al estado 6
+    MIENTRAS  desplazar e ir al estado 7
+    SI        desplazar e ir al estado 8
+    IMPRIMIR  desplazar e ir al estado 9
+    DEF       desplazar e ir al estado 10
+    CALL      desplazar e ir al estado 11
+    ID        desplazar e ir al estado 12
+
+    $default  reduce usando la regla 9 (listaInstr)
+
+    listaInstr   ir al estado 13
+    defFunc      ir al estado 14
+    callFunc     ir al estado 15
+    asignacion   ir al estado 16
+    bucle_for    ir al estado 17
+    bucle_while  ir al estado 18
+    bloque_if    ir al estado 19
+    imprimir     ir al estado 20
+
+
+Estado 6
+
+   26 bucle_for: DESDE . valor HASTA valor HACER $@5 @6 ':' listaInstr FIN_DESDE @7 $@8
+
+    NUM  desplazar e ir al estado 21
+    ID   desplazar e ir al estado 22
+
+    valor  ir al estado 23
+
+
+Estado 7
+
+   30 bucle_while: MIENTRAS . '(' condicion ')' @9 ':' listaInstr FIN_MIENTRAS @10 $@11
+
+    '('  desplazar e ir al estado 24
+
+
+Estado 8
+
+   34 bloque_if: SI . '(' condicion ')' @12 ':' listaInstr FIN_SI @13 $@14 otro
+
+    '('  desplazar e ir al estado 25
+
+
+Estado 9
+
+   44 imprimir: IMPRIMIR . expresion $@15 $@16 ';'
+
+    RAIZ  desplazar e ir al estado 26
+    POT   desplazar e ir al estado 27
+    NUM   desplazar e ir al estado 21
+    ID    desplazar e ir al estado 22
+    '('   desplazar e ir al estado 28
+
+    expresion   ir al estado 29
+    producto    ir al estado 30
+    agrupacion  ir al estado 31
+    valor       ir al estado 32
+
+
+Estado 10
+
+   11 defFunc: DEF . ID @1 '(' args ')' '{' listaInstr '}'
+
+    ID  desplazar e ir al estado 33
+
+
+Estado 11
+
+   13 callFunc: CALL . ID $@2 '(' args ')' ';'
+
+    ID  desplazar e ir al estado 34
+
+
+Estado 12
+
+   21 asignacion: ID . @3 '=' expresion $@4 ';'
+
+    $default  reduce usando la regla 19 (@3)
+
+    @3  ir al estado 35
+
+
+Estado 13
+
+    1 s: PROGRAMA ':' PROG_INICIO listaInstr . PROG_FIN '.'
+
+    PROG_FIN  desplazar e ir al estado 36
+
+
+Estado 14
+
+    7 listaInstr: defFunc . listaInstr
+
+    DESDE     desplazar e ir al estado 6
+    MIENTRAS  desplazar e ir al estado 7
+    SI        desplazar e ir al estado 8
+    IMPRIMIR  desplazar e ir al estado 9
+    DEF       desplazar e ir al estado 10
+    CALL      desplazar e ir al estado 11
+    ID        desplazar e ir al estado 12
+
+    $default  reduce usando la regla 9 (listaInstr)
+
+    listaInstr   ir al estado 37
+    defFunc      ir al estado 14
+    callFunc     ir al estado 15
+    asignacion   ir al estado 16
+    bucle_for    ir al estado 17
+    bucle_while  ir al estado 18
+    bloque_if    ir al estado 19
+    imprimir     ir al estado 20
+
+
+Estado 15
+
+    8 listaInstr: callFunc . listaInstr
+
+    DESDE     desplazar e ir al estado 6
+    MIENTRAS  desplazar e ir al estado 7
+    SI        desplazar e ir al estado 8
+    IMPRIMIR  desplazar e ir al estado 9
+    DEF       desplazar e ir al estado 10
+    CALL      desplazar e ir al estado 11
+    ID        desplazar e ir al estado 12
+
+    $default  reduce usando la regla 9 (listaInstr)
+
+    listaInstr   ir al estado 38
+    defFunc      ir al estado 14
+    callFunc     ir al estado 15
+    asignacion   ir al estado 16
+    bucle_for    ir al estado 17
+    bucle_while  ir al estado 18
+    bloque_if    ir al estado 19
+    imprimir     ir al estado 20
+
+
+Estado 16
+
+    2 listaInstr: asignacion . listaInstr
+
+    DESDE     desplazar e ir al estado 6
+    MIENTRAS  desplazar e ir al estado 7
+    SI        desplazar e ir al estado 8
+    IMPRIMIR  desplazar e ir al estado 9
+    DEF       desplazar e ir al estado 10
+    CALL      desplazar e ir al estado 11
+    ID        desplazar e ir al estado 12
+
+    $default  reduce usando la regla 9 (listaInstr)
+
+    listaInstr   ir al estado 39
+    defFunc      ir al estado 14
+    callFunc     ir al estado 15
+    asignacion   ir al estado 16
+    bucle_for    ir al estado 17
+    bucle_while  ir al estado 18
+    bloque_if    ir al estado 19
+    imprimir     ir al estado 20
+
+
+Estado 17
+
+    4 listaInstr: bucle_for . listaInstr
+
+    DESDE     desplazar e ir al estado 6
+    MIENTRAS  desplazar e ir al estado 7
+    SI        desplazar e ir al estado 8
+    IMPRIMIR  desplazar e ir al estado 9
+    DEF       desplazar e ir al estado 10
+    CALL      desplazar e ir al estado 11
+    ID        desplazar e ir al estado 12
+
+    $default  reduce usando la regla 9 (listaInstr)
+
+    listaInstr   ir al estado 40
+    defFunc      ir al estado 14
+    callFunc     ir al estado 15
+    asignacion   ir al estado 16
+    bucle_for    ir al estado 17
+    bucle_while  ir al estado 18
+    bloque_if    ir al estado 19
+    imprimir     ir al estado 20
+
+
+Estado 18
+
+    5 listaInstr: bucle_while . listaInstr
+
+    DESDE     desplazar e ir al estado 6
+    MIENTRAS  desplazar e ir al estado 7
+    SI        desplazar e ir al estado 8
+    IMPRIMIR  desplazar e ir al estado 9
+    DEF       desplazar e ir al estado 10
+    CALL      desplazar e ir al estado 11
+    ID        desplazar e ir al estado 12
+
+    $default  reduce usando la regla 9 (listaInstr)
+
+    listaInstr   ir al estado 41
+    defFunc      ir al estado 14
+    callFunc     ir al estado 15
+    asignacion   ir al estado 16
+    bucle_for    ir al estado 17
+    bucle_while  ir al estado 18
+    bloque_if    ir al estado 19
+    imprimir     ir al estado 20
+
+
+Estado 19
+
+    3 listaInstr: bloque_if . listaInstr
+
+    DESDE     desplazar e ir al estado 6
+    MIENTRAS  desplazar e ir al estado 7
+    SI        desplazar e ir al estado 8
+    IMPRIMIR  desplazar e ir al estado 9
+    DEF       desplazar e ir al estado 10
+    CALL      desplazar e ir al estado 11
+    ID        desplazar e ir al estado 12
+
+    $default  reduce usando la regla 9 (listaInstr)
+
+    listaInstr   ir al estado 42
+    defFunc      ir al estado 14
+    callFunc     ir al estado 15
+    asignacion   ir al estado 16
+    bucle_for    ir al estado 17
+    bucle_while  ir al estado 18
+    bloque_if    ir al estado 19
+    imprimir     ir al estado 20
+
+
+Estado 20
+
+    6 listaInstr: imprimir . listaInstr
+
+    DESDE     desplazar e ir al estado 6
+    MIENTRAS  desplazar e ir al estado 7
+    SI        desplazar e ir al estado 8
+    IMPRIMIR  desplazar e ir al estado 9
+    DEF       desplazar e ir al estado 10
+    CALL      desplazar e ir al estado 11
+    ID        desplazar e ir al estado 12
+
+    $default  reduce usando la regla 9 (listaInstr)
+
+    listaInstr   ir al estado 43
+    defFunc      ir al estado 14
+    callFunc     ir al estado 15
+    asignacion   ir al estado 16
+    bucle_for    ir al estado 17
+    bucle_while  ir al estado 18
+    bloque_if    ir al estado 19
+    imprimir     ir al estado 20
+
+
+Estado 21
+
+   56 valor: NUM .
+
+    $default  reduce usando la regla 56 (valor)
+
+
+Estado 22
+
+   57 valor: ID .
+
+    $default  reduce usando la regla 57 (valor)
+
+
+Estado 23
+
+   26 bucle_for: DESDE valor . HASTA valor HACER $@5 @6 ':' listaInstr FIN_DESDE @7 $@8
+
+    HASTA  desplazar e ir al estado 44
+
+
+Estado 24
+
+   30 bucle_while: MIENTRAS '(' . condicion ')' @9 ':' listaInstr FIN_MIENTRAS @10 $@11
+
+    RAIZ  desplazar e ir al estado 26
+    POT   desplazar e ir al estado 27
+    NUM   desplazar e ir al estado 21
+    ID    desplazar e ir al estado 22
+    '('   desplazar e ir al estado 28
+
+    condicion   ir al estado 45
+    expresion   ir al estado 46
+    producto    ir al estado 30
+    agrupacion  ir al estado 31
+    valor       ir al estado 32
+
+
+Estado 25
+
+   34 bloque_if: SI '(' . condicion ')' @12 ':' listaInstr FIN_SI @13 $@14 otro
+
+    RAIZ  desplazar e ir al estado 26
+    POT   desplazar e ir al estado 27
+    NUM   desplazar e ir al estado 21
+    ID    desplazar e ir al estado 22
+    '('   desplazar e ir al estado 28
+
+    condicion   ir al estado 47
+    expresion   ir al estado 46
+    producto    ir al estado 30
+    agrupacion  ir al estado 31
+    valor       ir al estado 32
+
+
+Estado 26
+
+   52 agrupacion: RAIZ . '[' expresion ']'
+
+    '['  desplazar e ir al estado 48
+
+
+Estado 27
+
+   53 agrupacion: POT . '[' expresion ',' expresion ']'
+
+    '['  desplazar e ir al estado 49
+
+
+Estado 28
+
+   54 agrupacion: '(' . expresion ')'
+
+    RAIZ  desplazar e ir al estado 26
+    POT   desplazar e ir al estado 27
+    NUM   desplazar e ir al estado 21
+    ID    desplazar e ir al estado 22
+    '('   desplazar e ir al estado 28
+
+    expresion   ir al estado 50
+    producto    ir al estado 30
+    agrupacion  ir al estado 31
+    valor       ir al estado 32
+
+
+Estado 29
+
+   44 imprimir: IMPRIMIR expresion . $@15 $@16 ';'
+   45 expresion: expresion . '+' producto
+   46          | expresion . '-' producto
+   47          | expresion . '#' producto
+
+    '+'  desplazar e ir al estado 51
+    '-'  desplazar e ir al estado 52
+    '#'  desplazar e ir al estado 53
+
+    $default  reduce usando la regla 42 ($@15)
+
+    $@15  ir al estado 54
+
+
+Estado 30
+
+   48 expresion: producto .
+   49 producto: producto . '*' agrupacion
+   50         | producto . '/' agrupacion
+
+    '*'  desplazar e ir al estado 55
+    '/'  desplazar e ir al estado 56
+
+    $default  reduce usando la regla 48 (expresion)
+
+
+Estado 31
+
+   51 producto: agrupacion .
+
+    $default  reduce usando la regla 51 (producto)
+
+
+Estado 32
+
+   55 agrupacion: valor .
+
+    $default  reduce usando la regla 55 (agrupacion)
+
+
+Estado 33
+
+   11 defFunc: DEF ID . @1 '(' args ')' '{' listaInstr '}'
+
+    $default  reduce usando la regla 10 (@1)
+
+    @1  ir al estado 57
+
+
+Estado 34
+
+   13 callFunc: CALL ID . $@2 '(' args ')' ';'
+
+    $default  reduce usando la regla 12 ($@2)
+
+    $@2  ir al estado 58
+
+
+Estado 35
+
+   21 asignacion: ID @3 . '=' expresion $@4 ';'
+
+    '='  desplazar e ir al estado 59
+
+
+Estado 36
+
+    1 s: PROGRAMA ':' PROG_INICIO listaInstr PROG_FIN . '.'
+
+    '.'  desplazar e ir al estado 60
+
+
+Estado 37
+
+    7 listaInstr: defFunc listaInstr .
+
+    $default  reduce usando la regla 7 (listaInstr)
+
+
+Estado 38
+
+    8 listaInstr: callFunc listaInstr .
+
+    $default  reduce usando la regla 8 (listaInstr)
+
+
+Estado 39
+
+    2 listaInstr: asignacion listaInstr .
+
+    $default  reduce usando la regla 2 (listaInstr)
+
+
+Estado 40
+
+    4 listaInstr: bucle_for listaInstr .
+
+    $default  reduce usando la regla 4 (listaInstr)
+
+
+Estado 41
+
+    5 listaInstr: bucle_while listaInstr .
+
+    $default  reduce usando la regla 5 (listaInstr)
+
+
+Estado 42
+
+    3 listaInstr: bloque_if listaInstr .
+
+    $default  reduce usando la regla 3 (listaInstr)
+
+
+Estado 43
+
+    6 listaInstr: imprimir listaInstr .
+
+    $default  reduce usando la regla 6 (listaInstr)
+
+
+Estado 44
+
+   26 bucle_for: DESDE valor HASTA . valor HACER $@5 @6 ':' listaInstr FIN_DESDE @7 $@8
+
+    NUM  desplazar e ir al estado 21
+    ID   desplazar e ir al estado 22
+
+    valor  ir al estado 61
+
+
+Estado 45
+
+   30 bucle_while: MIENTRAS '(' condicion . ')' @9 ':' listaInstr FIN_MIENTRAS @10 $@11
+
+    ')'  desplazar e ir al estado 62
+
+
+Estado 46
+
+   37 condicion: expresion . '>' expresion
+   38          | expresion . '<' expresion
+   39          | expresion . '=' '=' expresion
+   40          | expresion . '>' '=' expresion
+   41          | expresion . '<' '=' expresion
+   45 expresion: expresion . '+' producto
+   46          | expresion . '-' producto
+   47          | expresion . '#' producto
+
+    '='  desplazar e ir al estado 63
+    '>'  desplazar e ir al estado 64
+    '<'  desplazar e ir al estado 65
+    '+'  desplazar e ir al estado 51
+    '-'  desplazar e ir al estado 52
+    '#'  desplazar e ir al estado 53
+
+
+Estado 47
+
+   34 bloque_if: SI '(' condicion . ')' @12 ':' listaInstr FIN_SI @13 $@14 otro
+
+    ')'  desplazar e ir al estado 66
+
+
+Estado 48
+
+   52 agrupacion: RAIZ '[' . expresion ']'
+
+    RAIZ  desplazar e ir al estado 26
+    POT   desplazar e ir al estado 27
+    NUM   desplazar e ir al estado 21
+    ID    desplazar e ir al estado 22
+    '('   desplazar e ir al estado 28
+
+    expresion   ir al estado 67
+    producto    ir al estado 30
+    agrupacion  ir al estado 31
+    valor       ir al estado 32
+
+
+Estado 49
+
+   53 agrupacion: POT '[' . expresion ',' expresion ']'
+
+    RAIZ  desplazar e ir al estado 26
+    POT   desplazar e ir al estado 27
+    NUM   desplazar e ir al estado 21
+    ID    desplazar e ir al estado 22
+    '('   desplazar e ir al estado 28
+
+    expresion   ir al estado 68
+    producto    ir al estado 30
+    agrupacion  ir al estado 31
+    valor       ir al estado 32
+
+
+Estado 50
+
+   45 expresion: expresion . '+' producto
+   46          | expresion . '-' producto
+   47          | expresion . '#' producto
+   54 agrupacion: '(' expresion . ')'
+
+    ')'  desplazar e ir al estado 69
+    '+'  desplazar e ir al estado 51
+    '-'  desplazar e ir al estado 52
+    '#'  desplazar e ir al estado 53
+
+
+Estado 51
+
+   45 expresion: expresion '+' . producto
+
+    RAIZ  desplazar e ir al estado 26
+    POT   desplazar e ir al estado 27
+    NUM   desplazar e ir al estado 21
+    ID    desplazar e ir al estado 22
+    '('   desplazar e ir al estado 28
+
+    producto    ir al estado 70
+    agrupacion  ir al estado 31
+    valor       ir al estado 32
+
+
+Estado 52
+
+   46 expresion: expresion '-' . producto
+
+    RAIZ  desplazar e ir al estado 26
+    POT   desplazar e ir al estado 27
+    NUM   desplazar e ir al estado 21
+    ID    desplazar e ir al estado 22
+    '('   desplazar e ir al estado 28
+
+    producto    ir al estado 71
+    agrupacion  ir al estado 31
+    valor       ir al estado 32
+
+
+Estado 53
+
+   47 expresion: expresion '#' . producto
+
+    RAIZ  desplazar e ir al estado 26
+    POT   desplazar e ir al estado 27
+    NUM   desplazar e ir al estado 21
+    ID    desplazar e ir al estado 22
+    '('   desplazar e ir al estado 28
+
+    producto    ir al estado 72
+    agrupacion  ir al estado 31
+    valor       ir al estado 32
+
+
+Estado 54
+
+   44 imprimir: IMPRIMIR expresion $@15 . $@16 ';'
+
+    $default  reduce usando la regla 43 ($@16)
+
+    $@16  ir al estado 73
+
+
+Estado 55
+
+   49 producto: producto '*' . agrupacion
+
+    RAIZ  desplazar e ir al estado 26
+    POT   desplazar e ir al estado 27
+    NUM   desplazar e ir al estado 21
+    ID    desplazar e ir al estado 22
+    '('   desplazar e ir al estado 28
+
+    agrupacion  ir al estado 74
+    valor       ir al estado 32
+
+
+Estado 56
+
+   50 producto: producto '/' . agrupacion
+
+    RAIZ  desplazar e ir al estado 26
+    POT   desplazar e ir al estado 27
+    NUM   desplazar e ir al estado 21
+    ID    desplazar e ir al estado 22
+    '('   desplazar e ir al estado 28
+
+    agrupacion  ir al estado 75
+    valor       ir al estado 32
+
+
+Estado 57
+
+   11 defFunc: DEF ID @1 . '(' args ')' '{' listaInstr '}'
+
+    '('  desplazar e ir al estado 76
+
+
+Estado 58
+
+   13 callFunc: CALL ID $@2 . '(' args ')' ';'
+
+    '('  desplazar e ir al estado 77
+
+
+Estado 59
+
+   21 asignacion: ID @3 '=' . expresion $@4 ';'
+
+    RAIZ  desplazar e ir al estado 26
+    POT   desplazar e ir al estado 27
+    NUM   desplazar e ir al estado 21
+    ID    desplazar e ir al estado 22
+    '('   desplazar e ir al estado 28
+
+    expresion   ir al estado 78
+    producto    ir al estado 30
+    agrupacion  ir al estado 31
+    valor       ir al estado 32
+
+
+Estado 60
+
+    1 s: PROGRAMA ':' PROG_INICIO listaInstr PROG_FIN '.' .
+
+    $default  reduce usando la regla 1 (s)
+
+
+Estado 61
+
+   26 bucle_for: DESDE valor HASTA valor . HACER $@5 @6 ':' listaInstr FIN_DESDE @7 $@8
+
+    HACER  desplazar e ir al estado 79
+
+
+Estado 62
+
+   30 bucle_while: MIENTRAS '(' condicion ')' . @9 ':' listaInstr FIN_MIENTRAS @10 $@11
+
+    $default  reduce usando la regla 27 (@9)
+
+    @9  ir al estado 80
+
+
+Estado 63
+
+   39 condicion: expresion '=' . '=' expresion
+
+    '='  desplazar e ir al estado 81
+
+
+Estado 64
+
+   37 condicion: expresion '>' . expresion
+   40          | expresion '>' . '=' expresion
+
+    RAIZ  desplazar e ir al estado 26
+    POT   desplazar e ir al estado 27
+    NUM   desplazar e ir al estado 21
+    ID    desplazar e ir al estado 22
+    '('   desplazar e ir al estado 28
+    '='   desplazar e ir al estado 82
+
+    expresion   ir al estado 83
+    producto    ir al estado 30
+    agrupacion  ir al estado 31
+    valor       ir al estado 32
+
+
+Estado 65
+
+   38 condicion: expresion '<' . expresion
+   41          | expresion '<' . '=' expresion
+
+    RAIZ  desplazar e ir al estado 26
+    POT   desplazar e ir al estado 27
+    NUM   desplazar e ir al estado 21
+    ID    desplazar e ir al estado 22
+    '('   desplazar e ir al estado 28
+    '='   desplazar e ir al estado 84
+
+    expresion   ir al estado 85
+    producto    ir al estado 30
+    agrupacion  ir al estado 31
+    valor       ir al estado 32
+
+
+Estado 66
+
+   34 bloque_if: SI '(' condicion ')' . @12 ':' listaInstr FIN_SI @13 $@14 otro
+
+    $default  reduce usando la regla 31 (@12)
+
+    @12  ir al estado 86
+
+
+Estado 67
+
+   45 expresion: expresion . '+' producto
+   46          | expresion . '-' producto
+   47          | expresion . '#' producto
+   52 agrupacion: RAIZ '[' expresion . ']'
+
+    '+'  desplazar e ir al estado 51
+    '-'  desplazar e ir al estado 52
+    '#'  desplazar e ir al estado 53
+    ']'  desplazar e ir al estado 87
+
+
+Estado 68
+
+   45 expresion: expresion . '+' producto
+   46          | expresion . '-' producto
+   47          | expresion . '#' producto
+   53 agrupacion: POT '[' expresion . ',' expresion ']'
+
+    ','  desplazar e ir al estado 88
+    '+'  desplazar e ir al estado 51
+    '-'  desplazar e ir al estado 52
+    '#'  desplazar e ir al estado 53
+
+
+Estado 69
+
+   54 agrupacion: '(' expresion ')' .
+
+    $default  reduce usando la regla 54 (agrupacion)
+
+
+Estado 70
+
+   45 expresion: expresion '+' producto .
+   49 producto: producto . '*' agrupacion
+   50         | producto . '/' agrupacion
+
+    '*'  desplazar e ir al estado 55
+    '/'  desplazar e ir al estado 56
+
+    $default  reduce usando la regla 45 (expresion)
+
+
+Estado 71
+
+   46 expresion: expresion '-' producto .
+   49 producto: producto . '*' agrupacion
+   50         | producto . '/' agrupacion
+
+    '*'  desplazar e ir al estado 55
+    '/'  desplazar e ir al estado 56
+
+    $default  reduce usando la regla 46 (expresion)
+
+
+Estado 72
+
+   47 expresion: expresion '#' producto .
+   49 producto: producto . '*' agrupacion
+   50         | producto . '/' agrupacion
+
+    '*'  desplazar e ir al estado 55
+    '/'  desplazar e ir al estado 56
+
+    $default  reduce usando la regla 47 (expresion)
+
+
+Estado 73
+
+   44 imprimir: IMPRIMIR expresion $@15 $@16 . ';'
+
+    ';'  desplazar e ir al estado 89
+
+
+Estado 74
+
+   49 producto: producto '*' agrupacion .
+
+    $default  reduce usando la regla 49 (producto)
+
+
+Estado 75
+
+   50 producto: producto '/' agrupacion .
+
+    $default  reduce usando la regla 50 (producto)
+
+
+Estado 76
+
+   11 defFunc: DEF ID @1 '(' . args ')' '{' listaInstr '}'
+
+    NUM  desplazar e ir al estado 90
+    ID   desplazar e ir al estado 91
+
+    $default  reduce usando la regla 18 (args)
+
+    args  ir al estado 92
+
+
+Estado 77
+
+   13 callFunc: CALL ID $@2 '(' . args ')' ';'
+
+    NUM  desplazar e ir al estado 90
+    ID   desplazar e ir al estado 91
+
+    $default  reduce usando la regla 18 (args)
+
+    args  ir al estado 93
+
+
+Estado 78
+
+   21 asignacion: ID @3 '=' expresion . $@4 ';'
+   45 expresion: expresion . '+' producto
+   46          | expresion . '-' producto
+   47          | expresion . '#' producto
+
+    '+'  desplazar e ir al estado 51
+    '-'  desplazar e ir al estado 52
+    '#'  desplazar e ir al estado 53
+
+    $default  reduce usando la regla 20 ($@4)
+
+    $@4  ir al estado 94
+
+
+Estado 79
+
+   26 bucle_for: DESDE valor HASTA valor HACER . $@5 @6 ':' listaInstr FIN_DESDE @7 $@8
+
+    $default  reduce usando la regla 22 ($@5)
+
+    $@5  ir al estado 95
+
+
+Estado 80
+
+   30 bucle_while: MIENTRAS '(' condicion ')' @9 . ':' listaInstr FIN_MIENTRAS @10 $@11
+
+    ':'  desplazar e ir al estado 96
+
+
+Estado 81
+
+   39 condicion: expresion '=' '=' . expresion
+
+    RAIZ  desplazar e ir al estado 26
+    POT   desplazar e ir al estado 27
+    NUM   desplazar e ir al estado 21
+    ID    desplazar e ir al estado 22
+    '('   desplazar e ir al estado 28
+
+    expresion   ir al estado 97
+    producto    ir al estado 30
+    agrupacion  ir al estado 31
+    valor       ir al estado 32
+
+
+Estado 82
+
+   40 condicion: expresion '>' '=' . expresion
+
+    RAIZ  desplazar e ir al estado 26
+    POT   desplazar e ir al estado 27
+    NUM   desplazar e ir al estado 21
+    ID    desplazar e ir al estado 22
+    '('   desplazar e ir al estado 28
+
+    expresion   ir al estado 98
+    producto    ir al estado 30
+    agrupacion  ir al estado 31
+    valor       ir al estado 32
+
+
+Estado 83
+
+   37 condicion: expresion '>' expresion .
+   45 expresion: expresion . '+' producto
+   46          | expresion . '-' producto
+   47          | expresion . '#' producto
+
+    '+'  desplazar e ir al estado 51
+    '-'  desplazar e ir al estado 52
+    '#'  desplazar e ir al estado 53
+
+    $default  reduce usando la regla 37 (condicion)
+
+
+Estado 84
+
+   41 condicion: expresion '<' '=' . expresion
+
+    RAIZ  desplazar e ir al estado 26
+    POT   desplazar e ir al estado 27
+    NUM   desplazar e ir al estado 21
+    ID    desplazar e ir al estado 22
+    '('   desplazar e ir al estado 28
+
+    expresion   ir al estado 99
+    producto    ir al estado 30
+    agrupacion  ir al estado 31
+    valor       ir al estado 32
+
+
+Estado 85
+
+   38 condicion: expresion '<' expresion .
+   45 expresion: expresion . '+' producto
+   46          | expresion . '-' producto
+   47          | expresion . '#' producto
+
+    '+'  desplazar e ir al estado 51
+    '-'  desplazar e ir al estado 52
+    '#'  desplazar e ir al estado 53
+
+    $default  reduce usando la regla 38 (condicion)
+
+
+Estado 86
+
+   34 bloque_if: SI '(' condicion ')' @12 . ':' listaInstr FIN_SI @13 $@14 otro
+
+    ':'  desplazar e ir al estado 100
+
+
+Estado 87
+
+   52 agrupacion: RAIZ '[' expresion ']' .
+
+    $default  reduce usando la regla 52 (agrupacion)
+
+
+Estado 88
+
+   53 agrupacion: POT '[' expresion ',' . expresion ']'
+
+    RAIZ  desplazar e ir al estado 26
+    POT   desplazar e ir al estado 27
+    NUM   desplazar e ir al estado 21
+    ID    desplazar e ir al estado 22
+    '('   desplazar e ir al estado 28
+
+    expresion   ir al estado 101
+    producto    ir al estado 30
+    agrupacion  ir al estado 31
+    valor       ir al estado 32
+
+
+Estado 89
+
+   44 imprimir: IMPRIMIR expresion $@15 $@16 ';' .
+
+    $default  reduce usando la regla 44 (imprimir)
+
+
+Estado 90
+
+   17 args: NUM .
+
+    $default  reduce usando la regla 17 (args)
+
+
+Estado 91
+
+   15 args: ID .
+
+    $default  reduce usando la regla 15 (args)
+
+
+Estado 92
+
+   11 defFunc: DEF ID @1 '(' args . ')' '{' listaInstr '}'
+   14 args: args . ',' ID
+   16     | args . ',' NUM
+
+    ')'  desplazar e ir al estado 102
+    ','  desplazar e ir al estado 103
+
+
+Estado 93
+
+   13 callFunc: CALL ID $@2 '(' args . ')' ';'
+   14 args: args . ',' ID
+   16     | args . ',' NUM
+
+    ')'  desplazar e ir al estado 104
+    ','  desplazar e ir al estado 103
+
+
+Estado 94
+
+   21 asignacion: ID @3 '=' expresion $@4 . ';'
+
+    ';'  desplazar e ir al estado 105
+
+
+Estado 95
+
+   26 bucle_for: DESDE valor HASTA valor HACER $@5 . @6 ':' listaInstr FIN_DESDE @7 $@8
+
+    $default  reduce usando la regla 23 (@6)
+
+    @6  ir al estado 106
+
+
+Estado 96
+
+   30 bucle_while: MIENTRAS '(' condicion ')' @9 ':' . listaInstr FIN_MIENTRAS @10 $@11
+
+    DESDE     desplazar e ir al estado 6
+    MIENTRAS  desplazar e ir al estado 7
+    SI        desplazar e ir al estado 8
+    IMPRIMIR  desplazar e ir al estado 9
+    DEF       desplazar e ir al estado 10
+    CALL      desplazar e ir al estado 11
+    ID        desplazar e ir al estado 12
+
+    $default  reduce usando la regla 9 (listaInstr)
+
+    listaInstr   ir al estado 107
+    defFunc      ir al estado 14
+    callFunc     ir al estado 15
+    asignacion   ir al estado 16
+    bucle_for    ir al estado 17
+    bucle_while  ir al estado 18
+    bloque_if    ir al estado 19
+    imprimir     ir al estado 20
+
+
+Estado 97
+
+   39 condicion: expresion '=' '=' expresion .
+   45 expresion: expresion . '+' producto
+   46          | expresion . '-' producto
+   47          | expresion . '#' producto
+
+    '+'  desplazar e ir al estado 51
+    '-'  desplazar e ir al estado 52
+    '#'  desplazar e ir al estado 53
+
+    $default  reduce usando la regla 39 (condicion)
+
+
+Estado 98
+
+   40 condicion: expresion '>' '=' expresion .
+   45 expresion: expresion . '+' producto
+   46          | expresion . '-' producto
+   47          | expresion . '#' producto
+
+    '+'  desplazar e ir al estado 51
+    '-'  desplazar e ir al estado 52
+    '#'  desplazar e ir al estado 53
+
+    $default  reduce usando la regla 40 (condicion)
+
+
+Estado 99
+
+   41 condicion: expresion '<' '=' expresion .
+   45 expresion: expresion . '+' producto
+   46          | expresion . '-' producto
+   47          | expresion . '#' producto
+
+    '+'  desplazar e ir al estado 51
+    '-'  desplazar e ir al estado 52
+    '#'  desplazar e ir al estado 53
+
+    $default  reduce usando la regla 41 (condicion)
+
+
+Estado 100
+
+   34 bloque_if: SI '(' condicion ')' @12 ':' . listaInstr FIN_SI @13 $@14 otro
+
+    DESDE     desplazar e ir al estado 6
+    MIENTRAS  desplazar e ir al estado 7
+    SI        desplazar e ir al estado 8
+    IMPRIMIR  desplazar e ir al estado 9
+    DEF       desplazar e ir al estado 10
+    CALL      desplazar e ir al estado 11
+    ID        desplazar e ir al estado 12
+
+    $default  reduce usando la regla 9 (listaInstr)
+
+    listaInstr   ir al estado 108
+    defFunc      ir al estado 14
+    callFunc     ir al estado 15
+    asignacion   ir al estado 16
+    bucle_for    ir al estado 17
+    bucle_while  ir al estado 18
+    bloque_if    ir al estado 19
+    imprimir     ir al estado 20
+
+
+Estado 101
+
+   45 expresion: expresion . '+' producto
+   46          | expresion . '-' producto
+   47          | expresion . '#' producto
+   53 agrupacion: POT '[' expresion ',' expresion . ']'
+
+    '+'  desplazar e ir al estado 51
+    '-'  desplazar e ir al estado 52
+    '#'  desplazar e ir al estado 53
+    ']'  desplazar e ir al estado 109
+
+
+Estado 102
+
+   11 defFunc: DEF ID @1 '(' args ')' . '{' listaInstr '}'
+
+    '{'  desplazar e ir al estado 110
+
+
+Estado 103
+
+   14 args: args ',' . ID
+   16     | args ',' . NUM
+
+    NUM  desplazar e ir al estado 111
+    ID   desplazar e ir al estado 112
+
+
+Estado 104
+
+   13 callFunc: CALL ID $@2 '(' args ')' . ';'
+
+    ';'  desplazar e ir al estado 113
+
+
+Estado 105
+
+   21 asignacion: ID @3 '=' expresion $@4 ';' .
+
+    $default  reduce usando la regla 21 (asignacion)
+
+
+Estado 106
+
+   26 bucle_for: DESDE valor HASTA valor HACER $@5 @6 . ':' listaInstr FIN_DESDE @7 $@8
+
+    ':'  desplazar e ir al estado 114
+
+
+Estado 107
+
+   30 bucle_while: MIENTRAS '(' condicion ')' @9 ':' listaInstr . FIN_MIENTRAS @10 $@11
+
+    FIN_MIENTRAS  desplazar e ir al estado 115
+
+
+Estado 108
+
+   34 bloque_if: SI '(' condicion ')' @12 ':' listaInstr . FIN_SI @13 $@14 otro
+
+    FIN_SI  desplazar e ir al estado 116
+
+
+Estado 109
+
+   53 agrupacion: POT '[' expresion ',' expresion ']' .
+
+    $default  reduce usando la regla 53 (agrupacion)
+
+
+Estado 110
+
+   11 defFunc: DEF ID @1 '(' args ')' '{' . listaInstr '}'
+
+    DESDE     desplazar e ir al estado 6
+    MIENTRAS  desplazar e ir al estado 7
+    SI        desplazar e ir al estado 8
+    IMPRIMIR  desplazar e ir al estado 9
+    DEF       desplazar e ir al estado 10
+    CALL      desplazar e ir al estado 11
+    ID        desplazar e ir al estado 12
+
+    $default  reduce usando la regla 9 (listaInstr)
+
+    listaInstr   ir al estado 117
+    defFunc      ir al estado 14
+    callFunc     ir al estado 15
+    asignacion   ir al estado 16
+    bucle_for    ir al estado 17
+    bucle_while  ir al estado 18
+    bloque_if    ir al estado 19
+    imprimir     ir al estado 20
+
+
+Estado 111
+
+   16 args: args ',' NUM .
+
+    $default  reduce usando la regla 16 (args)
+
+
+Estado 112
+
+   14 args: args ',' ID .
+
+    $default  reduce usando la regla 14 (args)
+
+
+Estado 113
+
+   13 callFunc: CALL ID $@2 '(' args ')' ';' .
+
+    $default  reduce usando la regla 13 (callFunc)
+
+
+Estado 114
+
+   26 bucle_for: DESDE valor HASTA valor HACER $@5 @6 ':' . listaInstr FIN_DESDE @7 $@8
+
+    DESDE     desplazar e ir al estado 6
+    MIENTRAS  desplazar e ir al estado 7
+    SI        desplazar e ir al estado 8
+    IMPRIMIR  desplazar e ir al estado 9
+    DEF       desplazar e ir al estado 10
+    CALL      desplazar e ir al estado 11
+    ID        desplazar e ir al estado 12
+
+    $default  reduce usando la regla 9 (listaInstr)
+
+    listaInstr   ir al estado 118
+    defFunc      ir al estado 14
+    callFunc     ir al estado 15
+    asignacion   ir al estado 16
+    bucle_for    ir al estado 17
+    bucle_while  ir al estado 18
+    bloque_if    ir al estado 19
+    imprimir     ir al estado 20
+
+
+Estado 115
+
+   30 bucle_while: MIENTRAS '(' condicion ')' @9 ':' listaInstr FIN_MIENTRAS . @10 $@11
+
+    $default  reduce usando la regla 28 (@10)
+
+    @10  ir al estado 119
+
+
+Estado 116
+
+   34 bloque_if: SI '(' condicion ')' @12 ':' listaInstr FIN_SI . @13 $@14 otro
+
+    $default  reduce usando la regla 32 (@13)
+
+    @13  ir al estado 120
+
+
+Estado 117
+
+   11 defFunc: DEF ID @1 '(' args ')' '{' listaInstr . '}'
+
+    '}'  desplazar e ir al estado 121
+
+
+Estado 118
+
+   26 bucle_for: DESDE valor HASTA valor HACER $@5 @6 ':' listaInstr . FIN_DESDE @7 $@8
+
+    FIN_DESDE  desplazar e ir al estado 122
+
+
+Estado 119
+
+   30 bucle_while: MIENTRAS '(' condicion ')' @9 ':' listaInstr FIN_MIENTRAS @10 . $@11
+
+    $default  reduce usando la regla 29 ($@11)
+
+    $@11  ir al estado 123
+
+
+Estado 120
+
+   34 bloque_if: SI '(' condicion ')' @12 ':' listaInstr FIN_SI @13 . $@14 otro
+
+    $default  reduce usando la regla 33 ($@14)
+
+    $@14  ir al estado 124
+
+
+Estado 121
+
+   11 defFunc: DEF ID @1 '(' args ')' '{' listaInstr '}' .
+
+    $default  reduce usando la regla 11 (defFunc)
+
+
+Estado 122
+
+   26 bucle_for: DESDE valor HASTA valor HACER $@5 @6 ':' listaInstr FIN_DESDE . @7 $@8
+
+    $default  reduce usando la regla 24 (@7)
+
+    @7  ir al estado 125
+
+
+Estado 123
+
+   30 bucle_while: MIENTRAS '(' condicion ')' @9 ':' listaInstr FIN_MIENTRAS @10 $@11 .
+
+    $default  reduce usando la regla 30 (bucle_while)
+
+
+Estado 124
+
+   34 bloque_if: SI '(' condicion ')' @12 ':' listaInstr FIN_SI @13 $@14 . otro
+
+    SINO  desplazar e ir al estado 126
+
+    $default  reduce usando la regla 36 (otro)
+
+    otro  ir al estado 127
+
+
+Estado 125
+
+   26 bucle_for: DESDE valor HASTA valor HACER $@5 @6 ':' listaInstr FIN_DESDE @7 . $@8
+
+    $default  reduce usando la regla 25 ($@8)
+
+    $@8  ir al estado 128
+
+
+Estado 126
+
+   35 otro: SINO . '{' listaInstr '}'
+
+    '{'  desplazar e ir al estado 129
+
+
+Estado 127
+
+   34 bloque_if: SI '(' condicion ')' @12 ':' listaInstr FIN_SI @13 $@14 otro .
+
+    $default  reduce usando la regla 34 (bloque_if)
+
+
+Estado 128
+
+   26 bucle_for: DESDE valor HASTA valor HACER $@5 @6 ':' listaInstr FIN_DESDE @7 $@8 .
+
+    $default  reduce usando la regla 26 (bucle_for)
+
+
+Estado 129
+
+   35 otro: SINO '{' . listaInstr '}'
+
+    DESDE     desplazar e ir al estado 6
+    MIENTRAS  desplazar e ir al estado 7
+    SI        desplazar e ir al estado 8
+    IMPRIMIR  desplazar e ir al estado 9
+    DEF       desplazar e ir al estado 10
+    CALL      desplazar e ir al estado 11
+    ID        desplazar e ir al estado 12
+
+    $default  reduce usando la regla 9 (listaInstr)
+
+    listaInstr   ir al estado 130
+    defFunc      ir al estado 14
+    callFunc     ir al estado 15
+    asignacion   ir al estado 16
+    bucle_for    ir al estado 17
+    bucle_while  ir al estado 18
+    bloque_if    ir al estado 19
+    imprimir     ir al estado 20
+
+
+Estado 130
+
+   35 otro: SINO '{' listaInstr . '}'
+
+    '}'  desplazar e ir al estado 131
+
+
+Estado 131
+
+   35 otro: SINO '{' listaInstr '}' .
+
+    $default  reduce usando la regla 35 (otro)

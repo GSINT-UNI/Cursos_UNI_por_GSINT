@@ -1,0 +1,28 @@
+Programa tabla:
+Inicio
+    
+    d = 0;
+    a= 5;
+    agg = 0;
+    
+    crearFunc distancia (arg1,arg2) {
+	   z = 2;
+       x = 3;
+       y = 4;
+	}
+
+    crearFunc otra (ag,og) {
+
+        agg = agg + 123;
+    }
+
+    f = 5;
+
+    llamarFunc distancia(agg,pe);
+    b = a+2;
+    c = 15;
+    llamarFunc otra(agg,pe);
+    llamarFunc otra(agg,pe);
+
+
+Fin.

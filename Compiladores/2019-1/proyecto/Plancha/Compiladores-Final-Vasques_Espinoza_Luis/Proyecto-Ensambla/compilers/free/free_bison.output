@@ -1,0 +1,1723 @@
+Terminales no usados en la gramática
+
+   IFELSE
+   TRUEASSIGN
+   ASSIGN
+   SUM
+   RES
+   MUL
+   DIV
+   EVAL
+   EQ
+   NEQ
+   LES
+   MOR
+   LEQ
+   MEQ
+   ITERLIMIT
+   POW
+
+
+Gramática
+
+    0 $accept: superroot $end
+
+    1 superroot: PROG ID '{' root '}'
+
+    2 root: %empty
+    3     | root line
+
+    4 lines: line lines
+    5      | line
+
+    6 line: structure
+    7     | exp ';'
+    8     | ENTER
+
+    9 exp: VARS multipleassigns
+   10    | assign
+   11    | call
+
+   12 multipleassigns: assign COM multipleassigns
+   13                | assign
+
+   14 @1: %empty
+
+   15 assign: ID @1 '=' unitA
+
+   16 @2: %empty
+
+   17 call: ID @2 '(' args ')'
+
+   18 args: element COM args
+   19     | element
+   20     | call COM args
+   21     | call
+   22     | %empty
+
+   23 element: ID
+   24        | NUM
+   25        | '-' NUM
+   26        | STRING
+
+   27 structure: ifElseStructure
+   28          | whileStructure
+   29          | forStructure
+   30          | functionStructure
+
+   31 statement: comparisons
+   32          | '!' comparisons
+
+   33 unitA: unitA operatorA unitB
+   34      | unitB
+
+   35 unitB: unitB operatorB element
+   36      | unitB operatorB call
+   37      | element
+   38      | call
+
+   39 comparison: unitA compOperator comparison
+   40           | unitA
+
+   41 comparisons: '(' comparisons ')' compOperator '(' comparisons ')'
+   42            | comparison
+
+   43 operatorA: '+'
+   44          | '-'
+
+   45 operatorB: '/'
+   46          | '*'
+   47          | '^'
+
+   48 compOperator: '=' '='
+   49             | '!' '='
+   50             | '<'
+   51             | '>'
+   52             | '<' '='
+   53             | '>' '='
+   54             | AND
+   55             | OR
+
+   56 $@3: %empty
+
+   57 $@4: %empty
+
+   58 ifElseStructure: IF statement $@3 '{' $@4 lines '}' ElseStructure
+
+   59 $@5: %empty
+
+   60 ElseStructure: ELSE statement $@5 '{' lines '}' DefaultStructure
+
+   61 $@6: %empty
+
+   62 DefaultStructure: OTHERCASE $@6 '{' lines '}'
+
+   63 @7: %empty
+
+   64 @8: %empty
+
+   65 $@9: %empty
+
+   66 $@10: %empty
+
+   67 $@11: %empty
+
+   68 whileStructure: WHILE '(' @7 statement @8 $@9 ')' '{' $@10 lines $@11 '}'
+
+   69 @12: %empty
+
+   70 @13: %empty
+
+   71 $@14: %empty
+
+   72 @15: %empty
+
+   73 @16: %empty
+
+   74 $@17: %empty
+
+   75 $@18: %empty
+
+   76 forStructure: '[' FOR '(' DESDE assign ';' @12 HASTA statement @13 $@14 ';' @15 AUMENTANDO assign @16 ')' $@17 lines $@18 ']'
+
+   77 @19: %empty
+
+   78 functionStructure: DEF ID @19 '(' args ')' '{' lines '}'
+
+
+Terminales con las reglas donde aparecen
+
+$end (0) 0
+'!' (33) 32 49
+'(' (40) 17 41 68 76 78
+')' (41) 17 41 68 76 78
+'*' (42) 46
+'+' (43) 43
+'-' (45) 25 44
+'/' (47) 45
+';' (59) 7 76
+'<' (60) 50 52
+'=' (61) 15 48 49 52 53
+'>' (62) 51 53
+'[' (91) 76
+']' (93) 76
+'^' (94) 47
+'{' (123) 1 58 60 62 68 78
+'}' (125) 1 58 60 62 68 78
+error (256)
+ID (258) 1 15 17 23 78
+NUM (259) 24 25
+ENTER (260) 8
+STRING (261) 26
+COM (262) 12 18 20
+IF (263) 58
+IFELSE (264)
+WHILE (265) 68
+FOR (266) 76
+DEF (267) 78
+TRUEASSIGN (268)
+ASSIGN (269)
+SUM (270)
+RES (271)
+MUL (272)
+DIV (273)
+EVAL (274)
+EQ (275)
+NEQ (276)
+LES (277)
+MOR (278)
+LEQ (279)
+MEQ (280)
+ITERLIMIT (281)
+AND (282) 54
+OR (283) 55
+POW (284)
+PROG (285) 1
+VARS (286) 9
+ELSE (287) 60
+OTHERCASE (288) 62
+DESDE (289) 76
+HASTA (290) 76
+AUMENTANDO (291) 76
+
+
+No terminales con las reglas donde aparecen
+
+$accept (53)
+    en la izquierda: 0
+superroot (54)
+    en la izquierda: 1, en la derecha: 0
+root (55)
+    en la izquierda: 2 3, en la derecha: 1 3
+lines (56)
+    en la izquierda: 4 5, en la derecha: 4 58 60 62 68 76 78
+line (57)
+    en la izquierda: 6 7 8, en la derecha: 3 4 5
+exp (58)
+    en la izquierda: 9 10 11, en la derecha: 7
+multipleassigns (59)
+    en la izquierda: 12 13, en la derecha: 9 12
+assign (60)
+    en la izquierda: 15, en la derecha: 10 12 13 76
+@1 (61)
+    en la izquierda: 14, en la derecha: 15
+call (62)
+    en la izquierda: 17, en la derecha: 11 20 21 36 38
+@2 (63)
+    en la izquierda: 16, en la derecha: 17
+args (64)
+    en la izquierda: 18 19 20 21 22, en la derecha: 17 18 20 78
+element (65)
+    en la izquierda: 23 24 25 26, en la derecha: 18 19 35 37
+structure (66)
+    en la izquierda: 27 28 29 30, en la derecha: 6
+statement (67)
+    en la izquierda: 31 32, en la derecha: 58 60 68 76
+unitA (68)
+    en la izquierda: 33 34, en la derecha: 15 33 39 40
+unitB (69)
+    en la izquierda: 35 36 37 38, en la derecha: 33 34 35 36
+comparison (70)
+    en la izquierda: 39 40, en la derecha: 39 42
+comparisons (71)
+    en la izquierda: 41 42, en la derecha: 31 32 41
+operatorA (72)
+    en la izquierda: 43 44, en la derecha: 33
+operatorB (73)
+    en la izquierda: 45 46 47, en la derecha: 35 36
+compOperator (74)
+    en la izquierda: 48 49 50 51 52 53 54 55, en la derecha: 39 41
+ifElseStructure (75)
+    en la izquierda: 58, en la derecha: 27
+$@3 (76)
+    en la izquierda: 56, en la derecha: 58
+$@4 (77)
+    en la izquierda: 57, en la derecha: 58
+ElseStructure (78)
+    en la izquierda: 60, en la derecha: 58
+$@5 (79)
+    en la izquierda: 59, en la derecha: 60
+DefaultStructure (80)
+    en la izquierda: 62, en la derecha: 60
+$@6 (81)
+    en la izquierda: 61, en la derecha: 62
+whileStructure (82)
+    en la izquierda: 68, en la derecha: 28
+@7 (83)
+    en la izquierda: 63, en la derecha: 68
+@8 (84)
+    en la izquierda: 64, en la derecha: 68
+$@9 (85)
+    en la izquierda: 65, en la derecha: 68
+$@10 (86)
+    en la izquierda: 66, en la derecha: 68
+$@11 (87)
+    en la izquierda: 67, en la derecha: 68
+forStructure (88)
+    en la izquierda: 76, en la derecha: 29
+@12 (89)
+    en la izquierda: 69, en la derecha: 76
+@13 (90)
+    en la izquierda: 70, en la derecha: 76
+$@14 (91)
+    en la izquierda: 71, en la derecha: 76
+@15 (92)
+    en la izquierda: 72, en la derecha: 76
+@16 (93)
+    en la izquierda: 73, en la derecha: 76
+$@17 (94)
+    en la izquierda: 74, en la derecha: 76
+$@18 (95)
+    en la izquierda: 75, en la derecha: 76
+functionStructure (96)
+    en la izquierda: 78, en la derecha: 30
+@19 (97)
+    en la izquierda: 77, en la derecha: 78
+
+
+Estado 0
+
+    0 $accept: . superroot $end
+
+    PROG  desplazar e ir al estado 1
+
+    superroot  ir al estado 2
+
+
+Estado 1
+
+    1 superroot: PROG . ID '{' root '}'
+
+    ID  desplazar e ir al estado 3
+
+
+Estado 2
+
+    0 $accept: superroot . $end
+
+    $end  desplazar e ir al estado 4
+
+
+Estado 3
+
+    1 superroot: PROG ID . '{' root '}'
+
+    '{'  desplazar e ir al estado 5
+
+
+Estado 4
+
+    0 $accept: superroot $end .
+
+    $default  aceptar
+
+
+Estado 5
+
+    1 superroot: PROG ID '{' . root '}'
+
+    $default  reduce usando la regla 2 (root)
+
+    root  ir al estado 6
+
+
+Estado 6
+
+    1 superroot: PROG ID '{' root . '}'
+    3 root: root . line
+
+    ID     desplazar e ir al estado 7
+    ENTER  desplazar e ir al estado 8
+    IF     desplazar e ir al estado 9
+    WHILE  desplazar e ir al estado 10
+    DEF    desplazar e ir al estado 11
+    VARS   desplazar e ir al estado 12
+    '}'    desplazar e ir al estado 13
+    '['    desplazar e ir al estado 14
+
+    line               ir al estado 15
+    exp                ir al estado 16
+    assign             ir al estado 17
+    call               ir al estado 18
+    structure          ir al estado 19
+    ifElseStructure    ir al estado 20
+    whileStructure     ir al estado 21
+    forStructure       ir al estado 22
+    functionStructure  ir al estado 23
+
+
+Estado 7
+
+   15 assign: ID . @1 '=' unitA
+   17 call: ID . @2 '(' args ')'
+
+    '('       reduce usando la regla 16 (@2)
+    $default  reduce usando la regla 14 (@1)
+
+    @1  ir al estado 24
+    @2  ir al estado 25
+
+
+Estado 8
+
+    8 line: ENTER .
+
+    $default  reduce usando la regla 8 (line)
+
+
+Estado 9
+
+   58 ifElseStructure: IF . statement $@3 '{' $@4 lines '}' ElseStructure
+
+    ID      desplazar e ir al estado 26
+    NUM     desplazar e ir al estado 27
+    STRING  desplazar e ir al estado 28
+    '('     desplazar e ir al estado 29
+    '-'     desplazar e ir al estado 30
+    '!'     desplazar e ir al estado 31
+
+    call         ir al estado 32
+    element      ir al estado 33
+    statement    ir al estado 34
+    unitA        ir al estado 35
+    unitB        ir al estado 36
+    comparison   ir al estado 37
+    comparisons  ir al estado 38
+
+
+Estado 10
+
+   68 whileStructure: WHILE . '(' @7 statement @8 $@9 ')' '{' $@10 lines $@11 '}'
+
+    '('  desplazar e ir al estado 39
+
+
+Estado 11
+
+   78 functionStructure: DEF . ID @19 '(' args ')' '{' lines '}'
+
+    ID  desplazar e ir al estado 40
+
+
+Estado 12
+
+    9 exp: VARS . multipleassigns
+
+    ID  desplazar e ir al estado 41
+
+    multipleassigns  ir al estado 42
+    assign           ir al estado 43
+
+
+Estado 13
+
+    1 superroot: PROG ID '{' root '}' .
+
+    $default  reduce usando la regla 1 (superroot)
+
+
+Estado 14
+
+   76 forStructure: '[' . FOR '(' DESDE assign ';' @12 HASTA statement @13 $@14 ';' @15 AUMENTANDO assign @16 ')' $@17 lines $@18 ']'
+
+    FOR  desplazar e ir al estado 44
+
+
+Estado 15
+
+    3 root: root line .
+
+    $default  reduce usando la regla 3 (root)
+
+
+Estado 16
+
+    7 line: exp . ';'
+
+    ';'  desplazar e ir al estado 45
+
+
+Estado 17
+
+   10 exp: assign .
+
+    $default  reduce usando la regla 10 (exp)
+
+
+Estado 18
+
+   11 exp: call .
+
+    $default  reduce usando la regla 11 (exp)
+
+
+Estado 19
+
+    6 line: structure .
+
+    $default  reduce usando la regla 6 (line)
+
+
+Estado 20
+
+   27 structure: ifElseStructure .
+
+    $default  reduce usando la regla 27 (structure)
+
+
+Estado 21
+
+   28 structure: whileStructure .
+
+    $default  reduce usando la regla 28 (structure)
+
+
+Estado 22
+
+   29 structure: forStructure .
+
+    $default  reduce usando la regla 29 (structure)
+
+
+Estado 23
+
+   30 structure: functionStructure .
+
+    $default  reduce usando la regla 30 (structure)
+
+
+Estado 24
+
+   15 assign: ID @1 . '=' unitA
+
+    '='  desplazar e ir al estado 46
+
+
+Estado 25
+
+   17 call: ID @2 . '(' args ')'
+
+    '('  desplazar e ir al estado 47
+
+
+Estado 26
+
+   17 call: ID . @2 '(' args ')'
+   23 element: ID .
+
+    '('       reduce usando la regla 16 (@2)
+    $default  reduce usando la regla 23 (element)
+
+    @2  ir al estado 25
+
+
+Estado 27
+
+   24 element: NUM .
+
+    $default  reduce usando la regla 24 (element)
+
+
+Estado 28
+
+   26 element: STRING .
+
+    $default  reduce usando la regla 26 (element)
+
+
+Estado 29
+
+   41 comparisons: '(' . comparisons ')' compOperator '(' comparisons ')'
+
+    ID      desplazar e ir al estado 26
+    NUM     desplazar e ir al estado 27
+    STRING  desplazar e ir al estado 28
+    '('     desplazar e ir al estado 29
+    '-'     desplazar e ir al estado 30
+
+    call         ir al estado 32
+    element      ir al estado 33
+    unitA        ir al estado 35
+    unitB        ir al estado 36
+    comparison   ir al estado 37
+    comparisons  ir al estado 48
+
+
+Estado 30
+
+   25 element: '-' . NUM
+
+    NUM  desplazar e ir al estado 49
+
+
+Estado 31
+
+   32 statement: '!' . comparisons
+
+    ID      desplazar e ir al estado 26
+    NUM     desplazar e ir al estado 27
+    STRING  desplazar e ir al estado 28
+    '('     desplazar e ir al estado 29
+    '-'     desplazar e ir al estado 30
+
+    call         ir al estado 32
+    element      ir al estado 33
+    unitA        ir al estado 35
+    unitB        ir al estado 36
+    comparison   ir al estado 37
+    comparisons  ir al estado 50
+
+
+Estado 32
+
+   38 unitB: call .
+
+    $default  reduce usando la regla 38 (unitB)
+
+
+Estado 33
+
+   37 unitB: element .
+
+    $default  reduce usando la regla 37 (unitB)
+
+
+Estado 34
+
+   58 ifElseStructure: IF statement . $@3 '{' $@4 lines '}' ElseStructure
+
+    $default  reduce usando la regla 56 ($@3)
+
+    $@3  ir al estado 51
+
+
+Estado 35
+
+   33 unitA: unitA . operatorA unitB
+   39 comparison: unitA . compOperator comparison
+   40           | unitA .
+
+    AND  desplazar e ir al estado 52
+    OR   desplazar e ir al estado 53
+    '='  desplazar e ir al estado 54
+    '-'  desplazar e ir al estado 55
+    '!'  desplazar e ir al estado 56
+    '+'  desplazar e ir al estado 57
+    '<'  desplazar e ir al estado 58
+    '>'  desplazar e ir al estado 59
+
+    $default  reduce usando la regla 40 (comparison)
+
+    operatorA     ir al estado 60
+    compOperator  ir al estado 61
+
+
+Estado 36
+
+   34 unitA: unitB .
+   35 unitB: unitB . operatorB element
+   36      | unitB . operatorB call
+
+    '/'  desplazar e ir al estado 62
+    '*'  desplazar e ir al estado 63
+    '^'  desplazar e ir al estado 64
+
+    $default  reduce usando la regla 34 (unitA)
+
+    operatorB  ir al estado 65
+
+
+Estado 37
+
+   42 comparisons: comparison .
+
+    $default  reduce usando la regla 42 (comparisons)
+
+
+Estado 38
+
+   31 statement: comparisons .
+
+    $default  reduce usando la regla 31 (statement)
+
+
+Estado 39
+
+   68 whileStructure: WHILE '(' . @7 statement @8 $@9 ')' '{' $@10 lines $@11 '}'
+
+    $default  reduce usando la regla 63 (@7)
+
+    @7  ir al estado 66
+
+
+Estado 40
+
+   78 functionStructure: DEF ID . @19 '(' args ')' '{' lines '}'
+
+    $default  reduce usando la regla 77 (@19)
+
+    @19  ir al estado 67
+
+
+Estado 41
+
+   15 assign: ID . @1 '=' unitA
+
+    $default  reduce usando la regla 14 (@1)
+
+    @1  ir al estado 24
+
+
+Estado 42
+
+    9 exp: VARS multipleassigns .
+
+    $default  reduce usando la regla 9 (exp)
+
+
+Estado 43
+
+   12 multipleassigns: assign . COM multipleassigns
+   13                | assign .
+
+    COM  desplazar e ir al estado 68
+
+    $default  reduce usando la regla 13 (multipleassigns)
+
+
+Estado 44
+
+   76 forStructure: '[' FOR . '(' DESDE assign ';' @12 HASTA statement @13 $@14 ';' @15 AUMENTANDO assign @16 ')' $@17 lines $@18 ']'
+
+    '('  desplazar e ir al estado 69
+
+
+Estado 45
+
+    7 line: exp ';' .
+
+    $default  reduce usando la regla 7 (line)
+
+
+Estado 46
+
+   15 assign: ID @1 '=' . unitA
+
+    ID      desplazar e ir al estado 26
+    NUM     desplazar e ir al estado 27
+    STRING  desplazar e ir al estado 28
+    '-'     desplazar e ir al estado 30
+
+    call     ir al estado 32
+    element  ir al estado 33
+    unitA    ir al estado 70
+    unitB    ir al estado 36
+
+
+Estado 47
+
+   17 call: ID @2 '(' . args ')'
+
+    ID      desplazar e ir al estado 26
+    NUM     desplazar e ir al estado 27
+    STRING  desplazar e ir al estado 28
+    '-'     desplazar e ir al estado 30
+
+    $default  reduce usando la regla 22 (args)
+
+    call     ir al estado 71
+    args     ir al estado 72
+    element  ir al estado 73
+
+
+Estado 48
+
+   41 comparisons: '(' comparisons . ')' compOperator '(' comparisons ')'
+
+    ')'  desplazar e ir al estado 74
+
+
+Estado 49
+
+   25 element: '-' NUM .
+
+    $default  reduce usando la regla 25 (element)
+
+
+Estado 50
+
+   32 statement: '!' comparisons .
+
+    $default  reduce usando la regla 32 (statement)
+
+
+Estado 51
+
+   58 ifElseStructure: IF statement $@3 . '{' $@4 lines '}' ElseStructure
+
+    '{'  desplazar e ir al estado 75
+
+
+Estado 52
+
+   54 compOperator: AND .
+
+    $default  reduce usando la regla 54 (compOperator)
+
+
+Estado 53
+
+   55 compOperator: OR .
+
+    $default  reduce usando la regla 55 (compOperator)
+
+
+Estado 54
+
+   48 compOperator: '=' . '='
+
+    '='  desplazar e ir al estado 76
+
+
+Estado 55
+
+   44 operatorA: '-' .
+
+    $default  reduce usando la regla 44 (operatorA)
+
+
+Estado 56
+
+   49 compOperator: '!' . '='
+
+    '='  desplazar e ir al estado 77
+
+
+Estado 57
+
+   43 operatorA: '+' .
+
+    $default  reduce usando la regla 43 (operatorA)
+
+
+Estado 58
+
+   50 compOperator: '<' .
+   52             | '<' . '='
+
+    '='  desplazar e ir al estado 78
+
+    $default  reduce usando la regla 50 (compOperator)
+
+
+Estado 59
+
+   51 compOperator: '>' .
+   53             | '>' . '='
+
+    '='  desplazar e ir al estado 79
+
+    $default  reduce usando la regla 51 (compOperator)
+
+
+Estado 60
+
+   33 unitA: unitA operatorA . unitB
+
+    ID      desplazar e ir al estado 26
+    NUM     desplazar e ir al estado 27
+    STRING  desplazar e ir al estado 28
+    '-'     desplazar e ir al estado 30
+
+    call     ir al estado 32
+    element  ir al estado 33
+    unitB    ir al estado 80
+
+
+Estado 61
+
+   39 comparison: unitA compOperator . comparison
+
+    ID      desplazar e ir al estado 26
+    NUM     desplazar e ir al estado 27
+    STRING  desplazar e ir al estado 28
+    '-'     desplazar e ir al estado 30
+
+    call        ir al estado 32
+    element     ir al estado 33
+    unitA       ir al estado 35
+    unitB       ir al estado 36
+    comparison  ir al estado 81
+
+
+Estado 62
+
+   45 operatorB: '/' .
+
+    $default  reduce usando la regla 45 (operatorB)
+
+
+Estado 63
+
+   46 operatorB: '*' .
+
+    $default  reduce usando la regla 46 (operatorB)
+
+
+Estado 64
+
+   47 operatorB: '^' .
+
+    $default  reduce usando la regla 47 (operatorB)
+
+
+Estado 65
+
+   35 unitB: unitB operatorB . element
+   36      | unitB operatorB . call
+
+    ID      desplazar e ir al estado 26
+    NUM     desplazar e ir al estado 27
+    STRING  desplazar e ir al estado 28
+    '-'     desplazar e ir al estado 30
+
+    call     ir al estado 82
+    element  ir al estado 83
+
+
+Estado 66
+
+   68 whileStructure: WHILE '(' @7 . statement @8 $@9 ')' '{' $@10 lines $@11 '}'
+
+    ID      desplazar e ir al estado 26
+    NUM     desplazar e ir al estado 27
+    STRING  desplazar e ir al estado 28
+    '('     desplazar e ir al estado 29
+    '-'     desplazar e ir al estado 30
+    '!'     desplazar e ir al estado 31
+
+    call         ir al estado 32
+    element      ir al estado 33
+    statement    ir al estado 84
+    unitA        ir al estado 35
+    unitB        ir al estado 36
+    comparison   ir al estado 37
+    comparisons  ir al estado 38
+
+
+Estado 67
+
+   78 functionStructure: DEF ID @19 . '(' args ')' '{' lines '}'
+
+    '('  desplazar e ir al estado 85
+
+
+Estado 68
+
+   12 multipleassigns: assign COM . multipleassigns
+
+    ID  desplazar e ir al estado 41
+
+    multipleassigns  ir al estado 86
+    assign           ir al estado 43
+
+
+Estado 69
+
+   76 forStructure: '[' FOR '(' . DESDE assign ';' @12 HASTA statement @13 $@14 ';' @15 AUMENTANDO assign @16 ')' $@17 lines $@18 ']'
+
+    DESDE  desplazar e ir al estado 87
+
+
+Estado 70
+
+   15 assign: ID @1 '=' unitA .
+   33 unitA: unitA . operatorA unitB
+
+    '-'  desplazar e ir al estado 55
+    '+'  desplazar e ir al estado 57
+
+    $default  reduce usando la regla 15 (assign)
+
+    operatorA  ir al estado 60
+
+
+Estado 71
+
+   20 args: call . COM args
+   21     | call .
+
+    COM  desplazar e ir al estado 88
+
+    $default  reduce usando la regla 21 (args)
+
+
+Estado 72
+
+   17 call: ID @2 '(' args . ')'
+
+    ')'  desplazar e ir al estado 89
+
+
+Estado 73
+
+   18 args: element . COM args
+   19     | element .
+
+    COM  desplazar e ir al estado 90
+
+    $default  reduce usando la regla 19 (args)
+
+
+Estado 74
+
+   41 comparisons: '(' comparisons ')' . compOperator '(' comparisons ')'
+
+    AND  desplazar e ir al estado 52
+    OR   desplazar e ir al estado 53
+    '='  desplazar e ir al estado 54
+    '!'  desplazar e ir al estado 56
+    '<'  desplazar e ir al estado 58
+    '>'  desplazar e ir al estado 59
+
+    compOperator  ir al estado 91
+
+
+Estado 75
+
+   58 ifElseStructure: IF statement $@3 '{' . $@4 lines '}' ElseStructure
+
+    $default  reduce usando la regla 57 ($@4)
+
+    $@4  ir al estado 92
+
+
+Estado 76
+
+   48 compOperator: '=' '=' .
+
+    $default  reduce usando la regla 48 (compOperator)
+
+
+Estado 77
+
+   49 compOperator: '!' '=' .
+
+    $default  reduce usando la regla 49 (compOperator)
+
+
+Estado 78
+
+   52 compOperator: '<' '=' .
+
+    $default  reduce usando la regla 52 (compOperator)
+
+
+Estado 79
+
+   53 compOperator: '>' '=' .
+
+    $default  reduce usando la regla 53 (compOperator)
+
+
+Estado 80
+
+   33 unitA: unitA operatorA unitB .
+   35 unitB: unitB . operatorB element
+   36      | unitB . operatorB call
+
+    '/'  desplazar e ir al estado 62
+    '*'  desplazar e ir al estado 63
+    '^'  desplazar e ir al estado 64
+
+    $default  reduce usando la regla 33 (unitA)
+
+    operatorB  ir al estado 65
+
+
+Estado 81
+
+   39 comparison: unitA compOperator comparison .
+
+    $default  reduce usando la regla 39 (comparison)
+
+
+Estado 82
+
+   36 unitB: unitB operatorB call .
+
+    $default  reduce usando la regla 36 (unitB)
+
+
+Estado 83
+
+   35 unitB: unitB operatorB element .
+
+    $default  reduce usando la regla 35 (unitB)
+
+
+Estado 84
+
+   68 whileStructure: WHILE '(' @7 statement . @8 $@9 ')' '{' $@10 lines $@11 '}'
+
+    $default  reduce usando la regla 64 (@8)
+
+    @8  ir al estado 93
+
+
+Estado 85
+
+   78 functionStructure: DEF ID @19 '(' . args ')' '{' lines '}'
+
+    ID      desplazar e ir al estado 26
+    NUM     desplazar e ir al estado 27
+    STRING  desplazar e ir al estado 28
+    '-'     desplazar e ir al estado 30
+
+    $default  reduce usando la regla 22 (args)
+
+    call     ir al estado 71
+    args     ir al estado 94
+    element  ir al estado 73
+
+
+Estado 86
+
+   12 multipleassigns: assign COM multipleassigns .
+
+    $default  reduce usando la regla 12 (multipleassigns)
+
+
+Estado 87
+
+   76 forStructure: '[' FOR '(' DESDE . assign ';' @12 HASTA statement @13 $@14 ';' @15 AUMENTANDO assign @16 ')' $@17 lines $@18 ']'
+
+    ID  desplazar e ir al estado 41
+
+    assign  ir al estado 95
+
+
+Estado 88
+
+   20 args: call COM . args
+
+    ID      desplazar e ir al estado 26
+    NUM     desplazar e ir al estado 27
+    STRING  desplazar e ir al estado 28
+    '-'     desplazar e ir al estado 30
+
+    $default  reduce usando la regla 22 (args)
+
+    call     ir al estado 71
+    args     ir al estado 96
+    element  ir al estado 73
+
+
+Estado 89
+
+   17 call: ID @2 '(' args ')' .
+
+    $default  reduce usando la regla 17 (call)
+
+
+Estado 90
+
+   18 args: element COM . args
+
+    ID      desplazar e ir al estado 26
+    NUM     desplazar e ir al estado 27
+    STRING  desplazar e ir al estado 28
+    '-'     desplazar e ir al estado 30
+
+    $default  reduce usando la regla 22 (args)
+
+    call     ir al estado 71
+    args     ir al estado 97
+    element  ir al estado 73
+
+
+Estado 91
+
+   41 comparisons: '(' comparisons ')' compOperator . '(' comparisons ')'
+
+    '('  desplazar e ir al estado 98
+
+
+Estado 92
+
+   58 ifElseStructure: IF statement $@3 '{' $@4 . lines '}' ElseStructure
+
+    ID     desplazar e ir al estado 7
+    ENTER  desplazar e ir al estado 8
+    IF     desplazar e ir al estado 9
+    WHILE  desplazar e ir al estado 10
+    DEF    desplazar e ir al estado 11
+    VARS   desplazar e ir al estado 12
+    '['    desplazar e ir al estado 14
+
+    lines              ir al estado 99
+    line               ir al estado 100
+    exp                ir al estado 16
+    assign             ir al estado 17
+    call               ir al estado 18
+    structure          ir al estado 19
+    ifElseStructure    ir al estado 20
+    whileStructure     ir al estado 21
+    forStructure       ir al estado 22
+    functionStructure  ir al estado 23
+
+
+Estado 93
+
+   68 whileStructure: WHILE '(' @7 statement @8 . $@9 ')' '{' $@10 lines $@11 '}'
+
+    $default  reduce usando la regla 65 ($@9)
+
+    $@9  ir al estado 101
+
+
+Estado 94
+
+   78 functionStructure: DEF ID @19 '(' args . ')' '{' lines '}'
+
+    ')'  desplazar e ir al estado 102
+
+
+Estado 95
+
+   76 forStructure: '[' FOR '(' DESDE assign . ';' @12 HASTA statement @13 $@14 ';' @15 AUMENTANDO assign @16 ')' $@17 lines $@18 ']'
+
+    ';'  desplazar e ir al estado 103
+
+
+Estado 96
+
+   20 args: call COM args .
+
+    $default  reduce usando la regla 20 (args)
+
+
+Estado 97
+
+   18 args: element COM args .
+
+    $default  reduce usando la regla 18 (args)
+
+
+Estado 98
+
+   41 comparisons: '(' comparisons ')' compOperator '(' . comparisons ')'
+
+    ID      desplazar e ir al estado 26
+    NUM     desplazar e ir al estado 27
+    STRING  desplazar e ir al estado 28
+    '('     desplazar e ir al estado 29
+    '-'     desplazar e ir al estado 30
+
+    call         ir al estado 32
+    element      ir al estado 33
+    unitA        ir al estado 35
+    unitB        ir al estado 36
+    comparison   ir al estado 37
+    comparisons  ir al estado 104
+
+
+Estado 99
+
+   58 ifElseStructure: IF statement $@3 '{' $@4 lines . '}' ElseStructure
+
+    '}'  desplazar e ir al estado 105
+
+
+Estado 100
+
+    4 lines: line . lines
+    5      | line .
+
+    ID     desplazar e ir al estado 7
+    ENTER  desplazar e ir al estado 8
+    IF     desplazar e ir al estado 9
+    WHILE  desplazar e ir al estado 10
+    DEF    desplazar e ir al estado 11
+    VARS   desplazar e ir al estado 12
+    '['    desplazar e ir al estado 14
+
+    $default  reduce usando la regla 5 (lines)
+
+    lines              ir al estado 106
+    line               ir al estado 100
+    exp                ir al estado 16
+    assign             ir al estado 17
+    call               ir al estado 18
+    structure          ir al estado 19
+    ifElseStructure    ir al estado 20
+    whileStructure     ir al estado 21
+    forStructure       ir al estado 22
+    functionStructure  ir al estado 23
+
+
+Estado 101
+
+   68 whileStructure: WHILE '(' @7 statement @8 $@9 . ')' '{' $@10 lines $@11 '}'
+
+    ')'  desplazar e ir al estado 107
+
+
+Estado 102
+
+   78 functionStructure: DEF ID @19 '(' args ')' . '{' lines '}'
+
+    '{'  desplazar e ir al estado 108
+
+
+Estado 103
+
+   76 forStructure: '[' FOR '(' DESDE assign ';' . @12 HASTA statement @13 $@14 ';' @15 AUMENTANDO assign @16 ')' $@17 lines $@18 ']'
+
+    $default  reduce usando la regla 69 (@12)
+
+    @12  ir al estado 109
+
+
+Estado 104
+
+   41 comparisons: '(' comparisons ')' compOperator '(' comparisons . ')'
+
+    ')'  desplazar e ir al estado 110
+
+
+Estado 105
+
+   58 ifElseStructure: IF statement $@3 '{' $@4 lines '}' . ElseStructure
+
+    ELSE  desplazar e ir al estado 111
+
+    ElseStructure  ir al estado 112
+
+
+Estado 106
+
+    4 lines: line lines .
+
+    $default  reduce usando la regla 4 (lines)
+
+
+Estado 107
+
+   68 whileStructure: WHILE '(' @7 statement @8 $@9 ')' . '{' $@10 lines $@11 '}'
+
+    '{'  desplazar e ir al estado 113
+
+
+Estado 108
+
+   78 functionStructure: DEF ID @19 '(' args ')' '{' . lines '}'
+
+    ID     desplazar e ir al estado 7
+    ENTER  desplazar e ir al estado 8
+    IF     desplazar e ir al estado 9
+    WHILE  desplazar e ir al estado 10
+    DEF    desplazar e ir al estado 11
+    VARS   desplazar e ir al estado 12
+    '['    desplazar e ir al estado 14
+
+    lines              ir al estado 114
+    line               ir al estado 100
+    exp                ir al estado 16
+    assign             ir al estado 17
+    call               ir al estado 18
+    structure          ir al estado 19
+    ifElseStructure    ir al estado 20
+    whileStructure     ir al estado 21
+    forStructure       ir al estado 22
+    functionStructure  ir al estado 23
+
+
+Estado 109
+
+   76 forStructure: '[' FOR '(' DESDE assign ';' @12 . HASTA statement @13 $@14 ';' @15 AUMENTANDO assign @16 ')' $@17 lines $@18 ']'
+
+    HASTA  desplazar e ir al estado 115
+
+
+Estado 110
+
+   41 comparisons: '(' comparisons ')' compOperator '(' comparisons ')' .
+
+    $default  reduce usando la regla 41 (comparisons)
+
+
+Estado 111
+
+   60 ElseStructure: ELSE . statement $@5 '{' lines '}' DefaultStructure
+
+    ID      desplazar e ir al estado 26
+    NUM     desplazar e ir al estado 27
+    STRING  desplazar e ir al estado 28
+    '('     desplazar e ir al estado 29
+    '-'     desplazar e ir al estado 30
+    '!'     desplazar e ir al estado 31
+
+    call         ir al estado 32
+    element      ir al estado 33
+    statement    ir al estado 116
+    unitA        ir al estado 35
+    unitB        ir al estado 36
+    comparison   ir al estado 37
+    comparisons  ir al estado 38
+
+
+Estado 112
+
+   58 ifElseStructure: IF statement $@3 '{' $@4 lines '}' ElseStructure .
+
+    $default  reduce usando la regla 58 (ifElseStructure)
+
+
+Estado 113
+
+   68 whileStructure: WHILE '(' @7 statement @8 $@9 ')' '{' . $@10 lines $@11 '}'
+
+    $default  reduce usando la regla 66 ($@10)
+
+    $@10  ir al estado 117
+
+
+Estado 114
+
+   78 functionStructure: DEF ID @19 '(' args ')' '{' lines . '}'
+
+    '}'  desplazar e ir al estado 118
+
+
+Estado 115
+
+   76 forStructure: '[' FOR '(' DESDE assign ';' @12 HASTA . statement @13 $@14 ';' @15 AUMENTANDO assign @16 ')' $@17 lines $@18 ']'
+
+    ID      desplazar e ir al estado 26
+    NUM     desplazar e ir al estado 27
+    STRING  desplazar e ir al estado 28
+    '('     desplazar e ir al estado 29
+    '-'     desplazar e ir al estado 30
+    '!'     desplazar e ir al estado 31
+
+    call         ir al estado 32
+    element      ir al estado 33
+    statement    ir al estado 119
+    unitA        ir al estado 35
+    unitB        ir al estado 36
+    comparison   ir al estado 37
+    comparisons  ir al estado 38
+
+
+Estado 116
+
+   60 ElseStructure: ELSE statement . $@5 '{' lines '}' DefaultStructure
+
+    $default  reduce usando la regla 59 ($@5)
+
+    $@5  ir al estado 120
+
+
+Estado 117
+
+   68 whileStructure: WHILE '(' @7 statement @8 $@9 ')' '{' $@10 . lines $@11 '}'
+
+    ID     desplazar e ir al estado 7
+    ENTER  desplazar e ir al estado 8
+    IF     desplazar e ir al estado 9
+    WHILE  desplazar e ir al estado 10
+    DEF    desplazar e ir al estado 11
+    VARS   desplazar e ir al estado 12
+    '['    desplazar e ir al estado 14
+
+    lines              ir al estado 121
+    line               ir al estado 100
+    exp                ir al estado 16
+    assign             ir al estado 17
+    call               ir al estado 18
+    structure          ir al estado 19
+    ifElseStructure    ir al estado 20
+    whileStructure     ir al estado 21
+    forStructure       ir al estado 22
+    functionStructure  ir al estado 23
+
+
+Estado 118
+
+   78 functionStructure: DEF ID @19 '(' args ')' '{' lines '}' .
+
+    $default  reduce usando la regla 78 (functionStructure)
+
+
+Estado 119
+
+   76 forStructure: '[' FOR '(' DESDE assign ';' @12 HASTA statement . @13 $@14 ';' @15 AUMENTANDO assign @16 ')' $@17 lines $@18 ']'
+
+    $default  reduce usando la regla 70 (@13)
+
+    @13  ir al estado 122
+
+
+Estado 120
+
+   60 ElseStructure: ELSE statement $@5 . '{' lines '}' DefaultStructure
+
+    '{'  desplazar e ir al estado 123
+
+
+Estado 121
+
+   68 whileStructure: WHILE '(' @7 statement @8 $@9 ')' '{' $@10 lines . $@11 '}'
+
+    $default  reduce usando la regla 67 ($@11)
+
+    $@11  ir al estado 124
+
+
+Estado 122
+
+   76 forStructure: '[' FOR '(' DESDE assign ';' @12 HASTA statement @13 . $@14 ';' @15 AUMENTANDO assign @16 ')' $@17 lines $@18 ']'
+
+    $default  reduce usando la regla 71 ($@14)
+
+    $@14  ir al estado 125
+
+
+Estado 123
+
+   60 ElseStructure: ELSE statement $@5 '{' . lines '}' DefaultStructure
+
+    ID     desplazar e ir al estado 7
+    ENTER  desplazar e ir al estado 8
+    IF     desplazar e ir al estado 9
+    WHILE  desplazar e ir al estado 10
+    DEF    desplazar e ir al estado 11
+    VARS   desplazar e ir al estado 12
+    '['    desplazar e ir al estado 14
+
+    lines              ir al estado 126
+    line               ir al estado 100
+    exp                ir al estado 16
+    assign             ir al estado 17
+    call               ir al estado 18
+    structure          ir al estado 19
+    ifElseStructure    ir al estado 20
+    whileStructure     ir al estado 21
+    forStructure       ir al estado 22
+    functionStructure  ir al estado 23
+
+
+Estado 124
+
+   68 whileStructure: WHILE '(' @7 statement @8 $@9 ')' '{' $@10 lines $@11 . '}'
+
+    '}'  desplazar e ir al estado 127
+
+
+Estado 125
+
+   76 forStructure: '[' FOR '(' DESDE assign ';' @12 HASTA statement @13 $@14 . ';' @15 AUMENTANDO assign @16 ')' $@17 lines $@18 ']'
+
+    ';'  desplazar e ir al estado 128
+
+
+Estado 126
+
+   60 ElseStructure: ELSE statement $@5 '{' lines . '}' DefaultStructure
+
+    '}'  desplazar e ir al estado 129
+
+
+Estado 127
+
+   68 whileStructure: WHILE '(' @7 statement @8 $@9 ')' '{' $@10 lines $@11 '}' .
+
+    $default  reduce usando la regla 68 (whileStructure)
+
+
+Estado 128
+
+   76 forStructure: '[' FOR '(' DESDE assign ';' @12 HASTA statement @13 $@14 ';' . @15 AUMENTANDO assign @16 ')' $@17 lines $@18 ']'
+
+    $default  reduce usando la regla 72 (@15)
+
+    @15  ir al estado 130
+
+
+Estado 129
+
+   60 ElseStructure: ELSE statement $@5 '{' lines '}' . DefaultStructure
+
+    OTHERCASE  desplazar e ir al estado 131
+
+    DefaultStructure  ir al estado 132
+
+
+Estado 130
+
+   76 forStructure: '[' FOR '(' DESDE assign ';' @12 HASTA statement @13 $@14 ';' @15 . AUMENTANDO assign @16 ')' $@17 lines $@18 ']'
+
+    AUMENTANDO  desplazar e ir al estado 133
+
+
+Estado 131
+
+   62 DefaultStructure: OTHERCASE . $@6 '{' lines '}'
+
+    $default  reduce usando la regla 61 ($@6)
+
+    $@6  ir al estado 134
+
+
+Estado 132
+
+   60 ElseStructure: ELSE statement $@5 '{' lines '}' DefaultStructure .
+
+    $default  reduce usando la regla 60 (ElseStructure)
+
+
+Estado 133
+
+   76 forStructure: '[' FOR '(' DESDE assign ';' @12 HASTA statement @13 $@14 ';' @15 AUMENTANDO . assign @16 ')' $@17 lines $@18 ']'
+
+    ID  desplazar e ir al estado 41
+
+    assign  ir al estado 135
+
+
+Estado 134
+
+   62 DefaultStructure: OTHERCASE $@6 . '{' lines '}'
+
+    '{'  desplazar e ir al estado 136
+
+
+Estado 135
+
+   76 forStructure: '[' FOR '(' DESDE assign ';' @12 HASTA statement @13 $@14 ';' @15 AUMENTANDO assign . @16 ')' $@17 lines $@18 ']'
+
+    $default  reduce usando la regla 73 (@16)
+
+    @16  ir al estado 137
+
+
+Estado 136
+
+   62 DefaultStructure: OTHERCASE $@6 '{' . lines '}'
+
+    ID     desplazar e ir al estado 7
+    ENTER  desplazar e ir al estado 8
+    IF     desplazar e ir al estado 9
+    WHILE  desplazar e ir al estado 10
+    DEF    desplazar e ir al estado 11
+    VARS   desplazar e ir al estado 12
+    '['    desplazar e ir al estado 14
+
+    lines              ir al estado 138
+    line               ir al estado 100
+    exp                ir al estado 16
+    assign             ir al estado 17
+    call               ir al estado 18
+    structure          ir al estado 19
+    ifElseStructure    ir al estado 20
+    whileStructure     ir al estado 21
+    forStructure       ir al estado 22
+    functionStructure  ir al estado 23
+
+
+Estado 137
+
+   76 forStructure: '[' FOR '(' DESDE assign ';' @12 HASTA statement @13 $@14 ';' @15 AUMENTANDO assign @16 . ')' $@17 lines $@18 ']'
+
+    ')'  desplazar e ir al estado 139
+
+
+Estado 138
+
+   62 DefaultStructure: OTHERCASE $@6 '{' lines . '}'
+
+    '}'  desplazar e ir al estado 140
+
+
+Estado 139
+
+   76 forStructure: '[' FOR '(' DESDE assign ';' @12 HASTA statement @13 $@14 ';' @15 AUMENTANDO assign @16 ')' . $@17 lines $@18 ']'
+
+    $default  reduce usando la regla 74 ($@17)
+
+    $@17  ir al estado 141
+
+
+Estado 140
+
+   62 DefaultStructure: OTHERCASE $@6 '{' lines '}' .
+
+    $default  reduce usando la regla 62 (DefaultStructure)
+
+
+Estado 141
+
+   76 forStructure: '[' FOR '(' DESDE assign ';' @12 HASTA statement @13 $@14 ';' @15 AUMENTANDO assign @16 ')' $@17 . lines $@18 ']'
+
+    ID     desplazar e ir al estado 7
+    ENTER  desplazar e ir al estado 8
+    IF     desplazar e ir al estado 9
+    WHILE  desplazar e ir al estado 10
+    DEF    desplazar e ir al estado 11
+    VARS   desplazar e ir al estado 12
+    '['    desplazar e ir al estado 14
+
+    lines              ir al estado 142
+    line               ir al estado 100
+    exp                ir al estado 16
+    assign             ir al estado 17
+    call               ir al estado 18
+    structure          ir al estado 19
+    ifElseStructure    ir al estado 20
+    whileStructure     ir al estado 21
+    forStructure       ir al estado 22
+    functionStructure  ir al estado 23
+
+
+Estado 142
+
+   76 forStructure: '[' FOR '(' DESDE assign ';' @12 HASTA statement @13 $@14 ';' @15 AUMENTANDO assign @16 ')' $@17 lines . $@18 ']'
+
+    $default  reduce usando la regla 75 ($@18)
+
+    $@18  ir al estado 143
+
+
+Estado 143
+
+   76 forStructure: '[' FOR '(' DESDE assign ';' @12 HASTA statement @13 $@14 ';' @15 AUMENTANDO assign @16 ')' $@17 lines $@18 . ']'
+
+    ']'  desplazar e ir al estado 144
+
+
+Estado 144
+
+   76 forStructure: '[' FOR '(' DESDE assign ';' @12 HASTA statement @13 $@14 ';' @15 AUMENTANDO assign @16 ')' $@17 lines $@18 ']' .
+
+    $default  reduce usando la regla 76 (forStructure)

@@ -1,0 +1,33 @@
+METODO SHIFT-REDUCE
+
+
+x:=2 - (7+1);
+
+
+ESTADO 									ENTRADA 									ACCION
+0					ID ':' IGUAL NUM MENOS '(' NUM MAS NUM ')' PUNTOCOM				D1
+01					   ':' IGUAL NUM MENOS '(' NUM MAS NUM ')' PUNTOCOM				D3
+013						   IGUAL NUM MENOS '(' NUM MAS NUM ')' PUNTOCOM				D5
+0135							 NUM MENOS '(' NUM MAS NUM ')' PUNTOCOM				D7
+01357								 MENOS '(' NUM MAS NUM ')' PUNTOCOM				R(10)(go 5->expr2)
+0135(12)					 		 MENOS '(' NUM MAS NUM ')' PUNTOCOM				R7(go 5->expr1)
+0135(11)							 MENOS '(' NUM MAS NUM ')' PUNTOCOM				R3(go 5->expr)
+0135(10)	  						 MENOS '(' NUM MAS NUM ')' PUNTOCOM				D(18)
+0135(10)(18)							   '(' NUM MAS NUM ')' PUNTOCOM				D9
+0135(10)(18)9								   NUM MAS NUM ')' PUNTOCOM				D7
+0135(10)(18)97									   MAS NUM ')' PUNTOCOM				R(10)(go 9->expr2)
+0135(10)(18)9(12)								   MAS NUM ')' PUNTOCOM				R7(go 9->expr1)
+0135(10)(18)9(11)								   MAS NUM ')' PUNTOCOM				R3(go 9->expr)
+0135(10)(18)9(15)								   MAS NUM ')' PUNTOCOM				D(17)
+0135(10)(18)9(15)(17)							   	   NUM ')' PUNTOCOM				D7
+0135(10)(18)9(15)(17)7								   	   ')' PUNTOCOM				R(10)(go 17->expr2)
+0135(10)(18)9(15)(17)12								   	   ')' PUNTOCOM				R7(go 17->expr1)
+0135(10)(18)9(15)(17)25								   	   ')' PUNTOCOM				R2(go 9->expr)
+0135(10)(18)9(15)										   ')' PUNTOCOM				D(24)
+0135(10)(18)9(15)(24)									   	   PUNTOCOM				R9(go 18->expr2)
+0135(10)(18)(12)											   PUNTOCOM				R7(go 18->expr1)
+0135(10)(18)(26)											   PUNTOCOM				R4(go 5->expr)
+0135(10)													   PUNTOCOM				D(16)
+0135(10)(16)														$				R1(go 0->ecu)
+02																	$				D4
+024																	$				ACEPTAR	

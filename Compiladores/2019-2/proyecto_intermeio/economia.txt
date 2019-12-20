@@ -1,0 +1,19 @@
+Programa: Inicio
+
+importePagar = 0; 
+totalCompra = 200;
+
+Si (totalCompra > 100): 
+    tasaDescuento = 10;
+    importeDescuento = totalCompra * tasaDescuento / 100;
+    importePagar = totalCompra - importeDescuento;
+finSi
+
+Sino{
+
+    importePagar = totalCompra;   
+}
+
+Imprimir importePagar;
+
+Fin.

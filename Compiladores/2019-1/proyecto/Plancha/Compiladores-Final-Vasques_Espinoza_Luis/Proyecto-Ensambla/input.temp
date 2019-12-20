@@ -1,0 +1,11 @@
+Programa Ejemplo
+{ Vars x=-10, y=11, z=2, s=0;
+cuando x < y
+[calcular desde x aumentando en z hasta y
+s = s + x^2;
+Imprimir s]
+sino x=y
+Imprimir 0;
+otroCase
+Imprimir "No existe la suma"
+}

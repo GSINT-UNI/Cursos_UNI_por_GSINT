@@ -1,0 +1,27 @@
+cadena valida
+# 0.000000
+tabla de codigos
+000 asignar a1=0 a2=1 a3=45
+001 asignar a1=2 a2=3 a3=45
+002 asignar a1=4 a2=5 a3=45
+003 definir a1=3 a2=10 a3=45
+004 pot a1=7 a2=2 a3=6
+005 pot a1=8 a2=4 a3=6
+006 sumar a1=9 a2=7 a3=8
+007 asignar a1=0 a2=9 a3=45
+008 raiz a1=10 a2=0 a3=45
+009 asignar a1=0 a2=10 a3=45
+010 salirFuncion a1=10 a2=45 a3=45
+011 imprimir a1=0 a2=45 a3=45
+tabla de simbolos
+0 nombre=d tok=300 valor=0.000000
+1 nombre=0 tok=299 valor=0.000000
+2 nombre=x tok=300 valor=3.000000
+3 nombre=3 tok=299 valor=3.000000
+4 nombre=y tok=300 valor=4.000000
+5 nombre=4 tok=299 valor=4.000000
+6 nombre=2 tok=299 valor=2.000000
+7 nombre=_T0 tok=300 valor=0.000000
+8 nombre=_T1 tok=300 valor=0.000000
+9 nombre=_T2 tok=300 valor=0.000000
+10 nombre=_T3 tok=300 valor=0.000000

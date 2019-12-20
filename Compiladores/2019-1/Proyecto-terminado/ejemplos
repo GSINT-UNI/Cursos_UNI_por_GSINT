@@ -1,0 +1,30 @@
+Indicaciones para correr el programa:
+
+correr con:
+bison final.y
+gcc final.tab.c
+./a.out
+
+Cuando el programa corra escribir:
+PARA LA PREGUNTA 1:
+
+=a 5; =b [-2];
+si ( & (> a 0)  (> b 0) ){
+	sImprimir("primer Cuadrante");
+} sino { si ( & (< a 0)  (> b 0) ){
+	sImprimir("segundo Cuadrante");
+} sino { si ( & (< a 0)  (< b 0) ){
+	sImprimir("tercero Cuadrante");
+} sino { si ( & (> a 0)  (< b 0) ){
+	sImprimir("cuarto Cuadrante");
+} sino { sImprimir("no esta en los ejes");} 
+}
+}
+}
+
+
+PARA LA PREGUNTA 2:
+
+=a 3; =b 2;	
+= d distancia (a,b);
+

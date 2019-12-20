@@ -1,0 +1,30 @@
+Programa :
+Inicio
+
+    n = 2;
+    r = 15;
+
+    mientras (n <= r) :
+
+        esPrimo = 1;
+
+        d = 2;
+
+        mientras (d < n) :
+            k = n#d;
+            Si ( k == 0) :
+                esPrimo = 0;
+            finSi
+            d = d + 1;
+        finMientras
+
+        Si (esPrimo == 1) :
+            Imprimir n;
+        finSi
+
+
+        n = n + 1;
+    finMientras
+
+
+Fin.

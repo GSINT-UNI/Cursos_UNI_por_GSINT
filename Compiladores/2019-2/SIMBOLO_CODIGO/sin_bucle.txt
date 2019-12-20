@@ -1,0 +1,149 @@
+generando en asignacion...
+generando en asignacion...
+generando en asignacion...
+generando en asignacion...
+generando en asignacion...
+cadena valida
+tabla de codigos
+269 a1=0 a2=1 a3=45
+270 a1=2 a2=0 a3=1
+269 a1=0 a2=2 a3=45
+270 a1=3 a2=0 a3=1
+269 a1=0 a2=3 a3=45
+270 a1=4 a2=0 a3=1
+269 a1=0 a2=4 a3=45
+270 a1=5 a2=0 a3=1
+269 a1=0 a2=5 a3=45
+tabla de simbolos antes de actualizarse
+0 nombre=x tok=262 valor=0.000000
+1 nombre=1 tok=265 valor=1.000000
+2 nombre=_T0 tok=262 valor=0.000000
+3 nombre=_T1 tok=262 valor=0.000000
+4 nombre=_T2 tok=262 valor=0.000000
+5 nombre=_T3 tok=262 valor=0.000000
+*********************######## cx = 8 ######
+******* Iteracion 0 
+: ********Detecto asignar ...
+a1 vale 0 a2 vale 1, TablaSim[a2].valor vale 1.000000 
+tabla de simbolos antes de actualizarse
+0 nombre=x tok=262 valor=1.000000
+1 nombre=1 tok=265 valor=1.000000
+2 nombre=_T0 tok=262 valor=0.000000
+3 nombre=_T1 tok=262 valor=0.000000
+4 nombre=_T2 tok=262 valor=0.000000
+5 nombre=_T3 tok=262 valor=0.000000
+********************************
+
+******* Iteracion 1 
+: ********Suma...
+a1=2  a2=0 a3=1 TablaSim[a1].valor=0.000000 TablaSim[a2].valor=1.000000 TablaSim[a3].valor=1.000000
+tabla de simbolos antes de actualizarse
+0 nombre=x tok=262 valor=1.000000
+1 nombre=1 tok=265 valor=1.000000
+2 nombre=_T0 tok=262 valor=2.000000
+3 nombre=_T1 tok=262 valor=0.000000
+4 nombre=_T2 tok=262 valor=0.000000
+5 nombre=_T3 tok=262 valor=0.000000
+********************************
+
+******* Iteracion 2 
+: ********Detecto asignar ...
+a1 vale 0 a2 vale 2, TablaSim[a2].valor vale 2.000000 
+tabla de simbolos antes de actualizarse
+0 nombre=x tok=262 valor=2.000000
+1 nombre=1 tok=265 valor=1.000000
+2 nombre=_T0 tok=262 valor=2.000000
+3 nombre=_T1 tok=262 valor=0.000000
+4 nombre=_T2 tok=262 valor=0.000000
+5 nombre=_T3 tok=262 valor=0.000000
+********************************
+
+******* Iteracion 3 
+: ********Suma...
+a1=3  a2=0 a3=1 TablaSim[a1].valor=0.000000 TablaSim[a2].valor=2.000000 TablaSim[a3].valor=1.000000
+tabla de simbolos antes de actualizarse
+0 nombre=x tok=262 valor=2.000000
+1 nombre=1 tok=265 valor=1.000000
+2 nombre=_T0 tok=262 valor=2.000000
+3 nombre=_T1 tok=262 valor=3.000000
+4 nombre=_T2 tok=262 valor=0.000000
+5 nombre=_T3 tok=262 valor=0.000000
+********************************
+
+******* Iteracion 4 
+: ********Detecto asignar ...
+a1 vale 0 a2 vale 3, TablaSim[a2].valor vale 3.000000 
+tabla de simbolos antes de actualizarse
+0 nombre=x tok=262 valor=3.000000
+1 nombre=1 tok=265 valor=1.000000
+2 nombre=_T0 tok=262 valor=2.000000
+3 nombre=_T1 tok=262 valor=3.000000
+4 nombre=_T2 tok=262 valor=0.000000
+5 nombre=_T3 tok=262 valor=0.000000
+********************************
+
+******* Iteracion 5 
+: ********Suma...
+a1=4  a2=0 a3=1 TablaSim[a1].valor=0.000000 TablaSim[a2].valor=3.000000 TablaSim[a3].valor=1.000000
+tabla de simbolos antes de actualizarse
+0 nombre=x tok=262 valor=3.000000
+1 nombre=1 tok=265 valor=1.000000
+2 nombre=_T0 tok=262 valor=2.000000
+3 nombre=_T1 tok=262 valor=3.000000
+4 nombre=_T2 tok=262 valor=4.000000
+5 nombre=_T3 tok=262 valor=0.000000
+********************************
+
+******* Iteracion 6 
+: ********Detecto asignar ...
+a1 vale 0 a2 vale 4, TablaSim[a2].valor vale 4.000000 
+tabla de simbolos antes de actualizarse
+0 nombre=x tok=262 valor=4.000000
+1 nombre=1 tok=265 valor=1.000000
+2 nombre=_T0 tok=262 valor=2.000000
+3 nombre=_T1 tok=262 valor=3.000000
+4 nombre=_T2 tok=262 valor=4.000000
+5 nombre=_T3 tok=262 valor=0.000000
+********************************
+
+******* Iteracion 7 
+: ********Suma...
+a1=5  a2=0 a3=1 TablaSim[a1].valor=0.000000 TablaSim[a2].valor=4.000000 TablaSim[a3].valor=1.000000
+tabla de simbolos antes de actualizarse
+0 nombre=x tok=262 valor=4.000000
+1 nombre=1 tok=265 valor=1.000000
+2 nombre=_T0 tok=262 valor=2.000000
+3 nombre=_T1 tok=262 valor=3.000000
+4 nombre=_T2 tok=262 valor=4.000000
+5 nombre=_T3 tok=262 valor=5.000000
+********************************
+
+******* Iteracion 8 
+: ********Detecto asignar ...
+a1 vale 0 a2 vale 5, TablaSim[a2].valor vale 5.000000 
+tabla de simbolos antes de actualizarse
+0 nombre=x tok=262 valor=5.000000
+1 nombre=1 tok=265 valor=1.000000
+2 nombre=_T0 tok=262 valor=2.000000
+3 nombre=_T1 tok=262 valor=3.000000
+4 nombre=_T2 tok=262 valor=4.000000
+5 nombre=_T3 tok=262 valor=5.000000
+********************************
+
+tabla de codigos
+269 a1=0 a2=1 a3=45
+270 a1=2 a2=0 a3=1
+269 a1=0 a2=2 a3=45
+270 a1=3 a2=0 a3=1
+269 a1=0 a2=3 a3=45
+270 a1=4 a2=0 a3=1
+269 a1=0 a2=4 a3=45
+270 a1=5 a2=0 a3=1
+269 a1=0 a2=5 a3=45
+tabla de simbolos
+0 nombre=x tok=262 valor=5.000000
+1 nombre=1 tok=265 valor=1.000000
+2 nombre=_T0 tok=262 valor=2.000000
+3 nombre=_T1 tok=262 valor=3.000000
+4 nombre=_T2 tok=262 valor=4.000000
+5 nombre=_T3 tok=262 valor=5.000000

@@ -1,0 +1,1595 @@
+Terminales no usados en la gramática
+
+   COM
+   TRUEASSIGN
+   ASSIGN
+   SUM
+   RES
+   MUL
+   DIV
+   EVAL
+   EQ
+   NEQ
+   LES
+   MOR
+   LEQ
+   MEQ
+   ITERLIMIT
+   AND
+   OR
+   POW
+   SQRT
+   PROG
+   VARS
+   ELSE
+   OTHERCASE
+   DESDE
+   HASTA
+   AUMENTANDO
+
+
+Gramática
+
+    0 $accept: programa $end
+
+    1 programa: lineas
+
+    2 linea: estructura
+    3      | ENTER
+
+    4 lineas: linea lineas
+    5       | linea
+
+    6 estructura: while
+    7           | for
+    8           | ifelse
+    9           | declaracion
+   10           | print
+
+   11 declaracion: definir ';'
+
+   12 @1: %empty
+
+   13 asignacion: '=' ID @1 expresion
+
+   14 definir: asignacion ',' definir
+   15        | asignacion
+
+   16 expresion: '+' expresion expresion
+   17          | '-' expresion expresion
+   18          | producto
+
+   19 producto: '*' expresion expresion
+   20         | '/' expresion expresion
+   21         | agrupacion
+
+   22 agrupacion: '^' expresion expresion
+   23           | RAIZ '(' expresion ')'
+   24           | valor
+
+   25 valor: NUM
+   26      | ID
+   27      | STRING
+
+   28 $@2: %empty
+
+   29 $@3: %empty
+
+   30 ifelse: SI '(' lista_condicion ')' $@2 '{' $@3 lineas '}' else
+
+   31 $@4: %empty
+
+   32 else: SINO $@4 '{' lineas '}'
+
+   33 lista_condicion: operadorlogico '(' lista_condicion ')' '(' lista_condicion ')'
+   34                | condicion
+
+   35 operadorlogico: '&'
+   36               | '|' '|'
+
+   37 condicion: orden condicion expresion
+   38          | expresion
+
+   39 orden: '=' '='
+   40      | '!' '='
+   41      | '<'
+   42      | '>'
+   43      | '=' '<'
+   44      | '=' '>'
+
+   45 @5: %empty
+
+   46 @6: %empty
+
+   47 $@7: %empty
+
+   48 @8: %empty
+
+   49 @9: %empty
+
+   50 $@10: %empty
+
+   51 $@11: %empty
+
+   52 for: PARA '(' asignacion ';' @5 condicion @6 $@7 ';' @8 asignacion @9 ')' $@10 '{' lineas $@11 '}'
+
+   53 @12: %empty
+
+   54 @13: %empty
+
+   55 $@14: %empty
+
+   56 $@15: %empty
+
+   57 $@16: %empty
+
+   58 while: MIENTRAS '(' @12 lista_condicion @13 $@14 ')' '{' $@15 lineas $@16 '}'
+
+   59 @17: %empty
+
+   60 $@18: %empty
+
+   61 @19: %empty
+
+   62 print: ID @17 '(' valor $@18 ')' @19 ';'
+
+
+Terminales con las reglas donde aparecen
+
+$end (0) 0
+'!' (33) 40
+'&' (38) 35
+'(' (40) 23 30 33 52 58 62
+')' (41) 23 30 33 52 58 62
+'*' (42) 19
+'+' (43) 16
+',' (44) 14
+'-' (45) 17
+'/' (47) 20
+';' (59) 11 52 62
+'<' (60) 41 43
+'=' (61) 13 39 40 43 44
+'>' (62) 42 44
+'^' (94) 22
+'{' (123) 30 32 52 58
+'|' (124) 36
+'}' (125) 30 32 52 58
+error (256)
+ID (258) 13 26 62
+NUM (259) 25
+RAIZ (260) 23
+SI (261) 30
+SINO (262) 32
+PARA (263) 52
+MIENTRAS (264) 58
+ENTER (265) 3
+COM (266)
+STRING (267) 27
+TRUEASSIGN (268)
+ASSIGN (269)
+SUM (270)
+RES (271)
+MUL (272)
+DIV (273)
+EVAL (274)
+EQ (275)
+NEQ (276)
+LES (277)
+MOR (278)
+LEQ (279)
+MEQ (280)
+ITERLIMIT (281)
+AND (282)
+OR (283)
+POW (284)
+SQRT (285)
+PROG (286)
+VARS (287)
+ELSE (288)
+OTHERCASE (289)
+DESDE (290)
+HASTA (291)
+AUMENTANDO (292)
+
+
+No terminales con las reglas donde aparecen
+
+$accept (55)
+    en la izquierda: 0
+programa (56)
+    en la izquierda: 1, en la derecha: 0
+linea (57)
+    en la izquierda: 2 3, en la derecha: 4 5
+lineas (58)
+    en la izquierda: 4 5, en la derecha: 1 4 30 32 52 58
+estructura (59)
+    en la izquierda: 6 7 8 9 10, en la derecha: 2
+declaracion (60)
+    en la izquierda: 11, en la derecha: 9
+asignacion (61)
+    en la izquierda: 13, en la derecha: 14 15 52
+@1 (62)
+    en la izquierda: 12, en la derecha: 13
+definir (63)
+    en la izquierda: 14 15, en la derecha: 11 14
+expresion (64)
+    en la izquierda: 16 17 18, en la derecha: 13 16 17 19 20 22 23
+    37 38
+producto (65)
+    en la izquierda: 19 20 21, en la derecha: 18
+agrupacion (66)
+    en la izquierda: 22 23 24, en la derecha: 21
+valor (67)
+    en la izquierda: 25 26 27, en la derecha: 24 62
+ifelse (68)
+    en la izquierda: 30, en la derecha: 8
+$@2 (69)
+    en la izquierda: 28, en la derecha: 30
+$@3 (70)
+    en la izquierda: 29, en la derecha: 30
+else (71)
+    en la izquierda: 32, en la derecha: 30
+$@4 (72)
+    en la izquierda: 31, en la derecha: 32
+lista_condicion (73)
+    en la izquierda: 33 34, en la derecha: 30 33 58
+operadorlogico (74)
+    en la izquierda: 35 36, en la derecha: 33
+condicion (75)
+    en la izquierda: 37 38, en la derecha: 34 37 52
+orden (76)
+    en la izquierda: 39 40 41 42 43 44, en la derecha: 37
+for (77)
+    en la izquierda: 52, en la derecha: 7
+@5 (78)
+    en la izquierda: 45, en la derecha: 52
+@6 (79)
+    en la izquierda: 46, en la derecha: 52
+$@7 (80)
+    en la izquierda: 47, en la derecha: 52
+@8 (81)
+    en la izquierda: 48, en la derecha: 52
+@9 (82)
+    en la izquierda: 49, en la derecha: 52
+$@10 (83)
+    en la izquierda: 50, en la derecha: 52
+$@11 (84)
+    en la izquierda: 51, en la derecha: 52
+while (85)
+    en la izquierda: 58, en la derecha: 6
+@12 (86)
+    en la izquierda: 53, en la derecha: 58
+@13 (87)
+    en la izquierda: 54, en la derecha: 58
+$@14 (88)
+    en la izquierda: 55, en la derecha: 58
+$@15 (89)
+    en la izquierda: 56, en la derecha: 58
+$@16 (90)
+    en la izquierda: 57, en la derecha: 58
+print (91)
+    en la izquierda: 62, en la derecha: 10
+@17 (92)
+    en la izquierda: 59, en la derecha: 62
+$@18 (93)
+    en la izquierda: 60, en la derecha: 62
+@19 (94)
+    en la izquierda: 61, en la derecha: 62
+
+
+Estado 0
+
+    0 $accept: . programa $end
+
+    ID        desplazar e ir al estado 1
+    SI        desplazar e ir al estado 2
+    PARA      desplazar e ir al estado 3
+    MIENTRAS  desplazar e ir al estado 4
+    ENTER     desplazar e ir al estado 5
+    '='       desplazar e ir al estado 6
+
+    programa     ir al estado 7
+    linea        ir al estado 8
+    lineas       ir al estado 9
+    estructura   ir al estado 10
+    declaracion  ir al estado 11
+    asignacion   ir al estado 12
+    definir      ir al estado 13
+    ifelse       ir al estado 14
+    for          ir al estado 15
+    while        ir al estado 16
+    print        ir al estado 17
+
+
+Estado 1
+
+   62 print: ID . @17 '(' valor $@18 ')' @19 ';'
+
+    $default  reduce usando la regla 59 (@17)
+
+    @17  ir al estado 18
+
+
+Estado 2
+
+   30 ifelse: SI . '(' lista_condicion ')' $@2 '{' $@3 lineas '}' else
+
+    '('  desplazar e ir al estado 19
+
+
+Estado 3
+
+   52 for: PARA . '(' asignacion ';' @5 condicion @6 $@7 ';' @8 asignacion @9 ')' $@10 '{' lineas $@11 '}'
+
+    '('  desplazar e ir al estado 20
+
+
+Estado 4
+
+   58 while: MIENTRAS . '(' @12 lista_condicion @13 $@14 ')' '{' $@15 lineas $@16 '}'
+
+    '('  desplazar e ir al estado 21
+
+
+Estado 5
+
+    3 linea: ENTER .
+
+    $default  reduce usando la regla 3 (linea)
+
+
+Estado 6
+
+   13 asignacion: '=' . ID @1 expresion
+
+    ID  desplazar e ir al estado 22
+
+
+Estado 7
+
+    0 $accept: programa . $end
+
+    $end  desplazar e ir al estado 23
+
+
+Estado 8
+
+    4 lineas: linea . lineas
+    5       | linea .
+
+    ID        desplazar e ir al estado 1
+    SI        desplazar e ir al estado 2
+    PARA      desplazar e ir al estado 3
+    MIENTRAS  desplazar e ir al estado 4
+    ENTER     desplazar e ir al estado 5
+    '='       desplazar e ir al estado 6
+
+    $default  reduce usando la regla 5 (lineas)
+
+    linea        ir al estado 8
+    lineas       ir al estado 24
+    estructura   ir al estado 10
+    declaracion  ir al estado 11
+    asignacion   ir al estado 12
+    definir      ir al estado 13
+    ifelse       ir al estado 14
+    for          ir al estado 15
+    while        ir al estado 16
+    print        ir al estado 17
+
+
+Estado 9
+
+    1 programa: lineas .
+
+    $default  reduce usando la regla 1 (programa)
+
+
+Estado 10
+
+    2 linea: estructura .
+
+    $default  reduce usando la regla 2 (linea)
+
+
+Estado 11
+
+    9 estructura: declaracion .
+
+    $default  reduce usando la regla 9 (estructura)
+
+
+Estado 12
+
+   14 definir: asignacion . ',' definir
+   15        | asignacion .
+
+    ','  desplazar e ir al estado 25
+
+    $default  reduce usando la regla 15 (definir)
+
+
+Estado 13
+
+   11 declaracion: definir . ';'
+
+    ';'  desplazar e ir al estado 26
+
+
+Estado 14
+
+    8 estructura: ifelse .
+
+    $default  reduce usando la regla 8 (estructura)
+
+
+Estado 15
+
+    7 estructura: for .
+
+    $default  reduce usando la regla 7 (estructura)
+
+
+Estado 16
+
+    6 estructura: while .
+
+    $default  reduce usando la regla 6 (estructura)
+
+
+Estado 17
+
+   10 estructura: print .
+
+    $default  reduce usando la regla 10 (estructura)
+
+
+Estado 18
+
+   62 print: ID @17 . '(' valor $@18 ')' @19 ';'
+
+    '('  desplazar e ir al estado 27
+
+
+Estado 19
+
+   30 ifelse: SI '(' . lista_condicion ')' $@2 '{' $@3 lineas '}' else
+
+    ID      desplazar e ir al estado 28
+    NUM     desplazar e ir al estado 29
+    RAIZ    desplazar e ir al estado 30
+    STRING  desplazar e ir al estado 31
+    '='     desplazar e ir al estado 32
+    '+'     desplazar e ir al estado 33
+    '-'     desplazar e ir al estado 34
+    '*'     desplazar e ir al estado 35
+    '/'     desplazar e ir al estado 36
+    '^'     desplazar e ir al estado 37
+    '&'     desplazar e ir al estado 38
+    '|'     desplazar e ir al estado 39
+    '!'     desplazar e ir al estado 40
+    '<'     desplazar e ir al estado 41
+    '>'     desplazar e ir al estado 42
+
+    expresion        ir al estado 43
+    producto         ir al estado 44
+    agrupacion       ir al estado 45
+    valor            ir al estado 46
+    lista_condicion  ir al estado 47
+    operadorlogico   ir al estado 48
+    condicion        ir al estado 49
+    orden            ir al estado 50
+
+
+Estado 20
+
+   52 for: PARA '(' . asignacion ';' @5 condicion @6 $@7 ';' @8 asignacion @9 ')' $@10 '{' lineas $@11 '}'
+
+    '='  desplazar e ir al estado 6
+
+    asignacion  ir al estado 51
+
+
+Estado 21
+
+   58 while: MIENTRAS '(' . @12 lista_condicion @13 $@14 ')' '{' $@15 lineas $@16 '}'
+
+    $default  reduce usando la regla 53 (@12)
+
+    @12  ir al estado 52
+
+
+Estado 22
+
+   13 asignacion: '=' ID . @1 expresion
+
+    $default  reduce usando la regla 12 (@1)
+
+    @1  ir al estado 53
+
+
+Estado 23
+
+    0 $accept: programa $end .
+
+    $default  aceptar
+
+
+Estado 24
+
+    4 lineas: linea lineas .
+
+    $default  reduce usando la regla 4 (lineas)
+
+
+Estado 25
+
+   14 definir: asignacion ',' . definir
+
+    '='  desplazar e ir al estado 6
+
+    asignacion  ir al estado 12
+    definir     ir al estado 54
+
+
+Estado 26
+
+   11 declaracion: definir ';' .
+
+    $default  reduce usando la regla 11 (declaracion)
+
+
+Estado 27
+
+   62 print: ID @17 '(' . valor $@18 ')' @19 ';'
+
+    ID      desplazar e ir al estado 28
+    NUM     desplazar e ir al estado 29
+    STRING  desplazar e ir al estado 31
+
+    valor  ir al estado 55
+
+
+Estado 28
+
+   26 valor: ID .
+
+    $default  reduce usando la regla 26 (valor)
+
+
+Estado 29
+
+   25 valor: NUM .
+
+    $default  reduce usando la regla 25 (valor)
+
+
+Estado 30
+
+   23 agrupacion: RAIZ . '(' expresion ')'
+
+    '('  desplazar e ir al estado 56
+
+
+Estado 31
+
+   27 valor: STRING .
+
+    $default  reduce usando la regla 27 (valor)
+
+
+Estado 32
+
+   39 orden: '=' . '='
+   43      | '=' . '<'
+   44      | '=' . '>'
+
+    '='  desplazar e ir al estado 57
+    '<'  desplazar e ir al estado 58
+    '>'  desplazar e ir al estado 59
+
+
+Estado 33
+
+   16 expresion: '+' . expresion expresion
+
+    ID      desplazar e ir al estado 28
+    NUM     desplazar e ir al estado 29
+    RAIZ    desplazar e ir al estado 30
+    STRING  desplazar e ir al estado 31
+    '+'     desplazar e ir al estado 33
+    '-'     desplazar e ir al estado 34
+    '*'     desplazar e ir al estado 35
+    '/'     desplazar e ir al estado 36
+    '^'     desplazar e ir al estado 37
+
+    expresion   ir al estado 60
+    producto    ir al estado 44
+    agrupacion  ir al estado 45
+    valor       ir al estado 46
+
+
+Estado 34
+
+   17 expresion: '-' . expresion expresion
+
+    ID      desplazar e ir al estado 28
+    NUM     desplazar e ir al estado 29
+    RAIZ    desplazar e ir al estado 30
+    STRING  desplazar e ir al estado 31
+    '+'     desplazar e ir al estado 33
+    '-'     desplazar e ir al estado 34
+    '*'     desplazar e ir al estado 35
+    '/'     desplazar e ir al estado 36
+    '^'     desplazar e ir al estado 37
+
+    expresion   ir al estado 61
+    producto    ir al estado 44
+    agrupacion  ir al estado 45
+    valor       ir al estado 46
+
+
+Estado 35
+
+   19 producto: '*' . expresion expresion
+
+    ID      desplazar e ir al estado 28
+    NUM     desplazar e ir al estado 29
+    RAIZ    desplazar e ir al estado 30
+    STRING  desplazar e ir al estado 31
+    '+'     desplazar e ir al estado 33
+    '-'     desplazar e ir al estado 34
+    '*'     desplazar e ir al estado 35
+    '/'     desplazar e ir al estado 36
+    '^'     desplazar e ir al estado 37
+
+    expresion   ir al estado 62
+    producto    ir al estado 44
+    agrupacion  ir al estado 45
+    valor       ir al estado 46
+
+
+Estado 36
+
+   20 producto: '/' . expresion expresion
+
+    ID      desplazar e ir al estado 28
+    NUM     desplazar e ir al estado 29
+    RAIZ    desplazar e ir al estado 30
+    STRING  desplazar e ir al estado 31
+    '+'     desplazar e ir al estado 33
+    '-'     desplazar e ir al estado 34
+    '*'     desplazar e ir al estado 35
+    '/'     desplazar e ir al estado 36
+    '^'     desplazar e ir al estado 37
+
+    expresion   ir al estado 63
+    producto    ir al estado 44
+    agrupacion  ir al estado 45
+    valor       ir al estado 46
+
+
+Estado 37
+
+   22 agrupacion: '^' . expresion expresion
+
+    ID      desplazar e ir al estado 28
+    NUM     desplazar e ir al estado 29
+    RAIZ    desplazar e ir al estado 30
+    STRING  desplazar e ir al estado 31
+    '+'     desplazar e ir al estado 33
+    '-'     desplazar e ir al estado 34
+    '*'     desplazar e ir al estado 35
+    '/'     desplazar e ir al estado 36
+    '^'     desplazar e ir al estado 37
+
+    expresion   ir al estado 64
+    producto    ir al estado 44
+    agrupacion  ir al estado 45
+    valor       ir al estado 46
+
+
+Estado 38
+
+   35 operadorlogico: '&' .
+
+    $default  reduce usando la regla 35 (operadorlogico)
+
+
+Estado 39
+
+   36 operadorlogico: '|' . '|'
+
+    '|'  desplazar e ir al estado 65
+
+
+Estado 40
+
+   40 orden: '!' . '='
+
+    '='  desplazar e ir al estado 66
+
+
+Estado 41
+
+   41 orden: '<' .
+
+    $default  reduce usando la regla 41 (orden)
+
+
+Estado 42
+
+   42 orden: '>' .
+
+    $default  reduce usando la regla 42 (orden)
+
+
+Estado 43
+
+   38 condicion: expresion .
+
+    $default  reduce usando la regla 38 (condicion)
+
+
+Estado 44
+
+   18 expresion: producto .
+
+    $default  reduce usando la regla 18 (expresion)
+
+
+Estado 45
+
+   21 producto: agrupacion .
+
+    $default  reduce usando la regla 21 (producto)
+
+
+Estado 46
+
+   24 agrupacion: valor .
+
+    $default  reduce usando la regla 24 (agrupacion)
+
+
+Estado 47
+
+   30 ifelse: SI '(' lista_condicion . ')' $@2 '{' $@3 lineas '}' else
+
+    ')'  desplazar e ir al estado 67
+
+
+Estado 48
+
+   33 lista_condicion: operadorlogico . '(' lista_condicion ')' '(' lista_condicion ')'
+
+    '('  desplazar e ir al estado 68
+
+
+Estado 49
+
+   34 lista_condicion: condicion .
+
+    $default  reduce usando la regla 34 (lista_condicion)
+
+
+Estado 50
+
+   37 condicion: orden . condicion expresion
+
+    ID      desplazar e ir al estado 28
+    NUM     desplazar e ir al estado 29
+    RAIZ    desplazar e ir al estado 30
+    STRING  desplazar e ir al estado 31
+    '='     desplazar e ir al estado 32
+    '+'     desplazar e ir al estado 33
+    '-'     desplazar e ir al estado 34
+    '*'     desplazar e ir al estado 35
+    '/'     desplazar e ir al estado 36
+    '^'     desplazar e ir al estado 37
+    '!'     desplazar e ir al estado 40
+    '<'     desplazar e ir al estado 41
+    '>'     desplazar e ir al estado 42
+
+    expresion   ir al estado 43
+    producto    ir al estado 44
+    agrupacion  ir al estado 45
+    valor       ir al estado 46
+    condicion   ir al estado 69
+    orden       ir al estado 50
+
+
+Estado 51
+
+   52 for: PARA '(' asignacion . ';' @5 condicion @6 $@7 ';' @8 asignacion @9 ')' $@10 '{' lineas $@11 '}'
+
+    ';'  desplazar e ir al estado 70
+
+
+Estado 52
+
+   58 while: MIENTRAS '(' @12 . lista_condicion @13 $@14 ')' '{' $@15 lineas $@16 '}'
+
+    ID      desplazar e ir al estado 28
+    NUM     desplazar e ir al estado 29
+    RAIZ    desplazar e ir al estado 30
+    STRING  desplazar e ir al estado 31
+    '='     desplazar e ir al estado 32
+    '+'     desplazar e ir al estado 33
+    '-'     desplazar e ir al estado 34
+    '*'     desplazar e ir al estado 35
+    '/'     desplazar e ir al estado 36
+    '^'     desplazar e ir al estado 37
+    '&'     desplazar e ir al estado 38
+    '|'     desplazar e ir al estado 39
+    '!'     desplazar e ir al estado 40
+    '<'     desplazar e ir al estado 41
+    '>'     desplazar e ir al estado 42
+
+    expresion        ir al estado 43
+    producto         ir al estado 44
+    agrupacion       ir al estado 45
+    valor            ir al estado 46
+    lista_condicion  ir al estado 71
+    operadorlogico   ir al estado 48
+    condicion        ir al estado 49
+    orden            ir al estado 50
+
+
+Estado 53
+
+   13 asignacion: '=' ID @1 . expresion
+
+    ID      desplazar e ir al estado 28
+    NUM     desplazar e ir al estado 29
+    RAIZ    desplazar e ir al estado 30
+    STRING  desplazar e ir al estado 31
+    '+'     desplazar e ir al estado 33
+    '-'     desplazar e ir al estado 34
+    '*'     desplazar e ir al estado 35
+    '/'     desplazar e ir al estado 36
+    '^'     desplazar e ir al estado 37
+
+    expresion   ir al estado 72
+    producto    ir al estado 44
+    agrupacion  ir al estado 45
+    valor       ir al estado 46
+
+
+Estado 54
+
+   14 definir: asignacion ',' definir .
+
+    $default  reduce usando la regla 14 (definir)
+
+
+Estado 55
+
+   62 print: ID @17 '(' valor . $@18 ')' @19 ';'
+
+    $default  reduce usando la regla 60 ($@18)
+
+    $@18  ir al estado 73
+
+
+Estado 56
+
+   23 agrupacion: RAIZ '(' . expresion ')'
+
+    ID      desplazar e ir al estado 28
+    NUM     desplazar e ir al estado 29
+    RAIZ    desplazar e ir al estado 30
+    STRING  desplazar e ir al estado 31
+    '+'     desplazar e ir al estado 33
+    '-'     desplazar e ir al estado 34
+    '*'     desplazar e ir al estado 35
+    '/'     desplazar e ir al estado 36
+    '^'     desplazar e ir al estado 37
+
+    expresion   ir al estado 74
+    producto    ir al estado 44
+    agrupacion  ir al estado 45
+    valor       ir al estado 46
+
+
+Estado 57
+
+   39 orden: '=' '=' .
+
+    $default  reduce usando la regla 39 (orden)
+
+
+Estado 58
+
+   43 orden: '=' '<' .
+
+    $default  reduce usando la regla 43 (orden)
+
+
+Estado 59
+
+   44 orden: '=' '>' .
+
+    $default  reduce usando la regla 44 (orden)
+
+
+Estado 60
+
+   16 expresion: '+' expresion . expresion
+
+    ID      desplazar e ir al estado 28
+    NUM     desplazar e ir al estado 29
+    RAIZ    desplazar e ir al estado 30
+    STRING  desplazar e ir al estado 31
+    '+'     desplazar e ir al estado 33
+    '-'     desplazar e ir al estado 34
+    '*'     desplazar e ir al estado 35
+    '/'     desplazar e ir al estado 36
+    '^'     desplazar e ir al estado 37
+
+    expresion   ir al estado 75
+    producto    ir al estado 44
+    agrupacion  ir al estado 45
+    valor       ir al estado 46
+
+
+Estado 61
+
+   17 expresion: '-' expresion . expresion
+
+    ID      desplazar e ir al estado 28
+    NUM     desplazar e ir al estado 29
+    RAIZ    desplazar e ir al estado 30
+    STRING  desplazar e ir al estado 31
+    '+'     desplazar e ir al estado 33
+    '-'     desplazar e ir al estado 34
+    '*'     desplazar e ir al estado 35
+    '/'     desplazar e ir al estado 36
+    '^'     desplazar e ir al estado 37
+
+    expresion   ir al estado 76
+    producto    ir al estado 44
+    agrupacion  ir al estado 45
+    valor       ir al estado 46
+
+
+Estado 62
+
+   19 producto: '*' expresion . expresion
+
+    ID      desplazar e ir al estado 28
+    NUM     desplazar e ir al estado 29
+    RAIZ    desplazar e ir al estado 30
+    STRING  desplazar e ir al estado 31
+    '+'     desplazar e ir al estado 33
+    '-'     desplazar e ir al estado 34
+    '*'     desplazar e ir al estado 35
+    '/'     desplazar e ir al estado 36
+    '^'     desplazar e ir al estado 37
+
+    expresion   ir al estado 77
+    producto    ir al estado 44
+    agrupacion  ir al estado 45
+    valor       ir al estado 46
+
+
+Estado 63
+
+   20 producto: '/' expresion . expresion
+
+    ID      desplazar e ir al estado 28
+    NUM     desplazar e ir al estado 29
+    RAIZ    desplazar e ir al estado 30
+    STRING  desplazar e ir al estado 31
+    '+'     desplazar e ir al estado 33
+    '-'     desplazar e ir al estado 34
+    '*'     desplazar e ir al estado 35
+    '/'     desplazar e ir al estado 36
+    '^'     desplazar e ir al estado 37
+
+    expresion   ir al estado 78
+    producto    ir al estado 44
+    agrupacion  ir al estado 45
+    valor       ir al estado 46
+
+
+Estado 64
+
+   22 agrupacion: '^' expresion . expresion
+
+    ID      desplazar e ir al estado 28
+    NUM     desplazar e ir al estado 29
+    RAIZ    desplazar e ir al estado 30
+    STRING  desplazar e ir al estado 31
+    '+'     desplazar e ir al estado 33
+    '-'     desplazar e ir al estado 34
+    '*'     desplazar e ir al estado 35
+    '/'     desplazar e ir al estado 36
+    '^'     desplazar e ir al estado 37
+
+    expresion   ir al estado 79
+    producto    ir al estado 44
+    agrupacion  ir al estado 45
+    valor       ir al estado 46
+
+
+Estado 65
+
+   36 operadorlogico: '|' '|' .
+
+    $default  reduce usando la regla 36 (operadorlogico)
+
+
+Estado 66
+
+   40 orden: '!' '=' .
+
+    $default  reduce usando la regla 40 (orden)
+
+
+Estado 67
+
+   30 ifelse: SI '(' lista_condicion ')' . $@2 '{' $@3 lineas '}' else
+
+    $default  reduce usando la regla 28 ($@2)
+
+    $@2  ir al estado 80
+
+
+Estado 68
+
+   33 lista_condicion: operadorlogico '(' . lista_condicion ')' '(' lista_condicion ')'
+
+    ID      desplazar e ir al estado 28
+    NUM     desplazar e ir al estado 29
+    RAIZ    desplazar e ir al estado 30
+    STRING  desplazar e ir al estado 31
+    '='     desplazar e ir al estado 32
+    '+'     desplazar e ir al estado 33
+    '-'     desplazar e ir al estado 34
+    '*'     desplazar e ir al estado 35
+    '/'     desplazar e ir al estado 36
+    '^'     desplazar e ir al estado 37
+    '&'     desplazar e ir al estado 38
+    '|'     desplazar e ir al estado 39
+    '!'     desplazar e ir al estado 40
+    '<'     desplazar e ir al estado 41
+    '>'     desplazar e ir al estado 42
+
+    expresion        ir al estado 43
+    producto         ir al estado 44
+    agrupacion       ir al estado 45
+    valor            ir al estado 46
+    lista_condicion  ir al estado 81
+    operadorlogico   ir al estado 48
+    condicion        ir al estado 49
+    orden            ir al estado 50
+
+
+Estado 69
+
+   37 condicion: orden condicion . expresion
+
+    ID      desplazar e ir al estado 28
+    NUM     desplazar e ir al estado 29
+    RAIZ    desplazar e ir al estado 30
+    STRING  desplazar e ir al estado 31
+    '+'     desplazar e ir al estado 33
+    '-'     desplazar e ir al estado 34
+    '*'     desplazar e ir al estado 35
+    '/'     desplazar e ir al estado 36
+    '^'     desplazar e ir al estado 37
+
+    expresion   ir al estado 82
+    producto    ir al estado 44
+    agrupacion  ir al estado 45
+    valor       ir al estado 46
+
+
+Estado 70
+
+   52 for: PARA '(' asignacion ';' . @5 condicion @6 $@7 ';' @8 asignacion @9 ')' $@10 '{' lineas $@11 '}'
+
+    $default  reduce usando la regla 45 (@5)
+
+    @5  ir al estado 83
+
+
+Estado 71
+
+   58 while: MIENTRAS '(' @12 lista_condicion . @13 $@14 ')' '{' $@15 lineas $@16 '}'
+
+    $default  reduce usando la regla 54 (@13)
+
+    @13  ir al estado 84
+
+
+Estado 72
+
+   13 asignacion: '=' ID @1 expresion .
+
+    $default  reduce usando la regla 13 (asignacion)
+
+
+Estado 73
+
+   62 print: ID @17 '(' valor $@18 . ')' @19 ';'
+
+    ')'  desplazar e ir al estado 85
+
+
+Estado 74
+
+   23 agrupacion: RAIZ '(' expresion . ')'
+
+    ')'  desplazar e ir al estado 86
+
+
+Estado 75
+
+   16 expresion: '+' expresion expresion .
+
+    $default  reduce usando la regla 16 (expresion)
+
+
+Estado 76
+
+   17 expresion: '-' expresion expresion .
+
+    $default  reduce usando la regla 17 (expresion)
+
+
+Estado 77
+
+   19 producto: '*' expresion expresion .
+
+    $default  reduce usando la regla 19 (producto)
+
+
+Estado 78
+
+   20 producto: '/' expresion expresion .
+
+    $default  reduce usando la regla 20 (producto)
+
+
+Estado 79
+
+   22 agrupacion: '^' expresion expresion .
+
+    $default  reduce usando la regla 22 (agrupacion)
+
+
+Estado 80
+
+   30 ifelse: SI '(' lista_condicion ')' $@2 . '{' $@3 lineas '}' else
+
+    '{'  desplazar e ir al estado 87
+
+
+Estado 81
+
+   33 lista_condicion: operadorlogico '(' lista_condicion . ')' '(' lista_condicion ')'
+
+    ')'  desplazar e ir al estado 88
+
+
+Estado 82
+
+   37 condicion: orden condicion expresion .
+
+    $default  reduce usando la regla 37 (condicion)
+
+
+Estado 83
+
+   52 for: PARA '(' asignacion ';' @5 . condicion @6 $@7 ';' @8 asignacion @9 ')' $@10 '{' lineas $@11 '}'
+
+    ID      desplazar e ir al estado 28
+    NUM     desplazar e ir al estado 29
+    RAIZ    desplazar e ir al estado 30
+    STRING  desplazar e ir al estado 31
+    '='     desplazar e ir al estado 32
+    '+'     desplazar e ir al estado 33
+    '-'     desplazar e ir al estado 34
+    '*'     desplazar e ir al estado 35
+    '/'     desplazar e ir al estado 36
+    '^'     desplazar e ir al estado 37
+    '!'     desplazar e ir al estado 40
+    '<'     desplazar e ir al estado 41
+    '>'     desplazar e ir al estado 42
+
+    expresion   ir al estado 43
+    producto    ir al estado 44
+    agrupacion  ir al estado 45
+    valor       ir al estado 46
+    condicion   ir al estado 89
+    orden       ir al estado 50
+
+
+Estado 84
+
+   58 while: MIENTRAS '(' @12 lista_condicion @13 . $@14 ')' '{' $@15 lineas $@16 '}'
+
+    $default  reduce usando la regla 55 ($@14)
+
+    $@14  ir al estado 90
+
+
+Estado 85
+
+   62 print: ID @17 '(' valor $@18 ')' . @19 ';'
+
+    $default  reduce usando la regla 61 (@19)
+
+    @19  ir al estado 91
+
+
+Estado 86
+
+   23 agrupacion: RAIZ '(' expresion ')' .
+
+    $default  reduce usando la regla 23 (agrupacion)
+
+
+Estado 87
+
+   30 ifelse: SI '(' lista_condicion ')' $@2 '{' . $@3 lineas '}' else
+
+    $default  reduce usando la regla 29 ($@3)
+
+    $@3  ir al estado 92
+
+
+Estado 88
+
+   33 lista_condicion: operadorlogico '(' lista_condicion ')' . '(' lista_condicion ')'
+
+    '('  desplazar e ir al estado 93
+
+
+Estado 89
+
+   52 for: PARA '(' asignacion ';' @5 condicion . @6 $@7 ';' @8 asignacion @9 ')' $@10 '{' lineas $@11 '}'
+
+    $default  reduce usando la regla 46 (@6)
+
+    @6  ir al estado 94
+
+
+Estado 90
+
+   58 while: MIENTRAS '(' @12 lista_condicion @13 $@14 . ')' '{' $@15 lineas $@16 '}'
+
+    ')'  desplazar e ir al estado 95
+
+
+Estado 91
+
+   62 print: ID @17 '(' valor $@18 ')' @19 . ';'
+
+    ';'  desplazar e ir al estado 96
+
+
+Estado 92
+
+   30 ifelse: SI '(' lista_condicion ')' $@2 '{' $@3 . lineas '}' else
+
+    ID        desplazar e ir al estado 1
+    SI        desplazar e ir al estado 2
+    PARA      desplazar e ir al estado 3
+    MIENTRAS  desplazar e ir al estado 4
+    ENTER     desplazar e ir al estado 5
+    '='       desplazar e ir al estado 6
+
+    linea        ir al estado 8
+    lineas       ir al estado 97
+    estructura   ir al estado 10
+    declaracion  ir al estado 11
+    asignacion   ir al estado 12
+    definir      ir al estado 13
+    ifelse       ir al estado 14
+    for          ir al estado 15
+    while        ir al estado 16
+    print        ir al estado 17
+
+
+Estado 93
+
+   33 lista_condicion: operadorlogico '(' lista_condicion ')' '(' . lista_condicion ')'
+
+    ID      desplazar e ir al estado 28
+    NUM     desplazar e ir al estado 29
+    RAIZ    desplazar e ir al estado 30
+    STRING  desplazar e ir al estado 31
+    '='     desplazar e ir al estado 32
+    '+'     desplazar e ir al estado 33
+    '-'     desplazar e ir al estado 34
+    '*'     desplazar e ir al estado 35
+    '/'     desplazar e ir al estado 36
+    '^'     desplazar e ir al estado 37
+    '&'     desplazar e ir al estado 38
+    '|'     desplazar e ir al estado 39
+    '!'     desplazar e ir al estado 40
+    '<'     desplazar e ir al estado 41
+    '>'     desplazar e ir al estado 42
+
+    expresion        ir al estado 43
+    producto         ir al estado 44
+    agrupacion       ir al estado 45
+    valor            ir al estado 46
+    lista_condicion  ir al estado 98
+    operadorlogico   ir al estado 48
+    condicion        ir al estado 49
+    orden            ir al estado 50
+
+
+Estado 94
+
+   52 for: PARA '(' asignacion ';' @5 condicion @6 . $@7 ';' @8 asignacion @9 ')' $@10 '{' lineas $@11 '}'
+
+    $default  reduce usando la regla 47 ($@7)
+
+    $@7  ir al estado 99
+
+
+Estado 95
+
+   58 while: MIENTRAS '(' @12 lista_condicion @13 $@14 ')' . '{' $@15 lineas $@16 '}'
+
+    '{'  desplazar e ir al estado 100
+
+
+Estado 96
+
+   62 print: ID @17 '(' valor $@18 ')' @19 ';' .
+
+    $default  reduce usando la regla 62 (print)
+
+
+Estado 97
+
+   30 ifelse: SI '(' lista_condicion ')' $@2 '{' $@3 lineas . '}' else
+
+    '}'  desplazar e ir al estado 101
+
+
+Estado 98
+
+   33 lista_condicion: operadorlogico '(' lista_condicion ')' '(' lista_condicion . ')'
+
+    ')'  desplazar e ir al estado 102
+
+
+Estado 99
+
+   52 for: PARA '(' asignacion ';' @5 condicion @6 $@7 . ';' @8 asignacion @9 ')' $@10 '{' lineas $@11 '}'
+
+    ';'  desplazar e ir al estado 103
+
+
+Estado 100
+
+   58 while: MIENTRAS '(' @12 lista_condicion @13 $@14 ')' '{' . $@15 lineas $@16 '}'
+
+    $default  reduce usando la regla 56 ($@15)
+
+    $@15  ir al estado 104
+
+
+Estado 101
+
+   30 ifelse: SI '(' lista_condicion ')' $@2 '{' $@3 lineas '}' . else
+
+    SINO  desplazar e ir al estado 105
+
+    else  ir al estado 106
+
+
+Estado 102
+
+   33 lista_condicion: operadorlogico '(' lista_condicion ')' '(' lista_condicion ')' .
+
+    $default  reduce usando la regla 33 (lista_condicion)
+
+
+Estado 103
+
+   52 for: PARA '(' asignacion ';' @5 condicion @6 $@7 ';' . @8 asignacion @9 ')' $@10 '{' lineas $@11 '}'
+
+    $default  reduce usando la regla 48 (@8)
+
+    @8  ir al estado 107
+
+
+Estado 104
+
+   58 while: MIENTRAS '(' @12 lista_condicion @13 $@14 ')' '{' $@15 . lineas $@16 '}'
+
+    ID        desplazar e ir al estado 1
+    SI        desplazar e ir al estado 2
+    PARA      desplazar e ir al estado 3
+    MIENTRAS  desplazar e ir al estado 4
+    ENTER     desplazar e ir al estado 5
+    '='       desplazar e ir al estado 6
+
+    linea        ir al estado 8
+    lineas       ir al estado 108
+    estructura   ir al estado 10
+    declaracion  ir al estado 11
+    asignacion   ir al estado 12
+    definir      ir al estado 13
+    ifelse       ir al estado 14
+    for          ir al estado 15
+    while        ir al estado 16
+    print        ir al estado 17
+
+
+Estado 105
+
+   32 else: SINO . $@4 '{' lineas '}'
+
+    $default  reduce usando la regla 31 ($@4)
+
+    $@4  ir al estado 109
+
+
+Estado 106
+
+   30 ifelse: SI '(' lista_condicion ')' $@2 '{' $@3 lineas '}' else .
+
+    $default  reduce usando la regla 30 (ifelse)
+
+
+Estado 107
+
+   52 for: PARA '(' asignacion ';' @5 condicion @6 $@7 ';' @8 . asignacion @9 ')' $@10 '{' lineas $@11 '}'
+
+    '='  desplazar e ir al estado 6
+
+    asignacion  ir al estado 110
+
+
+Estado 108
+
+   58 while: MIENTRAS '(' @12 lista_condicion @13 $@14 ')' '{' $@15 lineas . $@16 '}'
+
+    $default  reduce usando la regla 57 ($@16)
+
+    $@16  ir al estado 111
+
+
+Estado 109
+
+   32 else: SINO $@4 . '{' lineas '}'
+
+    '{'  desplazar e ir al estado 112
+
+
+Estado 110
+
+   52 for: PARA '(' asignacion ';' @5 condicion @6 $@7 ';' @8 asignacion . @9 ')' $@10 '{' lineas $@11 '}'
+
+    $default  reduce usando la regla 49 (@9)
+
+    @9  ir al estado 113
+
+
+Estado 111
+
+   58 while: MIENTRAS '(' @12 lista_condicion @13 $@14 ')' '{' $@15 lineas $@16 . '}'
+
+    '}'  desplazar e ir al estado 114
+
+
+Estado 112
+
+   32 else: SINO $@4 '{' . lineas '}'
+
+    ID        desplazar e ir al estado 1
+    SI        desplazar e ir al estado 2
+    PARA      desplazar e ir al estado 3
+    MIENTRAS  desplazar e ir al estado 4
+    ENTER     desplazar e ir al estado 5
+    '='       desplazar e ir al estado 6
+
+    linea        ir al estado 8
+    lineas       ir al estado 115
+    estructura   ir al estado 10
+    declaracion  ir al estado 11
+    asignacion   ir al estado 12
+    definir      ir al estado 13
+    ifelse       ir al estado 14
+    for          ir al estado 15
+    while        ir al estado 16
+    print        ir al estado 17
+
+
+Estado 113
+
+   52 for: PARA '(' asignacion ';' @5 condicion @6 $@7 ';' @8 asignacion @9 . ')' $@10 '{' lineas $@11 '}'
+
+    ')'  desplazar e ir al estado 116
+
+
+Estado 114
+
+   58 while: MIENTRAS '(' @12 lista_condicion @13 $@14 ')' '{' $@15 lineas $@16 '}' .
+
+    $default  reduce usando la regla 58 (while)
+
+
+Estado 115
+
+   32 else: SINO $@4 '{' lineas . '}'
+
+    '}'  desplazar e ir al estado 117
+
+
+Estado 116
+
+   52 for: PARA '(' asignacion ';' @5 condicion @6 $@7 ';' @8 asignacion @9 ')' . $@10 '{' lineas $@11 '}'
+
+    $default  reduce usando la regla 50 ($@10)
+
+    $@10  ir al estado 118
+
+
+Estado 117
+
+   32 else: SINO $@4 '{' lineas '}' .
+
+    $default  reduce usando la regla 32 (else)
+
+
+Estado 118
+
+   52 for: PARA '(' asignacion ';' @5 condicion @6 $@7 ';' @8 asignacion @9 ')' $@10 . '{' lineas $@11 '}'
+
+    '{'  desplazar e ir al estado 119
+
+
+Estado 119
+
+   52 for: PARA '(' asignacion ';' @5 condicion @6 $@7 ';' @8 asignacion @9 ')' $@10 '{' . lineas $@11 '}'
+
+    ID        desplazar e ir al estado 1
+    SI        desplazar e ir al estado 2
+    PARA      desplazar e ir al estado 3
+    MIENTRAS  desplazar e ir al estado 4
+    ENTER     desplazar e ir al estado 5
+    '='       desplazar e ir al estado 6
+
+    linea        ir al estado 8
+    lineas       ir al estado 120
+    estructura   ir al estado 10
+    declaracion  ir al estado 11
+    asignacion   ir al estado 12
+    definir      ir al estado 13
+    ifelse       ir al estado 14
+    for          ir al estado 15
+    while        ir al estado 16
+    print        ir al estado 17
+
+
+Estado 120
+
+   52 for: PARA '(' asignacion ';' @5 condicion @6 $@7 ';' @8 asignacion @9 ')' $@10 '{' lineas . $@11 '}'
+
+    $default  reduce usando la regla 51 ($@11)
+
+    $@11  ir al estado 121
+
+
+Estado 121
+
+   52 for: PARA '(' asignacion ';' @5 condicion @6 $@7 ';' @8 asignacion @9 ')' $@10 '{' lineas $@11 . '}'
+
+    '}'  desplazar e ir al estado 122
+
+
+Estado 122
+
+   52 for: PARA '(' asignacion ';' @5 condicion @6 $@7 ';' @8 asignacion @9 ')' $@10 '{' lineas $@11 '}' .
+
+    $default  reduce usando la regla 52 (for)

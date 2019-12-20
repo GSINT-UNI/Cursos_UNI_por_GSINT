@@ -1,0 +1,8 @@
+Algoritmo Ruby
+inicioAlgoritmo
+y=1,x=18,n=15,m=1,
+si x<=20 Entonces 
+inicio
+y=y+n;
+fin
+finAlgoritmo.

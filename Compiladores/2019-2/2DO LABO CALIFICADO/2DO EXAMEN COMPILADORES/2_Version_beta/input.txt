@@ -1,0 +1,6 @@
+Programa Ejemplo;
+Inicio
+x = -701 - 11/(105^11 - r(6011));
+y = x^2 - (11-x);
+z = z^3 + (5*6-33);
+Fin

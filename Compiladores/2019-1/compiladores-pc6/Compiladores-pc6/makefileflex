@@ -1,0 +1,5 @@
+bison mainlex.y -d
+flex mainlex.l
+gcc mainlex.tab.c -lm lex.yy.c -ly -ll -o mainlexout
+./mainlexout < eje.txt
+date

@@ -1,0 +1,43 @@
+﻿*FUNCIONES DE UN SGBD: revisaremos 9 funciones de un SGBD
+
+	
+-ADMINISTRACIÓN DE UN DICCIONARIO DE DATOS: todo SGBD guarde las definiciones de datos
+ y sus relaciones en un diccionario de datos.
+	
+-ADMINISTRACIÓN DE ALMACENAMIENTO DE LOS DATOS: el SGBD crea y maneja las complejas estructuras para el almacenamiento de los datos.
+	
+-TRANSFORMACIÓN Y PRESENTACIÓN DE LOS DATOS: el SGBD tramsforma los datos introducidos
+ para ajustarse a las estructuras de datos requeridos.
+
+	Por ejemplo: para el caso de fechas(PERU-> 11/07/18, EEUU-> 07/11/18)
+	
+-ADMINISTRACIÓN DE SEGURIDAD:el SGBD define un sistema de seguridad que hace cumplir la seguridad del usuario y la privacidad de los datos. 
+	Las reglas de seguridad
+ determinan que usuarios pueden tener acceso a la BD y las oper que pueden
+ realizar.
+	
+-CONTROL DE ACCESO A MÚLTIPLES USUARIOS: el SGBD utiliza complejos algoritmos para asegurar que múltiples usuarios tengan acceso concurrente
+ a los datos.
+	
+-ADMINISTRACIÓN DE LOS PROCESOS Y RECUPERACIÓN: el SGBD estará dotado de utilerías
+ que permitan al administrador de BD realizar las copias 
+   de seguridad.
+	
+-ADMINISTRACIÓN DE LA INTEGRIDAD DE DATOS: el SGBD promueve y hace cumplir las reglas de integridad, reduciendo al mínimo la redundancia y 
+  aismismo que los
+ datos sean consistentes(que en dos tablas los mismos datos no haya diferencia 
+ :´´´´v).  
+	
+-LENGUAJE DE ACCESO A BD E INTERFAZ DE PROGRAMACIÓN DE APLICACIÓN: el SGBD brinda
+ acceso a los datos mediante un lenguaje de consulta. 
+                                                   El SQL(sicuel :v) es el lenguaje de consulta más popular entre los diferentes SGBD.
+	
+-INTERFAZ DE COMUNICACIÓN DE UNA BD: los SGBD de la generación actual aceptan peticiones de un usuario final a través de múltiples y 
+                                     diferentes ambientes de red.
+
+
+
+
+
+
+

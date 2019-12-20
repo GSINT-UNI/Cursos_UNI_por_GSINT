@@ -1,0 +1,48 @@
+***MODELO ENTIDAD-RELACIÓN
+1.-ENTIDAD
+2.-ATRIBUTOS:
+	VALORES NULOS-> NULL es un dato que se desconoce en un momento determinado (los valores 0 y '' no se consideran NULL)
+			NULL no significa "sin valor".Es diferente al valor cero o a la cadena en blanco
+			EJM: fecha de cese
+	ATRIBUTOS MULTIVALUADOS-> Algunos atributos pueden tener valores múltiples 
+			para una instancia de la entidad. EJM: celular,email. Un atributo multivariado se representa usando una
+			doble elipse.
+	ATRIBUTOS DERIVADOS-> se obtienen a partir de una formula o mediante operaciones entre otros atributos. Por ejemplo, la edad es
+				un atributo derivado de la columna fecha de nacimiento. Se representan mediante ovalos con líneas.
+
+3.-CLAVES-> sirven para identificar a las instancias de una entidad.Por ejemplo, para la entidad "ESUDIANTE" una superclave es {id}. Otra
+	    superclave es {id,credacum}, sin embargo {apellidos} no es una superclave.
+	    *Una clave candidata se define como una superclave tal que ningún subconjunto propio de sus atributos es superclave. Por ejemplo, {id,credacum}
+	      no es una clave candidata, {id} es una clave candidata. Pueden haer varias claves candidatas en una entidad. La clave primaria no admite valores
+		nulos y se subrayan.
+	    *Una clave principal, tambien llamada clave primaria, es la clave candidata que se elige como forma normal para identificar a las instancias de
+              las entidades. Por ejemplo, en "ESTUDIANTE" {id} es clave principal, {dni} es clave alternativa.
+	    *Una clave secundaria es un atributo o conjunto de atributos cuyos valores, no necesariamente únicos, se usan coo medio para acceder a los
+	      registros. Por ejemplo, {apellidos} es una clave secundaria. Por lo general se crea un índice en un campo de clave secundaria.
+4.-RELACIONES-> las entidades se ligan mediante relaciones que son conexiones entre las instancias de una entidad. Se representará con un rombo o diamante.
+	TIPOS DE RELACIONES: matrícula es un caso de relación binaria. MATRÍCULA={(E1001,CC331A),(E1001,CM201B),(E1002,CM201B),...}
+			     Cuando las dos entidades de una relación binaria son idénticas, se le llama relación recursiva.
+			     RESIDENCIA={(E1001,E1025),(E1025,E1001),(E1007,E1009),...}
+				  ]
+     ={(a1,a2)/ a1 pertenece a ESTUDIANTE, a2 pertenece a ESTUDIANTE, a1 es compañero de habitación de a2}
+			     SUPERVISIÓN={(e1,e2)/e1 pertenece a EMPLEADOS, e2 pertenece a EMPLEADOS,e1 supervisa a e2}
+					={(T101,T102),(T101,T105),(T109,T101),...}
+	
+				RELACION TRNARIA-> es aquella relación que involucra 3 entidades
+						CLIENTE-DOCENTE-LIBRO={(  CC101B   ,  P100  ,  '0-89134-573-6')}
+									 cod_curso   cod_doc        isbn,
+			   Podemos generalizar, si tenemos n entidades: E1,E2,.......,EN se tiene relación 
+			   E1-E2-......-EN= {(e1,e2,e3,...,en)/ei pertenece a Ei, i=1,......,n }
+			   R C E1XE2X....XEn
+5.-ATRIBUTOS DE CONJUNTOS DE RELACIONES: a veces un conjunto de relaciones tienen atributos descriptivos que no corresponden a ninguna de las entidades sino que
+			son propias de la relación.
+6.-CARDINALIDAD DE UNA RELACIÓN: es el número de entidades a las que otra entidad puede mapear bajo dicha relación. Sean X e Y dos entidades y R una relación
+			binaria de X a Y. Surgen 4 tipos de relaciones: de uno a uno, de uno a muchos, de muchos a uno y de muchos a muchos.
+		-UNO A UNO: R es uno a uno si cada instancia de X se asocia a una única instancia de Y, y cada instancia de Y se asocia con una única instancia
+			de X
+		-UNO A MUCHOS: R es uno a muchos si cada instancia de X se puede asociar con muchas instancias de Y pero cada instancia de Y se asocia con a lo más
+			una instancia en X.
+		-MUCHOS A UNO: R es de muchos a uno si a cada instancia de X le corresponde una única instancia de Y, pero a cada instancia de Y le corresponde 
+			       muchas instancias de X.
+		-MUCHOS A MUCHOS: R es de muchos a muchos si a cada instancia de X se le puede asociar muchas instancias de Y y para cada instancia de Y se le puede
+				asociar muchas instancias de X. 

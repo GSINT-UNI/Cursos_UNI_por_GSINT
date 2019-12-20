@@ -1,0 +1,40 @@
+
+EL MODELO ENTIDAD-RELACION  >:´´´´´´´´´´´´´V
+
+-> Lo desarrolló P.P. Chen en 1976 con el fin de facilitar el diseño de las BD. Permite  al diseñador expresar conceptualmente los elementos de una BD en un esquema de empresa.
+El término EMPRESA se refiere a la organización para la cual se conserva la base de datos. Puede ser un pequeño negocio, un colegio, una universidad, una entidad financiera
+,etc.
+El esquema de una empresa es una descripción que corresponde al modelo conceptual. ES independiente de cualquier sistema gestor de BD. El modelo ER es un modelo semántico porque intenta capturar significados.
+El minimundo es la parte del mundo real que modelará la BD.
+
+-Entidades: es un objeto que existe y se puede distinguir de otros objetos.Podemos 
+				representar personas,lugares,eventos,etc. Pueden ser objetos físicos o una
+				abstracción.
+				La instancia de una entidad representa un estudiante en particular, una clase
+				específica,un cliente individual, etc.
+		Un tipo de entidad es una representación en el modelo de datos de una categoría de
+		entidades. El tipo de entidad forma la intensión de la entidad, es la parte de la 			       			definición permanente. Una colección de entidades forma un conjunto de entidades.
+		Todas las instancias de entidad que satisfacen la definición forman la extensión
+		de entidad. 
+	EJM:
+        ('JUAN', 'PEREZ')  <--------- Instancias de entidad Docente
+		  
+			DOCENTE <--------------   tipo de entidad Docente
+A una entidad se le representa usando un rectángulo.
+
+Atributos: son las propiedades o características del tipo Entidad.
+		Ejm: Docente: idp,nombres,categoría,sueldo
+	Por lo general una entidad tendrá un valor para cada uno de sus atributos.
+Un atributo se representa mediante un óvalo, dentro del óvalo va el nombre del atributo
+
+                       (nombres)
+								   |
+                       _________		
+		(IDP)------------|DOCENTE|---------(CATEGORIA)  
+                           |
+							  (SUELDO)					
+
+ Dominios: es el conjunto de valores permitidos para cada atributo.
+		    atributo          dominio            
+				nota            0....20    
+			 cred_alum         0....250

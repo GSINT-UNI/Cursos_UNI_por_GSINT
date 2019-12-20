@@ -1,0 +1,49 @@
+﻿*COMPONENTES DE LOS SISTEMAS DE BD:
+
+EL TÉRMINO SISTEMA DE BD SE REFIERE A LA FORMA CÓMO SE ORGANIZA LOS COMPONENTES
+CON EL FIN DE MANIPULAR,GUARDAR,MODIFICAR Y ADMINISTRAR LOS DATOS DENTRO DE UN
+AMBIENTE DE BD
+
+EL SISTEMA DE BD ESTA COMPUESTO POR CINCO COMPONENTES:
+
+
+
+-EL HARDWARE: son los equipos físicos del sistema, por ejemplo la PC,servidores,unidades
+de cinta,supercomputadoras,terminales,impresoras,equipos de almacenamiento,etc.
+
+-EL SOFTWARE: se requieren tres tipos de software: el SO,el SGBD,programas de aplicación
+y utilería.
+	
+	.El SO: maneja todos los componentes del hardware(UNIX,Windows,Mac OS)
+	
+	.El SGBD(PostgreSQL,MySQL,Oracle,etc): maneja la BD dentro del sistema de BD
+	
+	.Programas de aplicación y utilerías: se usan para tener acceso a los datos que forman
+ parte de la BD y para generar reportes,tablas,etc. Las 							      utilerias son herramientas
+ empleadas para ayudar a manejar los componentes de un sistema de BD.
+
+
+
+
+
+-PERSONAS: Son todos los usuarios del sistema de BD. Son 5 en un SGBD:
+	
+.LOS ADMINS DEL SISTEMA: Se encargan de supervisar las operaciones generales del sistema de base de datos. 
+	
+.LOS ADMINS DE LA BD: manejan el SGBD y aseguran que la base de datos se encuentre
+ funcionando correctamente.
+	
+.LOS DISEÑADORES DE LA BD: proyectan la estructura de la BD.Son los arquitectos de
+ una BD.
+	
+.LOS ANALISTAS Y PROGRAMADORES DEL SISTEMA: diseñan y programan las aplicaciones.Crean
+ las pantallas para que los usuarios accedan y modifiquen los datos de  una BD 			(desarrollan una interfaz gráfica amigable para el usuario)
+	
+.USUARIOS FINALES: son aquellas personas que mediante los programas de aplicación
+			ejecutan las operaciones diarias de una organización.
+
+
+
+-PROCEDIMIENTOS: son las instrucciones y normas que gobiernan el diseño y uso del SBD.
+
+-DATOS: comprende el conjunto de datos almacenadosen la BD.

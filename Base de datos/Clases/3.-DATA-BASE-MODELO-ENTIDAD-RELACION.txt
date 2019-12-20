@@ -1,0 +1,9 @@
+modelo entdida-relacion
+	
+.-ENTIDAD: se representa con un rectángulo y representa algo del mundo real, pero tambien puede ser algo abstracto 
+	   (intangible, como la nota de curso)
+.-RELACION: se representa con un rombo, y es lo que asocia una entidad con otra o consigo misma.
+.-ATRIBUTOS: se representa con una elipse y definen una característica de una entidad
+.-CLAVE PRIMARIA: es aquel o aquellos atributos que identifican de manera único a las entidades. No puede haber mas de una clave primaria
+		 pero puede haber una clave primaria compuesta por varios atributos.
+.-CARDINALIDADES: indican el numero de entidades con el que se puede relacionar una entidad.

@@ -1,0 +1,90 @@
+﻿*NIVELES DE ABSTRACCIÓN EN LOS SGBD: los datos en los SGBD se describen en 3 niveles
+ de abstracción: conceptual,físico y externo.
+Los lenguajes de definición de 
+	datos (DDL) se emplean para definir los esquemas externo y conceptual.
+	
+-ESQUEMA CONCEPTUAL: tambien conocido como esquema lógico. Aqui describiremos como los
+ datos se van almacenando, pero adaptando un modelo de base de datos. 
+		     En un SGBD
+ relacional el esquema conceptual describe todas las relaciones consideradas en una BD.
+Ejemplo: esquema conceptual de una universidad:
+   
+				ALUMNOS(ide: String, nombre: String, usuario: String, Edad: integer, nota: Real)
+	
+				PROFESORES(idp: String, nombre: String, sueldo: Real)
+	
+				ASIGNATURAS(ida: String, nombrea: String, creditos: integer)
+	
+				AULAS(nau: Integer, descripcion: String, capacidad: integer)
+	
+				MATRICULADO(ide: String, ida: String)
+	IMPARTE(Idp: String, ida: String)
+	
+				IMPARTIDO_EN(ida: String, nau: integer, horario: String)
+
+	
+-ESQUEMA FÍSICO: 
+	.Especifica los detalles adicionales de almacenamiento.
+	.Resume la forma en que las relaciones se guardan en dispositivos de almacenamiento
+ físico 
+	  como discos o unidades de cintas. 
+		Ejm: esquema fisico para BD UNI.
+ 
+			.Almacenar todas las relaciones como registros sin ordenar
+				
+			.Crear índices para las primeras columnas de las relaciones: alumnos,
+profesores,asignaturas
+			.Para la relación de aulas crear un índice para el atributo capacidad.
+	
+-ESQUEMA EXTERNO: permite personalizar(y autorizar) el acceso a los datos a los
+ usuarios o a un grupo de ellos.
+Cualquier BD puede tener varios esquemas externos, 
+cada uno dirigido a un
+ grupo de usuarios.
+Cada esquema está formado por una o varias vistas y relaciones del esquema
+ conceptual.
+				
+Ejm: los estudiantes requieren el nombre del docente que imparte un curso y la cantidad de matriculados en un curso específico.
+	
+
+Info_Asignatura(ida: String, idp: String, matriculados: integer)
+ La vista info_asignatura no se incluye en el modelo conceptual.
+
+        
+
+			|ESQUEMA EXTERNO|
+                          
+		      |ESQUEMA CONCEPTUAL|
+                     
+	 	 |        ESQUEMA FÍSICO       |
+
+
+
+INDEPENDENCIA CON RESPECTO A LOS DATOS: un SGBD ofrece independencia con respecto a los datos, gracias a la arquitectura de los 3 niveles, esto significa que los 
+niveles superiores no son afectados por cambios que se realicen en los niveles inferiores.
+
+
+
+.-INDEPENDENCIA LÓGICA: se refiere a la inmunidad del modelo externo respecto a cambios en el modelo lógico (conceptual).
+     
+		Ejm: suponga que la relacion PROFESORES se sustituye por:
+ 			PROFESORES_NOMBRADOS(idp: String, nombre: String, oficina: integer)
+	
+		PROFESORES_CONTRATADOS(idp: String, nombre: String, sueldo: real)
+		
+		Se puede redefinir a las dos tablas anteriores y que presente la misma info a 
+los alumnos.
+
+
+.-INDEPENDENCIA DE DATOS FÍSICA: se refiere a la inmunidad del esquema conceptual con respecto a cambios que se realicen en el esquema físico, tales como una diferente 
+secuenciación de registros, cambios en el método de acceso, cambio en las estructuras de datos o uso de nuevos dispositivos de almacenamiento.
+
+
+
+ 
+
+
+
+
+
+

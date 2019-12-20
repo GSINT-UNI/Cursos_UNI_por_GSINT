@@ -1,0 +1,13 @@
+body,
+html {
+  height: 100%;
+}
+.jumbotron {
+  background-image: url("../../../services/images/fondohd.png");
+  /* background-image: url("https://www.imagen.com.mx/assets/img/imagen_share.png") ; */
+  height: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+}

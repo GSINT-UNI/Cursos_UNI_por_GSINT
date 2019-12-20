@@ -1,0 +1,48 @@
+
+.phone{
+
+	position:relative;
+	top:20%;
+	left: 50%;
+	margin-right: 15;
+    width: 500px;
+    height: 500px;
+  
+
+	background: url("./../../assets/img/phone.png") no-repeat right bottom;
+    background-size: auto;
+	background-size: contain;
+	
+  
+}
+
+.phone-video{
+
+  position: relative;
+	top:20%;
+	left: 50%;
+	margin-right: 15;
+    width: 500px;
+    height: 800px;
+
+ }
+
+ .map {
+  height: 500px;
+}
+
+body {
+	margin: 0;
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+	  "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+	  sans-serif;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	background: rgb(23, 73, 107);
+   
+  }
+  
+  code {
+	font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+	  monospace;
+  }

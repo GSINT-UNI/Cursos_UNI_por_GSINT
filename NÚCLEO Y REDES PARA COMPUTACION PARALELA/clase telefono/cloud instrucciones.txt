@@ -1,6 +1,0 @@
-///--ROUTER--///
-
-Luego de la configuracin de UI :
-
-encapsulation frame-relay
-end

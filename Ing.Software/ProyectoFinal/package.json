@@ -11,7 +11,7 @@
     "leaflet": "^1.6.0",
     "mdbreact": "^4.23.0",
     "moment": "2.24.0",
-    "node-sass": "4.12.0",
+    "node-sass": "4.13.1",
     "nouislider": "14.0.2",
     "perfect-scrollbar": "^1.4.0",
     "prop-types": "^15.7.2",
